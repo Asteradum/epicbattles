@@ -1,5 +1,7 @@
 package epicbattles;
 
+import juego.framer;
+
 
 /**
  * 
@@ -18,6 +20,7 @@ public final class Main
 	{
 		// TODO Auto-generated method stub
 		System.out.println("Hola mundo");
+		new framer().setVisible(true);
 	}
 
 }
