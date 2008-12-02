@@ -8,7 +8,7 @@ import juego.framer;
  */
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public final class Main
