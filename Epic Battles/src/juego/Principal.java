@@ -11,7 +11,7 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public class Principal extends JFrame {

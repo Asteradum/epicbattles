@@ -4,7 +4,7 @@
 package red;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public class Chat

@@ -4,7 +4,7 @@
 package juego.piezas;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public class Tablero

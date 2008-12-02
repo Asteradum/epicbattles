@@ -9,7 +9,7 @@ import java.awt.LayoutManager;
 import javax.swing.JPanel;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public class Pausa extends JPanel {
