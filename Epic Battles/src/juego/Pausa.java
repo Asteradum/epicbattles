@@ -4,7 +4,7 @@
 package juego;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public class Pausa extends Estado

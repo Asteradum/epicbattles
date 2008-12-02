@@ -6,7 +6,7 @@ package juego.piezas;
 import juego.graficos.Sprite;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public abstract class Pieza extends Sprite

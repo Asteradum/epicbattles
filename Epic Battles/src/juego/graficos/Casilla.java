@@ -4,7 +4,7 @@
 package juego.graficos;
 
 /**
- * @author Alberto
+ * @author Alberto y Alvaro
  *
  */
 public class Casilla extends Sprite
