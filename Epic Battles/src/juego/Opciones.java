@@ -12,14 +12,14 @@ import javax.swing.JPanel;
  * @author Alberto
  *
  */
-public class Juego extends JPanel {
+public class Opciones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
 	 */
-	public Juego() {
+	public Opciones() {
 		// TODO Auto-generated constructor stub
 		super();
 		initialize();
@@ -28,7 +28,7 @@ public class Juego extends JPanel {
 	/**
 	 * @param layout
 	 */
-	public Juego(LayoutManager layout) {
+	public Opciones(LayoutManager layout) {
 		super(layout);
 		// TODO Auto-generated constructor stub
 		initialize();
@@ -37,7 +37,7 @@ public class Juego extends JPanel {
 	/**
 	 * @param isDoubleBuffered
 	 */
-	public Juego(boolean isDoubleBuffered) {
+	public Opciones(boolean isDoubleBuffered) {
 		super(isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 		initialize();
@@ -47,7 +47,7 @@ public class Juego extends JPanel {
 	 * @param layout
 	 * @param isDoubleBuffered
 	 */
-	public Juego(LayoutManager layout, boolean isDoubleBuffered) {
+	public Opciones(LayoutManager layout, boolean isDoubleBuffered) {
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 		initialize();
