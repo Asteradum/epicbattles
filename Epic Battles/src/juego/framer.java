@@ -1,19 +1,18 @@
 package juego;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
-import java.awt.FlowLayout;
-import javax.swing.JRadioButton;
+import javax.swing.JPanel;
 
 public final class framer extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel jContentPane = null;
-	private JRadioButton jRadioButton = null;
-
+	private JPanel imagen = null;
+	private JPanel content = null;
 	public framer() throws HeadlessException {
 		// TODO Auto-generated constructor stub
 		super();
@@ -44,36 +43,37 @@ public final class framer extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
-		this.setContentPane(getJContentPane());
-		this.setTitle("Pavax");
+		this.setSize(401, 286);
+		this.setContentPane(getContent());
+		this.setTitle("Epic Battles");
 	}
 
 	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getJContentPane() {
-		if (jContentPane == null) {
-			jContentPane = new JPanel();
-			jContentPane.setLayout(new FlowLayout());
-			jContentPane.add(getJRadioButton(), null);
-		}
-		return jContentPane;
-	}
-
-	/**
-	 * This method initializes jRadioButton	
+	 * This method initializes imagen	
 	 * 	
-	 * @return javax.swing.JRadioButton	
+	 * @return javax.swing.JPanel	
 	 */
-	private JRadioButton getJRadioButton() {
-		if (jRadioButton == null) {
-			jRadioButton = new JRadioButton();
-			jRadioButton.setText("ttttt");
+	private JPanel getImagen() {
+		if (imagen == null) {
+			imagen = new JPanel();
+			imagen.setLayout(new FlowLayout());
+			imagen.setBackground(Color.darkGray);
 		}
-		return jRadioButton;
+		return imagen;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="152,64"
+	/**
+	 * This method initializes content	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getContent() {
+		if (content == null) {
+			content = new JPanel();
+			content.setLayout(new FlowLayout());
+			content.add(getImagen(), null);
+		}
+		return content;
+	}
+
+}  //  @jve:decl-index=0:visual-constraint="199,21"

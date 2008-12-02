@@ -9,6 +9,9 @@ package juego.graficos;
  */
 public class Casilla extends Sprite
 {
+	private boolean ocupada = false;
+	
+	
 	/**
 	 * 
 	 */
