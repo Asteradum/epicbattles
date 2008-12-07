@@ -20,7 +20,7 @@ public final class Main
 	{
 		// TODO Auto-generated method stub
 		System.out.println("Hola mundo");
-		new Principal().setVisible(true);
+		new Principal("2-player").setVisible(true);
 	}
 
 }

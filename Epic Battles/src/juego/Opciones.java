@@ -1,55 +1,19 @@
-/**
- * 
- */
 package juego;
 
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-
+import java.awt.Container;
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
 
-/**
- * @author Alberto y Alvaro
- *
- */
 public class Opciones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JButton jButton = null;
 
-	/**
-	 * 
-	 */
-	public Opciones() {
+	public Opciones(Container parent)
+	{
 		// TODO Auto-generated constructor stub
 		super();
-		initialize();
-	}
-
-	/**
-	 * @param layout
-	 */
-	public Opciones(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	/**
-	 * @param isDoubleBuffered
-	 */
-	public Opciones(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	/**
-	 * @param layout
-	 * @param isDoubleBuffered
-	 */
-	public Opciones(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
 		initialize();
 	}
 
@@ -60,7 +24,21 @@ public class Opciones extends JPanel {
 	 */
 	private void initialize() {
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new BorderLayout());
+		this.add(getJButton(), BorderLayout.CENTER);
+	}
+
+	/**
+	 * This method initializes jButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButton() {
+		if (jButton == null) {
+			jButton = new JButton();
+			jButton.setText("Opciones");
+		}
+		return jButton;
 	}
 
 }

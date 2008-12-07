@@ -3,10 +3,10 @@
  */
 package juego;
 
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-
+import java.awt.Container;
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
 
 /**
  * @author Alberto y Alvaro
@@ -15,43 +15,17 @@ import javax.swing.JPanel;
 public class Juego extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
+	private JButton jButton = null;
+	
 	/**
 	 * 
 	 */
-	public Juego() {
+	public Juego(Container parent)
+	{
 		// TODO Auto-generated constructor stub
 		super();
 		initialize();
-	}
-
-	/**
-	 * @param layout
-	 */
-	public Juego(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	/**
-	 * @param isDoubleBuffered
-	 */
-	public Juego(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	/**
-	 * @param layout
-	 * @param isDoubleBuffered
-	 */
-	public Juego(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
+	}	
 
 	/**
 	 * This method initializes this
@@ -60,7 +34,21 @@ public class Juego extends JPanel {
 	 */
 	private void initialize() {
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new BorderLayout());
+		this.add(getJButton(), BorderLayout.CENTER);
+	}
+
+	/**
+	 * This method initializes jButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButton() {
+		if (jButton == null) {
+			jButton = new JButton();
+			jButton.setText("Juego");
+		}
+		return jButton;
 	}
 
 }

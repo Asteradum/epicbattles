@@ -3,10 +3,10 @@
  */
 package juego;
 
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
 
 /**
  * @author Alberto y Alvaro
@@ -15,41 +15,15 @@ import javax.swing.JPanel;
 public class Pausa extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JButton jButton = null;
 
 	/**
 	 * 
 	 */
-	public Pausa() {
+	public Pausa(JComponent parent)
+	{
 		// TODO Auto-generated constructor stub
 		super();
-		initialize();
-	}
-
-	/**
-	 * @param layout
-	 */
-	public Pausa(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	/**
-	 * @param isDoubleBuffered
-	 */
-	public Pausa(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	/**
-	 * @param layout
-	 * @param isDoubleBuffered
-	 */
-	public Pausa(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
 		initialize();
 	}
 
@@ -60,7 +34,21 @@ public class Pausa extends JPanel {
 	 */
 	private void initialize() {
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new BorderLayout());
+		this.add(getJButton(), BorderLayout.CENTER);
+	}
+
+	/**
+	 * This method initializes jButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButton() {
+		if (jButton == null) {
+			jButton = new JButton();
+			jButton.setText("Pausa");
+		}
+		return jButton;
 	}
 
 }
