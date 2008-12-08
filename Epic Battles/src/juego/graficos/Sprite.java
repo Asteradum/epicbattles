@@ -3,12 +3,19 @@
  */
 package juego.graficos;
 
+import java.awt.Point;
+
 /**
  * @author Alberto y Alvaro
  *
  */
-public abstract class Sprite extends Punto2D
+public abstract class Sprite extends Point
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9215395107168106948L;
+
 	/**
 	 * 
 	 */

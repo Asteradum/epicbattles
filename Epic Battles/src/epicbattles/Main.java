@@ -13,14 +13,16 @@ import juego.Principal;
  */
 public final class Main
 {
+	private static Principal start = null;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
-	{
-		// TODO Auto-generated method stub
+	{	
 		System.out.println("Hola mundo");
-		new Principal("2-player").setVisible(true);
+		new Principal().setVisible(true);
+		//start = new Principal();
+		//start.setVisible(false);
 	}
 
 }

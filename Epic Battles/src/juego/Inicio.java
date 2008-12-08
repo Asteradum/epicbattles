@@ -13,9 +13,13 @@ import javax.swing.JButton;
  * @author Alberto y Alvaro
  *
  */
-public class Inicio extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+public class Inicio extends JPanel
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7943530594020763917L;
+	private Container parent = null;
 	private JPanel jPanel = null;
 	private JButton jButton = null;
 	private JButton jButton1 = null;
@@ -29,6 +33,7 @@ public class Inicio extends JPanel {
 	{
 		// TODO Auto-generated constructor stub
 		super();
+		this.parent = parent;
 		initialize();
 	}	
 
@@ -124,6 +129,11 @@ public class Inicio extends JPanel {
 			jButton4.setText("boton4");
 		}
 		return jButton4;
+	}
+	
+	public String toString()
+	{
+		return "Pantalla de inicio";
 	}
 
 }

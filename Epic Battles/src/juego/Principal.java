@@ -1,26 +1,34 @@
 package juego;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
-import javax.swing.JSplitPane;
-
 import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import red.Chat;
 
 public class Principal extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3466096037393013321L;
 	private JPanel jContentPane = null;
 	private JSplitPane gamePanel = null;
-	private JLabel titulo = null;
+	private JLabel help = null;
+	private Inicio inicio = null;
+	private Juego juego = null;
+	private Opciones opciones = null;
+	private Pausa pausa = null;
+	private boolean b2player = false;
 	
 	public Principal() throws HeadlessException {
 		// TODO Auto-generated constructor stub
@@ -38,7 +46,6 @@ public class Principal extends JFrame {
 		super(arg0);
 		// TODO Auto-generated constructor stub
 		initialize();
-		// TODO getGamePanel().setTopComponent(new Juego(this));if (arg0=="2-player") getGamePanel().setBottomComponent(new Chat(this));else{getGamePanel().setBottomComponent(new JPanel());}
 	}
 
 	public Principal(String arg0, GraphicsConfiguration arg1) {
@@ -56,23 +63,32 @@ public class Principal extends JFrame {
 		this.setSize(300, 200);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Epic Battles v0.1");
-	}
-	
-	
+		getHelp().setText(inicio.toString());
+	}	
 
 	/**
 	 * This method initializes jContentPane
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	private JPanel getJContentPane() {
-		if (jContentPane == null) {
+	private JPanel getJContentPane()
+	{
+		if (jContentPane == null)
+		{
 			jContentPane = new JPanel();
+			inicio = new Inicio(this);
 			jContentPane.setLayout(new BorderLayout());
-			jContentPane.add(new Inicio(this), BorderLayout.CENTER);
-			jContentPane.add(getTitulo(), BorderLayout.SOUTH);
+			jContentPane.add(inicio, BorderLayout.CENTER);
+			//jContentPane.add(getGamePanel("player-vs-ia"), BorderLayout.CENTER);
+			jContentPane.add(getHelp(), BorderLayout.SOUTH);
 		}
 		return jContentPane;
+	}
+	
+	private JSplitPane getGamePanel()
+	{	
+		if (gamePanel == null) return getGamePanel("player-vs-ia");
+		else return gamePanel;
 	}
 
 	/**
@@ -80,29 +96,42 @@ public class Principal extends JFrame {
 	 * 	
 	 * @return javax.swing.JSplitPane	
 	 */
-	private JSplitPane getGamePanel() {
-		if (gamePanel == null) {
-			gamePanel = new JSplitPane();
-			gamePanel.setOrientation(JSplitPane.VERTICAL_SPLIT);
+	private JSplitPane getGamePanel(String mode)
+	{
+		if (gamePanel == null)
+		{			
+			gamePanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+			gamePanel.setTopComponent(new Juego(this));		
+			if (mode == "2-player")
+			{				
+				b2player = true;				
+				gamePanel.setBottomComponent(new Chat(this));
+				gamePanel.setDividerSize(5);
+				gamePanel.setOneTouchExpandable(true);
+			}
+			else if (mode == "player-vs-ia")
+			{	
+				gamePanel.setDividerSize(0);		
+			}				
 		}
 		return gamePanel;
 	}
 
 	/**
-	 * This method initializes titulo	
+	 * This method initializes help	
 	 * 	
 	 * @return javax.swing.JLabel	
 	 */
-	private JLabel getTitulo() {
-		if (titulo == null) {
-			titulo = new JLabel();
-			titulo.setBorder(new LineBorder(Color.gray, 1));
-			titulo.setForeground(Color.gray);
-			titulo.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 11));
-			titulo.setText("barra de estado/ayuda");
-			titulo.setHorizontalAlignment(SwingConstants.CENTER);
+	private JLabel getHelp() {
+		if (help == null) {
+			help = new JLabel();
+			help.setBorder(new LineBorder(Color.gray, 1));
+			help.setForeground(Color.gray);
+			help.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 11));
+			help.setText("");
+			help.setHorizontalAlignment(SwingConstants.CENTER);
 		}
-		return titulo;
+		return help;
 	}
 
 }

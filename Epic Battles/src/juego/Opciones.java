@@ -5,15 +5,20 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 
-public class Opciones extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+public class Opciones extends JPanel
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6136942568439299757L;
+	private Container parent = null;
 	private JButton jButton = null;
 
 	public Opciones(Container parent)
 	{
 		// TODO Auto-generated constructor stub
 		super();
+		this.parent = parent;
 		initialize();
 	}
 
@@ -39,6 +44,11 @@ public class Opciones extends JPanel {
 			jButton.setText("Opciones");
 		}
 		return jButton;
+	}
+	
+	public String toString()
+	{
+		return "Pantalla de opciones";
 	}
 
 }
