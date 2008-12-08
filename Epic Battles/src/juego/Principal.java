@@ -34,6 +34,7 @@ public class Principal extends JFrame {
 		// TODO Auto-generated constructor stub
 		super();
 		initialize();
+		//this.pack();
 	}
 
 	public Principal(GraphicsConfiguration arg0) {

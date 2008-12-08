@@ -8,11 +8,8 @@ import java.awt.Canvas;
 import java.awt.Container;
 import java.awt.FlowLayout;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import javax.swing.JPanel;
 
 /**
  * @author Alberto y Alvaro
@@ -31,10 +28,6 @@ public class Juego extends JPanel
 	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
 	private JPanel texto = null;
-	private JLabel jLabel11 = null;
-	private JLabel jLabel12 = null;
-	private JLabel jLabel13 = null;
-	
 	/**
 	 * 
 	 */
@@ -51,7 +44,8 @@ public class Juego extends JPanel
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		this.setSize(300, 200);
 		this.setLayout(new BorderLayout());
 		this.add(getInfo(), BorderLayout.EAST);
@@ -94,8 +88,10 @@ public class Juego extends JPanel
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getImage() {
-		if (image == null) {
+	private JPanel getImage()
+	{
+		if (image == null)
+		{
 			image = new JPanel();
 			image.setLayout(new FlowLayout());
 			image.add(getJLabel(), null);
@@ -108,8 +104,10 @@ public class Juego extends JPanel
 	 * 	
 	 * @return javax.swing.JLabel	
 	 */
-	private JLabel getJLabel() {
-		if (jLabel == null) {
+	private JLabel getJLabel()
+	{
+		if (jLabel == null)
+		{
 			jLabel = new JLabel();
 			jLabel.setText("Soy una imagen");
 		}
@@ -121,8 +119,10 @@ public class Juego extends JPanel
 	 * 	
 	 * @return javax.swing.JLabel	
 	 */
-	private JLabel getJLabel1() {
-		if (jLabel1 == null) {
+	private JLabel getJLabel1()
+	{
+		if (jLabel1 == null)
+		{
 			jLabel1 = new JLabel();
 			jLabel1.setText("Soy información");
 		}
@@ -134,51 +134,15 @@ public class Juego extends JPanel
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getTexto() {
-		if (texto == null) {
+	private JPanel getTexto()
+	{
+		if (texto == null)
+		{
 			texto = new JPanel();
 			texto.setLayout(new FlowLayout());
 			texto.add(getJLabel1(), null);
 		}
 		return texto;
-	}
-
-	/**
-	 * This method initializes jLabel11	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
-	private JLabel getJLabel11() {
-		if (jLabel11 == null) {
-			jLabel11 = new JLabel();
-			jLabel11.setText("Soy información");
-		}
-		return jLabel11;
-	}
-
-	/**
-	 * This method initializes jLabel12	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
-	private JLabel getJLabel12() {
-		if (jLabel12 == null) {
-			jLabel12 = new JLabel();
-			jLabel12.setText("Soy información");
-		}
-		return jLabel12;
-	}
-
-	/**
-	 * This method initializes jLabel13	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
-	private JLabel getJLabel13() {
-		if (jLabel13 == null) {
-			jLabel13 = new JLabel();
-		}
-		return jLabel13;
 	}
 	
 }
