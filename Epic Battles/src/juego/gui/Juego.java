@@ -4,17 +4,17 @@
 package juego.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 
-import javax.swing.JButton;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import juego.graficos.Escenario;
 import juego.graficos.Imagen;
-import javax.swing.BoxLayout;
 
 /**
  * @author Alberto y Alvaro
@@ -30,7 +30,7 @@ public class Juego extends JPanel
 	private JPanel info = null;
 	private JLabel jLabel1 = null;
 	private JPanel texto = null;
-	private JPanel scen = null;
+	private Escenario scen = null;
 	private Imagen image;
 	
 	/**
@@ -74,6 +74,7 @@ public class Juego extends JPanel
 		{
 			info = new JPanel();
 			info.setLayout(new BoxLayout(getInfo(), BoxLayout.Y_AXIS));
+			info.setBorder(new LineBorder(Color.gray, 1));
 			image = new Imagen();
 			info.add(image, null);
 			info.add(getTexto(), null);

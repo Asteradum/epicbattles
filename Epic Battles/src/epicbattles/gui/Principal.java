@@ -85,8 +85,8 @@ public class Principal extends JFrame {
 			inicio = new Inicio(this);
 			jContentPane.setLayout(new BorderLayout());
 			//jContentPane.add(inicio, BorderLayout.CENTER);
-			//jContentPane.add(getGamePanel("player-vs-ia"), BorderLayout.CENTER);
-			jContentPane.add(getGamePanel("2-player"), BorderLayout.CENTER);
+			jContentPane.add(getGamePanel("player-vs-ia"), BorderLayout.CENTER);
+			//jContentPane.add(getGamePanel("2-player"), BorderLayout.CENTER);
 			//jContentPane.add(new Imagen(), BorderLayout.CENTER);
 			jContentPane.add(getHelp(), BorderLayout.SOUTH);
 		}
