@@ -1,11 +1,6 @@
 package epicbattles;
 
-import juego.interfaces.Principal;
-
-
-/**
- * 
- */
+import epicbattles.gui.Principal;
 
 /**
  * @author Alberto y Alvaro
