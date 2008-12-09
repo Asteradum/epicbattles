@@ -1,7 +1,7 @@
 /**
  * 
  */
-package juego;
+package juego.interfaces;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  * @author Alberto y Alvaro
  *
  */
-public class Inicio extends JPanel implements ActionListener, ImageObserver
+public class Inicio extends JPanel implements ActionListener
 {
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class Inicio extends JPanel implements ActionListener, ImageObserver
 	private JButton jButton3 = null;
 	private JButton jButton4 = null;
 	private JPanel botonera = null;
-	Image image;
+	private Image image = null;
 	
 	/**
 	 * 

@@ -1,6 +1,6 @@
 package epicbattles;
 
-import juego.Principal;
+import juego.interfaces.Principal;
 
 
 /**

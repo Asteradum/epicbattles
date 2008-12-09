@@ -1,4 +1,7 @@
-package juego;
+/**
+ * 
+ */
+package juego.interfaces;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -7,17 +10,24 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Opciones extends JPanel
+/**
+ * @author Alberto y Alvaro
+ *
+ */
+public class Pausa extends JPanel
 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6136942568439299757L;
+	private static final long serialVersionUID = 6099231033223006821L;
 	private Container parent = null;
 	private JButton jButton = null;
-	private JButton jButton1 = null;
 	private JPanel botonera = null;
-	public Opciones(Container parent)
+	private JButton jButton1 = null;
+	/**
+	 * 
+	 */
+	public Pausa(Container parent)
 	{
 		// TODO Auto-generated constructor stub
 		super();
@@ -44,27 +54,14 @@ public class Opciones extends JPanel
 	private JButton getJButton() {
 		if (jButton == null) {
 			jButton = new JButton();
-			jButton.setText("Opciones");
+			jButton.setText("Pausa");
 		}
 		return jButton;
 	}
 	
 	public String toString()
 	{
-		return "Pantalla de opciones";
-	}
-
-	/**
-	 * This method initializes jButton1	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getJButton1() {
-		if (jButton1 == null) {
-			jButton1 = new JButton();
-			jButton1.setText("Opciones");
-		}
-		return jButton1;
+		return "Pantalla de pausa";
 	}
 
 	/**
@@ -80,6 +77,19 @@ public class Opciones extends JPanel
 			botonera.add(getJButton1(), null);
 		}
 		return botonera;
+	}
+
+	/**
+	 * This method initializes jButton1	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getJButton1() {
+		if (jButton1 == null) {
+			jButton1 = new JButton();
+			jButton1.setText("Pausa");
+		}
+		return jButton1;
 	}
 
 }

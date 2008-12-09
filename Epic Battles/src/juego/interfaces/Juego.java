@@ -1,15 +1,20 @@
 /**
  * 
  */
-package juego;
+package juego.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Container;
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import juego.graficos.Escenario;
+import juego.graficos.Imagen;
+import javax.swing.BoxLayout;
 
 /**
  * @author Alberto y Alvaro
@@ -23,11 +28,11 @@ public class Juego extends JPanel
 	private static final long serialVersionUID = 7325275995219105393L;
 	private Container parent = null;
 	private JPanel info = null;
-	private Canvas scen = null;
-	private JPanel image = null;
-	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
 	private JPanel texto = null;
+	private JPanel scen = null;
+	private Imagen image;
+	
 	/**
 	 * 
 	 */
@@ -48,8 +53,9 @@ public class Juego extends JPanel
 	{
 		this.setSize(300, 200);
 		this.setLayout(new BorderLayout());
+		scen = new Escenario();
 		this.add(getInfo(), BorderLayout.EAST);
-		this.add(getScen(), BorderLayout.CENTER);
+		this.add(scen, BorderLayout.CENTER);
 	}
 
 	public String toString()
@@ -67,53 +73,14 @@ public class Juego extends JPanel
 		if (info == null)
 		{
 			info = new JPanel();
-			info.setLayout(new BorderLayout());
-			info.add(getImage(), BorderLayout.NORTH);
-			info.add(getTexto(), BorderLayout.CENTER);
+			info.setLayout(new BoxLayout(getInfo(), BoxLayout.Y_AXIS));
+			image = new Imagen();
+			info.add(image, null);
+			info.add(getTexto(), null);
 		}
 		return info;
 	}
 	
-	private Canvas getScen()
-	{
-		if (scen == null)
-		{
-			scen = new Canvas();
-		}
-		return scen;
-	}
-
-	/**
-	 * This method initializes image	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getImage()
-	{
-		if (image == null)
-		{
-			image = new JPanel();
-			image.setLayout(new FlowLayout());
-			image.add(getJLabel(), null);
-		}
-		return image;
-	}
-
-	/**
-	 * This method initializes jLabel	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
-	private JLabel getJLabel()
-	{
-		if (jLabel == null)
-		{
-			jLabel = new JLabel();
-			jLabel.setText("Soy una imagen");
-		}
-		return jLabel;
-	}
-
 	/**
 	 * This method initializes jLabel1	
 	 * 	

@@ -1,4 +1,4 @@
-package juego;
+package juego.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -79,8 +79,10 @@ public class Principal extends JFrame {
 			jContentPane = new JPanel();
 			inicio = new Inicio(this);
 			jContentPane.setLayout(new BorderLayout());
-			jContentPane.add(inicio, BorderLayout.CENTER);
+			//jContentPane.add(inicio, BorderLayout.CENTER);
 			//jContentPane.add(getGamePanel("player-vs-ia"), BorderLayout.CENTER);
+			jContentPane.add(getGamePanel("2-player"), BorderLayout.CENTER);
+			//jContentPane.add(new Imagen(), BorderLayout.CENTER);
 			jContentPane.add(getHelp(), BorderLayout.SOUTH);
 		}
 		return jContentPane;
