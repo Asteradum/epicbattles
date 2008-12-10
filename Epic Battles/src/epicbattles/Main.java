@@ -1,6 +1,6 @@
 package epicbattles;
 
-import epicbattles.gui.Principal;
+import gui.Principal;
 
 /**
  * @author Alberto y Alvaro

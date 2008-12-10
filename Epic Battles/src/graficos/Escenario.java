@@ -1,4 +1,4 @@
-package juego.graficos;
+package graficos;
 
 import java.awt.Canvas;
 import java.awt.Graphics;

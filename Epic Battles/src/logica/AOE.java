@@ -1,23 +1,23 @@
 /**
  * 
  */
-package juego.piezas;
+package logica;
 
 /**
  * @author Alberto y Alvaro
  *
  */
-public class Warlock extends Pieza
+public class AOE extends Pieza
 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4854607829540392502L;
+	private static final long serialVersionUID = -829781826650355606L;
 
 	/**
 	 * 
 	 */
-	public Warlock()
+	public AOE()
 	{
 		// TODO Auto-generated constructor stub
 	}

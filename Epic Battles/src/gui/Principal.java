@@ -1,4 +1,4 @@
-package epicbattles.gui;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,10 +13,6 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import juego.gui.Inicio;
-import juego.gui.Juego;
-import juego.gui.Opciones;
-import juego.gui.Pausa;
 
 import red.Chat;
 

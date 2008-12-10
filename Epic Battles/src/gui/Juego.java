@@ -1,7 +1,10 @@
 /**
  * 
  */
-package juego.gui;
+package gui;
+
+import graficos.Escenario;
+import graficos.Imagen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,8 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import juego.graficos.Escenario;
-import juego.graficos.Imagen;
 
 /**
  * @author Alberto y Alvaro

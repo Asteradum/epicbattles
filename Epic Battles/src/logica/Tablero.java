@@ -1,7 +1,7 @@
 /**
  * 
  */
-package juego.piezas;
+package logica;
 
 /**
  * @author Alberto y Alvaro

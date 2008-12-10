@@ -1,23 +1,23 @@
 /**
  * 
  */
-package juego.piezas;
+package logica;
 
 /**
  * @author Alberto y Alvaro
  *
  */
-public class Melee extends Pieza
+public class Support extends Pieza
 {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3900623024451608966L;
+	private static final long serialVersionUID = 3947726102863940731L;
 
 	/**
 	 * 
 	 */
-	public Melee()
+	public Support()
 	{
 		// TODO Auto-generated constructor stub
 	}

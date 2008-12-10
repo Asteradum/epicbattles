@@ -1,4 +1,4 @@
-package juego.gui;
+package gui;
 
 import java.awt.Container;
 import java.awt.FlowLayout;

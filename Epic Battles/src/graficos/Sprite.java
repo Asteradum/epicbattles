@@ -1,7 +1,7 @@
 /**
  * 
  */
-package juego.graficos;
+package graficos;
 
 import java.awt.Point;
 

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package juego.graficos;
+package logica;
+
+import graficos.Sprite;
 
 /**
  * @author Alberto y Alvaro

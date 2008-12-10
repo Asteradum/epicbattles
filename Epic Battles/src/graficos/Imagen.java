@@ -1,4 +1,4 @@
-package juego.graficos;
+package graficos;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
