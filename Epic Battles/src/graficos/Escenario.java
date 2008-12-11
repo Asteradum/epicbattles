@@ -9,28 +9,21 @@ import javax.swing.JPanel;
 
 public class Escenario extends Canvas
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3141654143505676034L;
+	private JPanel parent = null;
 	private Image image = null;
 
-	public Escenario() {
-		// TODO Auto-generated constructor stub
+	public Escenario(JPanel parent)
+	{
+		this.parent = parent;
+		this.setSize(500, 500);
+		
 		try
 	    {
 	      image = javax.imageio.ImageIO.read(new File("BanzaiBot-icon.gif"));
 	    }
 	    catch (Exception e) { /*handled in paintComponent()*/ }
 	}
-	
-	/*@Override
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g); 
-	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
-	}*/
 	
 	@Override
 	public void paint(Graphics g)
@@ -39,5 +32,4 @@ public class Escenario extends Canvas
 	    if (image != null)
 	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
-
 }

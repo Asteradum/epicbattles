@@ -1,45 +1,18 @@
-/**
- * 
- */
 package gui;
 
 import graficos.Escenario;
-import graficos.Imagen;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
-
-/**
- * @author Alberto y Alvaro
- *
- */
 public class Juego extends JPanel
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7325275995219105393L;
-	private Container parent = null;
-	private JPanel info = null;
-	private JLabel jLabel1 = null;
-	private JPanel texto = null;
-	private Escenario scen = null;
-	private Imagen image;
+	private ModoJuego parent = null;
 	
-	/**
-	 * 
-	 */
-	public Juego(Container parent)
+	public Juego(ModoJuego parent)
 	{
-		// TODO Auto-generated constructor stub
 		super();
 		this.parent = parent;
 		initialize();
@@ -54,64 +27,7 @@ public class Juego extends JPanel
 	{
 		this.setSize(300, 200);
 		this.setLayout(new BorderLayout());
-		scen = new Escenario();
-		this.add(getInfo(), BorderLayout.EAST);
-		this.add(scen, BorderLayout.CENTER);
-	}
-
-	public String toString()
-	{
-		return "Pantalla de juego";
-	}
-
-	/**
-	 * This method initializes info	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getInfo()
-	{
-		if (info == null)
-		{
-			info = new JPanel();
-			info.setLayout(new BoxLayout(getInfo(), BoxLayout.Y_AXIS));
-			info.setBorder(new LineBorder(Color.gray, 1));
-			image = new Imagen();
-			info.add(image, null);
-			info.add(getTexto(), null);
-		}
-		return info;
-	}
-	
-	/**
-	 * This method initializes jLabel1	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
-	private JLabel getJLabel1()
-	{
-		if (jLabel1 == null)
-		{
-			jLabel1 = new JLabel();
-			jLabel1.setText("Soy información");
-		}
-		return jLabel1;
-	}
-
-	/**
-	 * This method initializes texto	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getTexto()
-	{
-		if (texto == null)
-		{
-			texto = new JPanel();
-			texto.setLayout(new FlowLayout());
-			texto.add(getJLabel1(), null);
-		}
-		return texto;
-	}
-	
+		this.add(new Escenario(this), BorderLayout.CENTER);
+		this.add(new Info(this), BorderLayout.EAST);
+	}		
 }

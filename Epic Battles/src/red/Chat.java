@@ -1,8 +1,8 @@
 package red;
 
+import gui.ModoJuego;
+
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -11,19 +11,15 @@ import javax.swing.JTextField;
 
 public class Chat extends JPanel
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1449740754230340465L;
+	private ModoJuego parent = null;	
 	private JTextArea chat = null;
 	private JPanel send = null;
 	private JButton sendButton = null;
-	private JTextField message = null;
-	private Container parent = null;
+	private JTextField message = null;	
 	
-	public Chat(Container parent)
+	public Chat(ModoJuego parent)
 	{
-		// TODO Auto-generated constructor stub
 		super();
 		this.parent = parent;
 		initialize();
@@ -36,16 +32,9 @@ public class Chat extends JPanel
 	 */
 	private void initialize()
 	{
-		this.setSize(300, 200);
 		this.setLayout(new BorderLayout());
 		this.add(getChat(), BorderLayout.CENTER);
 		this.add(getSend(), BorderLayout.SOUTH);
-		getChat().setAutoscrolls(true);
-	}
-
-	public String toString()
-	{
-		return "Pantalla de chat";
 	}
 
 	/**
@@ -57,7 +46,8 @@ public class Chat extends JPanel
 	{
 		if (chat == null)
 		{
-			chat = new JTextArea();
+			chat = new JTextArea(20, 30);
+			chat.setAutoscrolls(true);
 		}
 		return chat;
 	}
@@ -67,8 +57,10 @@ public class Chat extends JPanel
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getSend() {
-		if (send == null) {
+	private JPanel getSend()
+	{
+		if (send == null)
+		{
 			send = new JPanel();
 			send.setLayout(new BorderLayout());
 			send.add(getMessage(), BorderLayout.CENTER);
@@ -82,8 +74,10 @@ public class Chat extends JPanel
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getSendButton() {
-		if (sendButton == null) {
+	private JButton getSendButton()
+	{
+		if (sendButton == null)
+		{
 			sendButton = new JButton();
 			sendButton.setText("Enviar");
 		}

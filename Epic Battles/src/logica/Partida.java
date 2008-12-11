@@ -7,12 +7,12 @@ package logica;
  * @author Alberto y Alvaro
  *
  */
-public class Tablero
+public class Partida
 {
 	/**
 	 * 
 	 */
-	public Tablero()
+	public Partida()
 	{
 		// TODO Auto-generated constructor stub
 	}
