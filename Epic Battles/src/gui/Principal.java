@@ -34,7 +34,7 @@ public class Principal extends JFrame
 	{
 		this.setContentPane(getJContentPane());
 		this.setTitle("Epic Battles v0.1");
-		this.loadRootPanel(new ModoPausa(getJContentPane()));
+		this.loadRootPanel(new ModoInicio(getJContentPane()));
 	}	
 
 	/**
