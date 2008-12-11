@@ -19,7 +19,7 @@ public class Imagen extends Canvas
 		this.parent = parent;
 		try
 	    {
-	      image = javax.imageio.ImageIO.read(new File("BanzaiBot-icon.gif"));
+	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
 	    }
 	    catch (Exception e) { /*handled in paintComponent()*/ }
 	}	

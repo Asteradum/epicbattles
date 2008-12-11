@@ -1,37 +1,18 @@
 package gui;
 
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
+import java.awt.FlowLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class ModoCargar extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+public class ModoCargar extends JPanel
+{
+	private static final long serialVersionUID = 467462451714083887L;
 	private JComponent parent = null;
 
-	public ModoCargar() {
-		// TODO Auto-generated constructor stub
+	public ModoCargar()
+	{
 		super();
-		initialize();
-	}
-
-	public ModoCargar(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public ModoCargar(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public ModoCargar(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
 		initialize();
 	}
 
@@ -40,9 +21,10 @@ public class ModoCargar extends JPanel {
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new FlowLayout());
 	}
 
 	@Override

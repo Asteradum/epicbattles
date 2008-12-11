@@ -27,7 +27,7 @@ public class Escenario extends JPanel
 		initialize();		
 		try
 	    {
-	      image = javax.imageio.ImageIO.read(new File("BanzaiBot-icon.gif"));
+	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
 	    }
 	    catch (Exception e) { /*handled in paintComponent()*/ }
 	}		

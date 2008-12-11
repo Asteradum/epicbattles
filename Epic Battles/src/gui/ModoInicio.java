@@ -40,7 +40,7 @@ public class ModoInicio extends JPanel implements ActionListener
 		getBSalir().addActionListener(this);
 		try
 	    {
-	      image = javax.imageio.ImageIO.read(new File("BanzaiBot-icon.gif"));
+	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
 	    }
 	    catch (Exception e) { /*handled in paintComponent()*/ }
 	}	

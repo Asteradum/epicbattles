@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -18,6 +20,7 @@ import javax.swing.border.LineBorder;
 public class Principal extends JFrame implements WindowListener
 {
 	private static final long serialVersionUID = -3006194651918420869L;
+	private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	private JPanel jContentPane = null;
 	private JComponent panel = null;
 	private JLabel help = null;
@@ -26,7 +29,8 @@ public class Principal extends JFrame implements WindowListener
 	{
 		super();
 		initialize();
-		//this.setResizable(false);
+		this.setResizable(false);
+		this.setSize((int)(dim.getWidth()/1.75), (int)(dim.getHeight()/1.75));
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
 	}	
@@ -41,8 +45,6 @@ public class Principal extends JFrame implements WindowListener
 		this.setContentPane(getJContentPane());
 		this.setTitle("Epic Battles v0.1");
 		this.loadRootPanel(new ModoInicio(this));
-		//this.loadRootPanel(new ModoJuego(getJContentPane(), true));
-		//this.loadRootPanel(new Escenario(getJContentPane()));
 	}	
 
 	/**
@@ -94,7 +96,7 @@ public class Principal extends JFrame implements WindowListener
 		panel = jp;
 		setHelp(jp.toString());
 		jContentPane.add(panel, BorderLayout.CENTER);
-		this.pack();
+		//this.pack();
 	}
 
 	@Override
@@ -159,5 +161,4 @@ public class Principal extends JFrame implements WindowListener
 		// TODO Auto-generated method stub
 		
 	}
-
 }
