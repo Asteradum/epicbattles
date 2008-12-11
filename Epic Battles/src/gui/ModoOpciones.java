@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -13,9 +14,9 @@ import java.awt.Insets;
 public class ModoOpciones extends JPanel
 {
 	private static final long serialVersionUID = -6136942568439299757L;
-	private JPanel parent = null;
+	private Principal parent = null;
 	
-	public ModoOpciones(JPanel parent)
+	public ModoOpciones(Principal parent)
 	{
 		super();
 		this.parent = parent;

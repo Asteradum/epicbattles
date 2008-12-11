@@ -1,10 +1,12 @@
 package red;
 
 import gui.ModoJuego;
+import gui.Principal;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -12,13 +14,13 @@ import javax.swing.JTextField;
 public class Chat extends JPanel
 {
 	private static final long serialVersionUID = 1449740754230340465L;
-	private ModoJuego parent = null;	
+	private Principal parent = null;	
 	private JTextArea chat = null;
 	private JPanel send = null;
 	private JButton sendButton = null;
 	private JTextField message = null;	
 	
-	public Chat(ModoJuego parent)
+	public Chat(Principal parent)
 	{
 		super();
 		this.parent = parent;
@@ -97,5 +99,4 @@ public class Chat extends JPanel
 		}
 		return message;
 	}
-
 }

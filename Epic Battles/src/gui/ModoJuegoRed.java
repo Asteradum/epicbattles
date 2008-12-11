@@ -5,31 +5,15 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-public class ModoJuegoRed extends JPanel {
+public class ModoJuegoRed extends JPanel
+{
+	private static final long serialVersionUID = -8513250153154802461L;
+	private Principal parent = null;
 
-	private static final long serialVersionUID = 1L;
-
-	public ModoJuegoRed() {
-		// TODO Auto-generated constructor stub
+	public ModoJuegoRed(Principal parent)
+	{
 		super();
-		initialize();
-	}
-
-	public ModoJuegoRed(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public ModoJuegoRed(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public ModoJuegoRed(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
+		this.parent = parent;
 		initialize();
 	}
 
@@ -38,9 +22,15 @@ public class ModoJuegoRed extends JPanel {
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		this.setSize(300, 200);
 		this.setLayout(new GridBagLayout());
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Configurar juego en red";
+	}
 }

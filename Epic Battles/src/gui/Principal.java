@@ -4,18 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-public class Principal extends JFrame
+public class Principal extends JFrame implements WindowListener
 {
 	private static final long serialVersionUID = -3006194651918420869L;
 	private JPanel jContentPane = null;
-	private JPanel panel = null;
+	private JComponent panel = null;
 	private JLabel help = null;
 	
 	public Principal() throws HeadlessException
@@ -23,6 +27,8 @@ public class Principal extends JFrame
 		super();
 		initialize();
 		//this.setResizable(false);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(this);
 	}	
 
 	/**
@@ -34,7 +40,9 @@ public class Principal extends JFrame
 	{
 		this.setContentPane(getJContentPane());
 		this.setTitle("Epic Battles v0.1");
-		this.loadRootPanel(new ModoInicio(getJContentPane()));
+		this.loadRootPanel(new ModoInicio(this));
+		//this.loadRootPanel(new ModoJuego(getJContentPane(), true));
+		//this.loadRootPanel(new Escenario(getJContentPane()));
 	}	
 
 	/**
@@ -77,13 +85,79 @@ public class Principal extends JFrame
 		getHelp().setText(text);
 	}
 	
-	public void loadRootPanel(JPanel jp)
+	public void loadRootPanel(JComponent jp)
 	{
-		if (panel != null) jContentPane.remove(panel);
+		if (panel != null)
+		{
+			jContentPane.remove(panel);
+		}
 		panel = jp;
 		setHelp(jp.toString());
 		jContentPane.add(panel, BorderLayout.CENTER);
 		this.pack();
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent we)
+	{
+		if (panel.getClass().equals(ModoJuego.class))
+		{
+			String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
+			switch (JOptionPane.showOptionDialog(this, "¿Desea abandonar el juego?",
+					"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, opciones, opciones[0]))								
+			{
+				case 0:
+					/*Guardar todo*/
+				case 1:
+					/*Cerrar todo*/
+					System.exit(0);
+					break;				
+			}
+		}
+		else
+		{
+			if (JOptionPane.showConfirmDialog(this, "¿Desea abandonar el juego?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			{
+				System.exit(0);
+			}
+		}
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

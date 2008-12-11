@@ -1,35 +1,18 @@
 package gui;
 
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-public class ModoJuegoLocal extends JPanel {
+public class ModoJuegoLocal extends JPanel
+{
+	private static final long serialVersionUID = -4236367814618101524L;
+	private Principal parent = null;
 
-	private static final long serialVersionUID = 1L;
-
-	public ModoJuegoLocal() {
-		// TODO Auto-generated constructor stub
+	public ModoJuegoLocal(Principal parent)
+	{
 		super();
-		initialize();
-	}
-
-	public ModoJuegoLocal(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public ModoJuegoLocal(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public ModoJuegoLocal(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
+		this.parent = parent;
 		initialize();
 	}
 
@@ -38,9 +21,15 @@ public class ModoJuegoLocal extends JPanel {
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		this.setSize(300, 200);
 		this.setLayout(new GridBagLayout());
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Configurar juego local";
+	}
 }

@@ -3,11 +3,13 @@ package gui;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class ModoCargar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JComponent parent = null;
 
 	public ModoCargar() {
 		// TODO Auto-generated constructor stub
@@ -43,4 +45,9 @@ public class ModoCargar extends JPanel {
 		this.setLayout(new GridBagLayout());
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Pantalla de carga";
+	}
 }

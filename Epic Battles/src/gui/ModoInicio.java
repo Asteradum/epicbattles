@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -14,12 +13,14 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ModoInicio extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -7943530594020763917L;
-	private JPanel parent = null;
+	private Principal parent = null;
 	private Image image = null;
 	private JPanel jPanel = null;
 	private JPanel botonera = null;	
@@ -28,11 +29,15 @@ public class ModoInicio extends JPanel implements ActionListener
 	private JButton bSalir = null;
 	private JButton bOpciones = null;	
 	
-	public ModoInicio(JPanel parent)
+	public ModoInicio(Principal parent)
 	{
 		super();
 		this.parent = parent;
 		initialize();
+		getBLocal().addActionListener(this);
+		getBRed().addActionListener(this);
+		getBOpciones().addActionListener(this);
+		getBSalir().addActionListener(this);
 		try
 	    {
 	      image = javax.imageio.ImageIO.read(new File("BanzaiBot-icon.gif"));
@@ -47,13 +52,13 @@ public class ModoInicio extends JPanel implements ActionListener
 	 */
 	private void initialize()
 	{
-		GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-		gridBagConstraints1.insets = new Insets(5, 0, 0, 0);
-		gridBagConstraints1.gridy = 0;
-		gridBagConstraints1.gridx = 0;
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.insets = new Insets(5, 0, 0, 0);
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridx = 0;
 		this.setPreferredSize(new Dimension(300,200));
 		this.setLayout(new GridBagLayout());
-		this.add(getJPanel(), gridBagConstraints1);
+		this.add(getJPanel(), gridBagConstraints);
 	}
 
 	/**
@@ -127,17 +132,26 @@ public class ModoInicio extends JPanel implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0)
-	{
-		// TODO Auto-generated method stub
-		
-		if (false)
+	public void actionPerformed(ActionEvent ae)
+	{	
+		if (ae.getSource().equals(bLocal))
 		{
-			;
+			parent.loadRootPanel(new ModoJuegoLocal(parent));
 		}
-		else if (false)
+		else if (ae.getSource().equals(bRed))
 		{
-			;
+			parent.loadRootPanel(new ModoJuegoRed(parent));
+		}
+		else if (ae.getSource().equals(bOpciones))
+		{
+			parent.loadRootPanel(new ModoOpciones(parent));
+		}
+		else if (ae.getSource().equals(bSalir))
+		{
+			if (JOptionPane.showConfirmDialog(this, "¿Desea abandonar el juego?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			{
+				System.exit(0);
+			}
 		}
 	}
 

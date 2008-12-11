@@ -5,15 +5,16 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Imagen extends Canvas
 {
 	private static final long serialVersionUID = -3829851499198293693L;
-	private JPanel parent = null;
+	private JComponent parent = null;
 	private Image image = null;
 
-	public Imagen()
+	public Imagen(JComponent parent)
 	{
 		this.parent = parent;
 		try

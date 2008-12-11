@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import java.awt.Graphics;
@@ -21,11 +22,8 @@ import java.io.File;
 
 public class ModoPausa extends JPanel
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6099231033223006821L;
-	private JPanel parent = null;
+	private JComponent parent = null;
 	private Image image = null;
 	private JButton bMenu = null;
 	private JPanel botonera = null;
@@ -33,10 +31,8 @@ public class ModoPausa extends JPanel
 	private JPanel jPanel = null;
 	private JButton bSalir = null;
 	private JButton bGuardar = null;
-	/**
-	 * 
-	 */
-	public ModoPausa(JPanel parent)
+
+	public ModoPausa(JComponent parent)
 	{
 		super();
 		this.parent = parent;

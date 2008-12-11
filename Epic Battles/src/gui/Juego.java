@@ -4,14 +4,15 @@ import graficos.Escenario;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Juego extends JPanel
 {
 	private static final long serialVersionUID = 7325275995219105393L;
-	private ModoJuego parent = null;
+	private Principal parent = null;
 	
-	public Juego(ModoJuego parent)
+	public Juego(Principal parent)
 	{
 		super();
 		this.parent = parent;

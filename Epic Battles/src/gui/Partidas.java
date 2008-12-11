@@ -3,11 +3,13 @@ package gui;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Partidas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JComponent parent = null;
 
 	public Partidas() {
 		// TODO Auto-generated constructor stub
