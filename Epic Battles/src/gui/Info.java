@@ -4,21 +4,21 @@ import graficos.Imagen;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class Info extends JPanel
 {
 	private static final long serialVersionUID = 5535961802115944302L;
-	private JComponent parent = null;
+	private Principal parent = null;
 	private JPanel datos = null;
 	private JTextArea texto = null;
 
-	public Info(JPanel parent)
+	public Info(Principal parent)
 	{
 		super();
+		this.parent = parent;
 		initialize();
 	}
 
@@ -30,7 +30,7 @@ public class Info extends JPanel
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
-		this.add(new Imagen(this), BorderLayout.NORTH);
+		this.add(new Imagen(parent), BorderLayout.WEST);
 		this.add(getDatos(), BorderLayout.CENTER);
 	}
 
@@ -64,7 +64,7 @@ public class Info extends JPanel
 	{
 		if (texto == null)
 		{
-			texto = new JTextArea(15,15);
+			texto = new JTextArea();
 		}
 		return texto;
 	}

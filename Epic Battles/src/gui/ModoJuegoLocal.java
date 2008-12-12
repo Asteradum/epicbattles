@@ -3,6 +3,7 @@ package gui;
 import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
+import java.awt.FlowLayout;
 
 public class ModoJuegoLocal extends JPanel
 {
@@ -24,7 +25,7 @@ public class ModoJuegoLocal extends JPanel
 	private void initialize()
 	{
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new FlowLayout());
 	}
 
 	@Override

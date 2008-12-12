@@ -45,6 +45,7 @@ public class Principal extends JFrame implements WindowListener
 		this.setContentPane(getJContentPane());
 		this.setTitle("Epic Battles v0.1");
 		this.loadRootPanel(new ModoInicio(this));
+		//this.loadRootPanel(new ModoJuego(this, true));
 	}	
 
 	/**

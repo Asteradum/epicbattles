@@ -2,17 +2,17 @@ package gui;
 
 import java.awt.FlowLayout;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class ModoCargar extends JPanel
 {
 	private static final long serialVersionUID = 467462451714083887L;
-	private JComponent parent = null;
+	private Principal parent = null;
 
-	public ModoCargar()
+	public ModoCargar(Principal parent)
 	{
 		super();
+		this.parent = parent;
 		initialize();
 	}
 

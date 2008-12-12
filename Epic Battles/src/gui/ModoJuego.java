@@ -1,7 +1,5 @@
 package gui;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import red.Chat;
@@ -15,7 +13,7 @@ public class ModoJuego extends JSplitPane
 	{
 		super();
 		this.parent = parent;
-		this.setOrientation(VERTICAL_SPLIT);
+		this.setOrientation(HORIZONTAL_SPLIT);
 		this.setTopComponent(new Juego(parent));	
 		
 		if (red)

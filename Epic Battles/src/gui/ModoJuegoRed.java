@@ -4,6 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
+import java.awt.FlowLayout;
 
 public class ModoJuegoRed extends JPanel
 {
@@ -25,7 +26,7 @@ public class ModoJuegoRed extends JPanel
 	private void initialize()
 	{
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new FlowLayout());
 	}
 
 	@Override

@@ -1,12 +1,11 @@
 package red;
 
-import gui.ModoJuego;
 import gui.Principal;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -35,6 +34,7 @@ public class Chat extends JPanel
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
+		this.setPreferredSize(new Dimension(100,100));
 		this.add(getChat(), BorderLayout.CENTER);
 		this.add(getSend(), BorderLayout.SOUTH);
 	}

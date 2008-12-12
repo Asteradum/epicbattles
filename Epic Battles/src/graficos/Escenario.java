@@ -1,5 +1,7 @@
 package graficos;
 
+import gui.Principal;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,12 +19,13 @@ import java.awt.GridBagConstraints;
 public class Escenario extends JPanel
 {
 	private static final long serialVersionUID = -3141654143505676034L;
-	private JComponent parent = null;
+	private Principal parent = null;
 	private Image image = null;
 	private JPanel jPanel = null;
 
-	public Escenario(JComponent parent)
+	public Escenario(Principal parent)
 	{
+		super();
 		this.parent = parent;
 		initialize();		
 		try
@@ -38,7 +41,7 @@ public class Escenario extends JPanel
 	 */
 	private void initialize() {
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = new Insets(30, 30, 30, 30);
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridx = 0;
         this.setLayout(new GridBagLayout());
@@ -88,4 +91,4 @@ public class Escenario extends JPanel
 		}
 		return jPanel;
 	}
-} 
+}

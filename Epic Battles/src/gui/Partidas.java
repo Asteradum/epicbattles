@@ -1,37 +1,18 @@
 package gui;
 
-import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
+import java.awt.FlowLayout;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-public class Partidas extends JPanel {
+public class Partidas extends JPanel
+{
+	private static final long serialVersionUID = -7480625156531026554L;
+	private Principal parent = null;
 
-	private static final long serialVersionUID = 1L;
-	private JComponent parent = null;
-
-	public Partidas() {
-		// TODO Auto-generated constructor stub
+	public Partidas(Principal parent)
+	{
 		super();
-		initialize();
-	}
-
-	public Partidas(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public Partidas(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-		initialize();
-	}
-
-	public Partidas(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
+		this.parent = parent;
 		initialize();
 	}
 
@@ -40,9 +21,9 @@ public class Partidas extends JPanel {
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
+	private void initialize()
+	{
 		this.setSize(300, 200);
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new FlowLayout());
 	}
-
 }

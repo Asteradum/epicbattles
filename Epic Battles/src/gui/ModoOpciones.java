@@ -1,15 +1,8 @@
 package gui;
 
-import java.awt.Container;
 import java.awt.FlowLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class ModoOpciones extends JPanel
 {
