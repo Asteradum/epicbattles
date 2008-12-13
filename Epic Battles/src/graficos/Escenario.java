@@ -2,19 +2,17 @@ package graficos;
 
 import gui.Principal;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.io.File;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
 
 public class Escenario extends JPanel
 {

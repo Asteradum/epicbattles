@@ -11,6 +11,6 @@ public final class Main
 	public static void main(String[] args)
 	{	
 		System.out.println("Hola mundo");
-		new Principal().setVisible(true);
+		new Principal().setVisible(true);	
 	}
 }

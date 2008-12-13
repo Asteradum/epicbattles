@@ -4,13 +4,15 @@ import gui.Principal;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Chat extends JPanel
+public class Chat extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1449740754230340465L;
 	private Principal parent = null;	
@@ -24,6 +26,7 @@ public class Chat extends JPanel
 		super();
 		this.parent = parent;
 		initialize();
+		getSendButton().addActionListener(this);
 	}
 
 	/**
@@ -98,5 +101,15 @@ public class Chat extends JPanel
 			message = new JTextField();
 		}
 		return message;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae)
+	{
+		if (ae.getSource().equals(getSendButton()))
+		{
+			getChat().append(getMessage().getText());
+			getMessage().setText("");
+		}
 	}
 }

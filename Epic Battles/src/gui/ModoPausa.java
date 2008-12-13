@@ -70,14 +70,17 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBMenu() {
-		if (bMenu == null) {
+	private JButton getBMenu()
+	{
+		if (bMenu == null)
+		{
 			bMenu = new JButton();
 			bMenu.setText("Menu principal");
 		}
 		return bMenu;
 	}
 	
+	@Override
 	public String toString()
 	{
 		return "Pantalla de pausa";
@@ -88,8 +91,10 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getBotonera() {
-		if (botonera == null) {
+	private JPanel getBotonera()
+	{
+		if (botonera == null)
+		{
 			GridLayout gridLayout = new GridLayout(4, 1, 10, 10);
 			botonera = new JPanel();
 			botonera.setLayout(gridLayout);
@@ -107,8 +112,10 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBContinuar() {
-		if (bContinuar == null) {
+	private JButton getBContinuar()
+	{
+		if (bContinuar == null)
+		{
 			bContinuar = new JButton();
 			bContinuar.setText("Continuar");
 		}
@@ -120,8 +127,10 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getJPanel() {
-		if (jPanel == null) {
+	private JPanel getJPanel()
+	{
+		if (jPanel == null)
+		{
 			jPanel = new JPanel();
 			jPanel.setOpaque(false);
 			jPanel.setLayout(new FlowLayout());
@@ -135,8 +144,10 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBSalir() {
-		if (bSalir == null) {
+	private JButton getBSalir()
+	{
+		if (bSalir == null)
+		{
 			bSalir = new JButton();
 			bSalir.setText("Salir");
 		}
@@ -148,8 +159,10 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBGuardar() {
-		if (bGuardar == null) {
+	private JButton getBGuardar()
+	{
+		if (bGuardar == null)
+		{
 			bGuardar = new JButton();
 			bGuardar.setText("Guardar partida");
 		}

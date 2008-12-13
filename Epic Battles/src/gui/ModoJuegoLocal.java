@@ -3,17 +3,19 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class ModoJuegoLocal extends JPanel
+public class ModoJuegoLocal extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -4236367814618101524L;
 	private Principal parent = null;
 	private JPanel botonera = null;
 	private JButton bEmpezar = null;
-	private JPanel jPanel = null;
+	private JPanel grid = null;
 	private JButton bCargar = null;
 	private JButton bVolver = null;
 	private JPanel inf = null;
@@ -24,6 +26,9 @@ public class ModoJuegoLocal extends JPanel
 		super();
 		this.parent = parent;
 		initialize();
+		getBEmpezar().addActionListener(this);
+		getBCargar().addActionListener(this);
+		getBVolver().addActionListener(this);
 	}
 
 	/**
@@ -76,21 +81,21 @@ public class ModoJuegoLocal extends JPanel
 	}
 
 	/**
-	 * This method initializes jPanel	
+	 * This method initializes grid	
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getJPanel()
+	private JPanel getGrid()
 	{
-		if (jPanel == null)
+		if (grid == null)
 		{
 			GridLayout gridLayout = new GridLayout(2, 1, 10, 10);
-			jPanel = new JPanel();
-			jPanel.setLayout(gridLayout);
-			jPanel.add(getBEmpezar(), null);
-			jPanel.add(getBCargar(), null);
+			grid = new JPanel();
+			grid.setLayout(gridLayout);
+			grid.add(getBEmpezar(), null);
+			grid.add(getBCargar(), null);
 		}
-		return jPanel;
+		return grid;
 	}
 
 	/**
@@ -150,8 +155,25 @@ public class ModoJuegoLocal extends JPanel
 		{
 			sup = new JPanel();
 			sup.setLayout(new FlowLayout());
-			sup.add(getJPanel(), null);
+			sup.add(getGrid(), null);
 		}
 		return sup;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae)
+	{
+		if (ae.getSource().equals(getBEmpezar()))
+		{
+			parent.loadRootPanel(new ModoJuego(parent, false));
+		}
+		else if (ae.getSource().equals(getBCargar()))
+		{
+			parent.loadRootPanel(new ModoCargar(parent, false));
+		}
+		else if (ae.getSource().equals(getBVolver()))
+		{
+			parent.loadRootPanel(new ModoInicio(parent));
+		}	
 	}
 }

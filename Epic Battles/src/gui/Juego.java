@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Juego extends JPanel
