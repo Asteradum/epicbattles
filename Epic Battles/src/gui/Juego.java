@@ -14,12 +14,14 @@ public class Juego extends JPanel
 {
 	private static final long serialVersionUID = 7325275995219105393L;
 	private Principal parent = null;
+	private ModoJuego juego = null;
 	private Image image = null;
 	
-	public Juego(Principal parent)
+	public Juego(Principal parent, ModoJuego mj)
 	{
 		super();
 		this.parent = parent;
+		this.juego = mj;
 		initialize();
 		try
 	    {
@@ -37,7 +39,7 @@ public class Juego extends JPanel
 	{
 		this.setLayout(new BorderLayout());
 		this.add(new Escenario(parent), BorderLayout.CENTER);
-		this.add(new Info(parent), BorderLayout.SOUTH);
+		this.add(new Info(parent, juego), BorderLayout.SOUTH);
 	}	
 	
 	@Override

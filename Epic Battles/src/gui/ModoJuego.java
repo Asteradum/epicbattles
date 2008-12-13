@@ -14,7 +14,7 @@ public class ModoJuego extends JSplitPane
 		super();
 		this.parent = parent;
 		this.setOrientation(HORIZONTAL_SPLIT);
-		this.setTopComponent(new Juego(parent));	
+		this.setTopComponent(new Juego(parent, this));	
 		
 		if (red)
 		{				

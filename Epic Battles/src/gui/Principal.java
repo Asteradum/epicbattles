@@ -98,6 +98,7 @@ public class Principal extends JFrame implements WindowListener
 		setHelp(jp.toString());
 		jContentPane.add(panel, BorderLayout.CENTER);
 		//this.pack();
+		this.repaint();
 	}
 
 	@Override

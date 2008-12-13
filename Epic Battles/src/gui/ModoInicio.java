@@ -134,19 +134,19 @@ public class ModoInicio extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{	
-		if (ae.getSource().equals(bLocal))
+		if (ae.getSource().equals(getBLocal()))
 		{
 			parent.loadRootPanel(new ModoJuegoLocal(parent));
 		}
-		else if (ae.getSource().equals(bRed))
+		else if (ae.getSource().equals(getBRed()))
 		{
 			parent.loadRootPanel(new ModoJuegoRed(parent));
 		}
-		else if (ae.getSource().equals(bOpciones))
+		else if (ae.getSource().equals(getBOpciones()))
 		{
 			parent.loadRootPanel(new ModoOpciones(parent));
 		}
-		else if (ae.getSource().equals(bSalir))
+		else if (ae.getSource().equals(getBSalir()))
 		{
 			if (JOptionPane.showConfirmDialog(this, "¿Desea abandonar el juego?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 			{

@@ -3,27 +3,27 @@
  */
 package gui;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
-public class ModoPausa extends JPanel
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class ModoPausa extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 6099231033223006821L;
-	private JComponent parent = null;
+	private Principal parent = null;
+	private ModoJuego juego = null;
 	private Image image = null;
 	private JButton bMenu = null;
 	private JPanel botonera = null;
@@ -32,11 +32,16 @@ public class ModoPausa extends JPanel
 	private JButton bSalir = null;
 	private JButton bGuardar = null;
 
-	public ModoPausa(JComponent parent)
+	public ModoPausa(Principal parent, ModoJuego mj)
 	{
 		super();
 		this.parent = parent;
+		this.juego = mj;
 		initialize();
+		getBContinuar().addActionListener(this);
+		getBGuardar().addActionListener(this);
+		getBMenu().addActionListener(this);
+		getBSalir().addActionListener(this);
 		try
 	    {
 	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
@@ -157,5 +162,48 @@ public class ModoPausa extends JPanel
 		super.paintComponent(g); 
 	    if (image != null)
 	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae)
+	{		
+		if (ae.getSource().equals(getBContinuar()))
+		{
+			parent.loadRootPanel(juego);
+		}
+		else if (ae.getSource().equals(getBGuardar()))
+		{
+			/* Guardar */
+		}
+		else if (ae.getSource().equals(getBMenu()))
+		{
+			String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
+			switch (JOptionPane.showOptionDialog(this, "¿Desea abandonar el juego?",
+					"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, opciones, opciones[0]))								
+			{
+				case 0:
+					/*Guardar todo*/
+				case 1:
+					/*Cerrar todo*/
+					parent.loadRootPanel(new ModoInicio(parent));
+					break;				
+			}
+		}
+		else if (ae.getSource().equals(getBSalir()))
+		{
+			String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
+			switch (JOptionPane.showOptionDialog(this, "¿Desea abandonar el juego?",
+					"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+					null, opciones, opciones[0]))								
+			{
+				case 0:
+					/*Guardar todo*/
+				case 1:
+					/*Cerrar todo*/
+					System.exit(0);
+					break;				
+			}
+		}
 	}
 }

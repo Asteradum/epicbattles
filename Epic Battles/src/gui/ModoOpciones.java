@@ -23,7 +23,6 @@ public class ModoOpciones extends JPanel
 	 */
 	private void initialize()
 	{
-		this.setSize(300, 200);
 		this.setLayout(new FlowLayout());
 	}
 
