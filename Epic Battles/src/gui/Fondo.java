@@ -30,7 +30,7 @@ public abstract class Fondo
 		
 		try
 	    {
-			image = ImageIO.read(new File("imagenes/" + Archivos[(int)(Math.random()*5)]));
+			image = ImageIO.read(new File("imagenes/" + Archivos[(int)(Math.random()*Archivos.length)]));
 	    }
 	    catch (Exception e) { /*handled in paintComponent()*/ }		
 		
