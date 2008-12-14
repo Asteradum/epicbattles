@@ -108,7 +108,7 @@ public class Chat extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getSendButton()))
 		{
-			getChat().append(getMessage().getText());
+			getChat().append(getMessage().getText() + "\n");
 			getMessage().setText("");
 		}
 	}

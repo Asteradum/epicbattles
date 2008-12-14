@@ -1,6 +1,3 @@
-/**
- * 
- */
 package gui;
 
 import java.awt.Dimension;
@@ -13,7 +10,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -42,11 +38,7 @@ public class ModoPausa extends JPanel implements ActionListener
 		getBGuardar().addActionListener(this);
 		getBMenu().addActionListener(this);
 		getBSalir().addActionListener(this);
-		try
-	    {
-	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
-	    }
-	    catch (Exception e) { /*handled in paintComponent()*/ }
+		image = Fondo.cargar(Fondo.Pantalla.ModoPausa);
 	}
 
 	/**

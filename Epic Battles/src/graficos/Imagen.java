@@ -1,12 +1,12 @@
 package graficos;
 
+import gui.Fondo;
 import gui.Principal;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
 
 public class Imagen extends Canvas
 {
@@ -19,11 +19,7 @@ public class Imagen extends Canvas
 		super();
 		this.parent = parent;
 		this.setSize(new Dimension(80, 80));
-		try
-	    {
-	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
-	    }
-	    catch (Exception e) { /*handled in paintComponent()*/ }
+		image = Fondo.cargar(Fondo.Pantalla.Escenario);
 	}	
 	
 	@Override

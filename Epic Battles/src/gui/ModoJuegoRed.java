@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +15,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -8513250153154802461L;
 	private Principal parent = null;
+	private Image image = null;
 	private JPanel botonera = null;
 	private JPanel sup = null;
 	private JPanel grid = null;
@@ -29,6 +32,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		getBEmpezar().addActionListener(this);
 		getBCargar().addActionListener(this);
 		getBVolver().addActionListener(this);
+		image = Fondo.cargar(Fondo.Pantalla.ModoJuegoRed);
 	}
 
 	/**
@@ -75,6 +79,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		if (botonera == null)
 		{
 			botonera = new JPanel();
+			botonera.setOpaque(false);
 			botonera.setLayout(new BorderLayout());
 			botonera.add(getSup(), java.awt.BorderLayout.CENTER);
 			botonera.add(getInf(), java.awt.BorderLayout.SOUTH);
@@ -92,6 +97,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		if (sup == null)
 		{
 			sup = new JPanel();
+			sup.setOpaque(false);
 			sup.setLayout(new FlowLayout());
 			sup.add(getGrid(), null);
 		}
@@ -108,6 +114,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		if (grid == null)
 		{
 			grid = new JPanel();
+			grid.setOpaque(false);
 			grid.setLayout(new GridLayout(2, 1, 10, 10));
 			grid.add(getBEmpezar(), null);
 			grid.add(getBCargar(), null);
@@ -155,6 +162,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		if (inf == null) 
 		{
 			inf = new JPanel();
+			inf.setOpaque(false);
 			inf.setLayout(new FlowLayout());
 			inf.add(getBVolver(), null);
 		}
@@ -174,5 +182,13 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 			bVolver.setText("Volver");
 		}
 		return bVolver;
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		super.paintComponent(g); 
+	    if (image != null)
+	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 }

@@ -1,5 +1,6 @@
 package graficos;
 
+import gui.Fondo;
 import gui.Principal;
 
 import java.awt.Color;
@@ -10,7 +11,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.io.File;
 
 import javax.swing.JPanel;
 
@@ -26,11 +26,7 @@ public class Escenario extends JPanel
 		super();
 		this.parent = parent;
 		initialize();		
-		try
-	    {
-	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
-	    }
-	    catch (Exception e) { /*handled in paintComponent()*/ }
+		image = Fondo.cargar(Fondo.Pantalla.Escenario);
 	}		
 	
 	/**

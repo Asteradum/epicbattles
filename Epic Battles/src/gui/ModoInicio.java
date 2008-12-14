@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -37,11 +36,7 @@ public class ModoInicio extends JPanel implements ActionListener
 		getBRed().addActionListener(this);
 		getBOpciones().addActionListener(this);
 		getBSalir().addActionListener(this);
-		try
-	    {
-	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
-	    }
-	    catch (Exception e) { /*handled in paintComponent()*/ }
+		image = Fondo.cargar(Fondo.Pantalla.ModoInicio);
 	}	
 
 	/**
