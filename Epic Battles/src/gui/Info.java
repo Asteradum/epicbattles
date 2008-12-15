@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
 
 public class Info extends JPanel implements ActionListener
 {
@@ -27,6 +28,7 @@ public class Info extends JPanel implements ActionListener
 		this.parent = parent;
 		this.juego = mj;
 		initialize();
+		//this.setBorder(LineBorder.createGrayLineBorder());
 		getBPausa().addActionListener(this);
 	}
 
@@ -57,6 +59,9 @@ public class Info extends JPanel implements ActionListener
 		if (texto == null)
 		{
 			texto = new JTextArea();
+			texto.setEditable(false);
+			texto.setBackground(this.getBackground());
+			//texto.setBorder(LineBorder.createGrayLineBorder());
 		}
 		return texto;
 	}
@@ -72,6 +77,7 @@ public class Info extends JPanel implements ActionListener
 		{
 			botonera = new JPanel();
 			botonera.setLayout(new FlowLayout());
+			//botonera.setBorder(LineBorder.createGrayLineBorder());
 			botonera.add(getBPausa(), null);
 		}
 		return botonera;
@@ -88,6 +94,7 @@ public class Info extends JPanel implements ActionListener
 		{
 			datos = new JPanel();
 			datos.setLayout(new BorderLayout());
+			datos.setBorder(LineBorder.createGrayLineBorder());
 			datos.add(new Imagen(parent), BorderLayout.WEST);
 			datos.add(getTexto(), BorderLayout.CENTER);
 		}

@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class Escenario extends JPanel
 {
@@ -27,6 +28,7 @@ public class Escenario extends JPanel
 		this.parent = parent;
 		initialize();		
 		image = Fondo.cargar(Fondo.Pantalla.Escenario);
+		//this.setBorder(LineBorder.createGrayLineBorder());
 	}		
 	
 	/**
@@ -39,8 +41,7 @@ public class Escenario extends JPanel
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridx = 0;
         this.setLayout(new GridBagLayout());
-        this.add(getJPanel(), gridBagConstraints);
-			
+        this.add(getJPanel(), gridBagConstraints);			
 	}
 
 	@Override
@@ -71,17 +72,18 @@ public class Escenario extends JPanel
 				for (int j=0; j<8; j++)
 				{				
 					jp = new JPanel();
-					jp.setPreferredSize(new Dimension(48, 48));
+					jp.setPreferredSize(new Dimension(40, 40));
 					if (dib)
 					{
-						jp.setBackground(Color.BLACK);					
+						jp.setBackground(Color.darkGray);					
 					}
 					dib = !dib;
 					jPanel.add(jp, 8*i+j);
 				}
 				dib = !dib;
 			}
-				jPanel.setOpaque(false);
+			jPanel.setOpaque(false);
+			jPanel.setBorder(LineBorder.createGrayLineBorder());
 		}
 		return jPanel;
 	}

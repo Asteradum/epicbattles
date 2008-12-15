@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.io.File;
 
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 public class Juego extends JPanel
 {
@@ -22,6 +23,7 @@ public class Juego extends JPanel
 		this.parent = parent;
 		this.juego = mj;
 		initialize();
+		//this.setBorder(LineBorder.createGrayLineBorder());
 		try
 	    {
 	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));

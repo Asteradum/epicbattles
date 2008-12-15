@@ -2,7 +2,9 @@ package basedatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public abstract class GestorBaseDatos
 {
@@ -33,6 +35,8 @@ public abstract class GestorBaseDatos
 		
 		if (conexion != null)
 		{
+			Statement stmt = null;
+			ResultSet rs = null;
 			
 		}		
 		return partidas;

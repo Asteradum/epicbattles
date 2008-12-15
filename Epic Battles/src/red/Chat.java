@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 public class Chat extends JPanel implements ActionListener
 {
@@ -26,6 +27,7 @@ public class Chat extends JPanel implements ActionListener
 		super();
 		this.parent = parent;
 		initialize();
+		//this.setBorder(LineBorder.createGrayLineBorder());
 		getSendButton().addActionListener(this);
 	}
 
@@ -53,6 +55,8 @@ public class Chat extends JPanel implements ActionListener
 		{
 			chat = new JTextArea(20, 30);
 			chat.setAutoscrolls(true);
+			chat.setEditable(false);
+			chat.setBorder(LineBorder.createGrayLineBorder());
 		}
 		return chat;
 	}

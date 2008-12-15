@@ -18,15 +18,13 @@ public class ModoJuego extends JSplitPane
 		
 		if (red)
 		{				
-			this.setBottomComponent(new Chat(parent));
-			this.setDividerSize(5);
-			this.setOneTouchExpandable(true);
+			this.setBottomComponent(new Chat(parent));			
 		}
 		else
 		{
-			this.setBottomComponent(null);
-			this.setDividerSize(0);		
+			this.setBottomComponent(null);	
 		}
+		this.setDividerSize(0);
 	}
 	
 	@Override
