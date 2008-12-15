@@ -4,27 +4,37 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class GestorBaseDatos
+public abstract class GestorBaseDatos
 {
-	private Connection conexion = null;
+	private static String driver = "Microsoft Access Driver (*.mdb)";
+	private static String ruta = "epicbattles.MDB";	
 	
-	public GestorBaseDatos()
-	{
-		String driver = "com.mysql.jdbc.Driver";
-		String url = "jdbc:mysql:Driver=EpicBattles";
+	private static Connection cargar()
+	{		
+		String db = "jdbc:odbc:Driver={"+ driver +"};DBQ=" + ruta;
+		Connection conexion = null;
 		
 		try
 		{
-			Class.forName(driver);
-			conexion = DriverManager.getConnection(url, "", "");
-		}
-		catch (ClassNotFoundException cnfe)
-		{
-			cnfe.printStackTrace();
+			conexion =  DriverManager.getConnection( db, "", "");
 		}
 		catch (SQLException sqle)
 		{
 			sqle.printStackTrace();
 		}
+		
+		return conexion;
+	}
+	
+	public static String[] leerPartidas()
+	{
+		Connection conexion = cargar();
+		String[] partidas = new String[0];
+		
+		if (conexion != null)
+		{
+			
+		}		
+		return partidas;
 	}	
 }

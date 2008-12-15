@@ -8,9 +8,12 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+
+import basedatos.GestorBaseDatos;
 
 public class ModoCargar extends JPanel implements ActionListener
 {
@@ -187,7 +190,15 @@ public class ModoCargar extends JPanel implements ActionListener
 	{
 		if (partidas == null)
 		{
-			partidas = new JList();
+			String[] aPartidas = GestorBaseDatos.leerPartidas();
+			
+			DefaultListModel model = new DefaultListModel();
+		    partidas = new JList(model);
+			
+			for(int i = 0; i < aPartidas.length; i++)
+			{
+				model.addElement(aPartidas[i]);
+			}
 		}
 		return partidas;
 	}
