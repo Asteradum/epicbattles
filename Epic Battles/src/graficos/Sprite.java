@@ -8,5 +8,6 @@ public abstract class Sprite extends Point
 
 	public Sprite()
 	{		
+		super();
 	}	
 }

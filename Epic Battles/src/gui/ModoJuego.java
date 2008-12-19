@@ -18,7 +18,7 @@ public class ModoJuego extends JSplitPane
 		
 		if (red)
 		{				
-			this.setBottomComponent(new Chat(parent));			
+			this.setBottomComponent(new Chat(parent));
 		}
 		else
 		{

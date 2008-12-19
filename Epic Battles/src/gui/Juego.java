@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.io.File;
 
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 public class Juego extends JPanel
 {
