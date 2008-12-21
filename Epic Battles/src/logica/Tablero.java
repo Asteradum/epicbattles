@@ -103,7 +103,7 @@ public class Tablero
 		return jaque;
 	}
 	
-	private boolean esJaque()
+	private boolean esJaque(Point origen, Point destino)
 	{
 		return false;
 		
@@ -405,7 +405,7 @@ public class Tablero
 							{
 								puntos.add(new Point(calcX, calcY));
 							}
-							else if (c.getColor() != test.getColor() && !esJaque())
+							else if (c.getColor() != test.getColor())
 							{								
 								puntos.add(new Point(calcX, calcY));
 							}
@@ -440,5 +440,10 @@ public class Tablero
 			}
 		
 		return c;		
+	}
+
+	public Vector<String> getMovimientos()
+	{
+		return movimientos;
 	}
 }

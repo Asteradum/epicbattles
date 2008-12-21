@@ -9,4 +9,10 @@ public class Peon extends Pieza
 	{
 		return Pieza.PEON;
 	}
+
+	@Override
+	public String getNombre()
+	{
+		return "Peón";
+	}
 }

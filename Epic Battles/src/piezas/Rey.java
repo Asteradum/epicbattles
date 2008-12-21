@@ -8,5 +8,11 @@ public class Rey extends Pieza
 	public int getTipo()
 	{
 		return Pieza.REY;
+	}
+
+	@Override
+	public String getNombre()
+	{
+		return "Rey";
 	}	
 }

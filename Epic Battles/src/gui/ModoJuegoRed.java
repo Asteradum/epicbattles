@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import logica.Partida;
+import logica.Red;
+
 public class ModoJuegoRed extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -8513250153154802461L;
@@ -57,6 +60,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getBEmpezar()))
 		{
+			new Partida(new Red());
 			parent.loadRootPanel(new ModoJuego(parent, true));
 		}
 		else if (ae.getSource().equals(getBCargar()))

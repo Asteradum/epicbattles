@@ -8,5 +8,11 @@ public class Torre extends Pieza
 	public int getTipo()
 	{
 		return Pieza.TORRE;
+	}
+
+	@Override
+	public String getNombre()
+	{
+		return "Torre";
 	}	
 }

@@ -20,4 +20,6 @@ public abstract class Pieza extends Sprite
 	}
 	
 	public abstract int getTipo();
+	
+	public abstract String getNombre();
 }

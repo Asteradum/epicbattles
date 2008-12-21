@@ -8,5 +8,11 @@ public class Caballo extends Pieza
 	public int getTipo()
 	{
 		return Pieza.CABALLO;
+	}
+
+	@Override
+	public String getNombre()
+	{
+		return "Caballo";
 	}		
 }

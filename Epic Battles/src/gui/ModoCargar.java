@@ -7,11 +7,21 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayDeque;
+import java.util.Hashtable;
+import java.util.Vector;
+import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+
+import logica.Local;
+import logica.Partida;
+import logica.Red;
+import logica.Tablero;
 
 import basedatos.GestorBaseDatos;
 
@@ -20,6 +30,7 @@ public class ModoCargar extends JPanel implements ActionListener
 	private static final long serialVersionUID = 467462451714083887L;
 	private Principal parent = null;
 	private boolean red = false;
+	private Vector<Long> ordenPartidas = null;
 	private Image image = null;
 	private JPanel lateral = null;
 	private JPanel botonera = null;
@@ -123,6 +134,7 @@ public class ModoCargar extends JPanel implements ActionListener
 		{
 			bBorrar = new JButton();
 			bBorrar.setText("Borrar partida");
+			bBorrar.setEnabled(false);
 		}
 		return bBorrar;
 	}
@@ -138,6 +150,7 @@ public class ModoCargar extends JPanel implements ActionListener
 		{
 			bCargar = new JButton();
 			bCargar.setText("Cargar partida");
+			bCargar.setEnabled(false);
 		}
 		return bCargar;
 	}
@@ -162,7 +175,17 @@ public class ModoCargar extends JPanel implements ActionListener
 	{	
 		if (ae.getSource().equals(getBCargar()))
 		{
-			/* Cargar partida */
+			try
+			{
+				Vector<String> movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
+				
+				new Partida(new Tablero(movimientos), (red ? new Red() : new Local()));
+				parent.loadRootPanel(new ModoJuego(parent, red));
+			}
+			catch (SQLException sqle)
+			{
+				parent.setHelp(sqle.getMessage());
+			}
 		}
 		else if (ae.getSource().equals(getBBorrar()))
 		{
@@ -190,14 +213,28 @@ public class ModoCargar extends JPanel implements ActionListener
 	{
 		if (partidas == null)
 		{
-			String[] aPartidas = GestorBaseDatos.leerPartidas();
-			
 			DefaultListModel model = new DefaultListModel();
-		    partidas = new JList(model);
+			partidas = new JList(model);
 			
-			for(int i = 0; i < aPartidas.length; i++)
+			Hashtable<Long,String> tablaPartidas = null;
+			try
 			{
-				model.addElement(aPartidas[i]);
+				ordenPartidas = new Vector<Long>();
+				tablaPartidas = GestorBaseDatos.leerPartidas();
+				
+			    for (Entry<Long, String> hs: tablaPartidas.entrySet())
+			    {
+			    	model.addElement(hs.getValue());
+			    	ordenPartidas.add(hs.getKey());
+			    }
+			    
+			    this.getBCargar().setEnabled(true);
+			    this.getBBorrar().setEnabled(true);
+			}
+			catch (SQLException sqle)
+			{
+				model.addElement(sqle.getMessage());
+				parent.setHelp(sqle.getMessage());
 			}
 		}
 		return partidas;

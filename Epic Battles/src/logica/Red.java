@@ -48,4 +48,9 @@ public class Red extends Thread implements Oponente {
 
 	}
 
+	@Override
+	public void run()
+	{
+		
+	}
 }

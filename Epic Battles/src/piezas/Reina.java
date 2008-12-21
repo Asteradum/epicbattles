@@ -8,5 +8,11 @@ public class Reina extends Pieza
 	public int getTipo()
 	{
 		return Pieza.REINA;
+	}
+
+	@Override
+	public String getNombre()
+	{
+		return "Reina";
 	}	
 }

@@ -20,7 +20,8 @@ public class Escenario extends JPanel
 	private static final long serialVersionUID = -3141654143505676034L;
 	private Principal parent = null;
 	private Image image = null;
-	private JPanel jPanel = null;
+	private JPanel tablero = null;
+	private JPanel[][] casillas = new JPanel[8][8];
 
 	public Escenario(Principal parent)
 	{
@@ -41,7 +42,7 @@ public class Escenario extends JPanel
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridx = 0;
         this.setLayout(new GridBagLayout());
-        this.add(getJPanel(), gridBagConstraints);			
+        this.add(getTablero(), gridBagConstraints);			
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class Escenario extends JPanel
 	{
 		super.paintComponent(g); 
 	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	    g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
 	}
 
 	/**
@@ -57,34 +58,48 @@ public class Escenario extends JPanel
 	 * 	
 	 * @return javax.swing.JPanel	
 	 */
-	private JPanel getJPanel()
+	@SuppressWarnings("serial")
+	private JPanel getTablero()
 	{
-		if (jPanel == null)
+		if (tablero == null)
 		{
 			JPanel jp;
 			boolean dib = false;
 			
 			GridLayout gridLayout = new GridLayout(8, 8);
-			jPanel = new JPanel();
-			jPanel.setLayout(gridLayout);
+			tablero = new JPanel();
+			tablero.setLayout(gridLayout);
 			for (int i=0; i<8; i++)
 			{
 				for (int j=0; j<8; j++)
-				{				
-					jp = new JPanel();
+				{
+					jp = new JPanel()
+					{
+						@Override
+						public void paintComponent(Graphics g)
+						{
+							super.paintComponent(g);
+						}
+					};
 					jp.setPreferredSize(new Dimension(40, 40));
 					if (dib)
 					{
 						jp.setBackground(Color.darkGray);					
 					}
 					dib = !dib;
-					jPanel.add(jp, 8*i+j);
+					tablero.add(jp, 8*i+j);
+					casillas[i][j] = jp;
 				}
 				dib = !dib;
 			}
-			jPanel.setOpaque(false);
-			jPanel.setBorder(LineBorder.createGrayLineBorder());
+			tablero.setOpaque(false);
+			tablero.setBorder(LineBorder.createGrayLineBorder());
 		}
-		return jPanel;
+		return tablero;
+	}
+	
+	public JPanel getCasilla(int i, int j)
+	{
+		return casillas[i][j];
 	}
 }

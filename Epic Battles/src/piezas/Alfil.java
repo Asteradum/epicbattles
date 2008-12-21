@@ -9,4 +9,10 @@ public class Alfil extends Pieza
 	{
 		return Pieza.ALFIL;
 	}
+
+	@Override
+	public String getNombre()
+	{
+		return "Alfil";
+	}
 }

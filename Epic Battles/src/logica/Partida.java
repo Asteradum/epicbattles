@@ -1,13 +1,21 @@
 package logica;
 
-import gui.Juego;
-
 public class Partida
 {
-	private Oponente intel = null;
+	private Oponente oponente = null;
+	private Tablero tablero = null;
 	
-	public Partida(Oponente i)
+	public Partida(Oponente op)
 	{
-		this.intel = i;
+		super();
+		tablero = new Tablero();
+		this.oponente = op;
+	}
+	
+	public Partida(Tablero t, Oponente op)
+	{
+		super();
+		this.tablero = t;
+		this.oponente = op;
 	}
 }
