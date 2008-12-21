@@ -5,25 +5,18 @@ import graficos.Sprite;
 public abstract class Pieza extends Sprite
 {
 	private static final long serialVersionUID = 7607215079770662403L;
-	public static boolean BLANCAS = true;
-	public static boolean NEGRAS = false;
-	public static int PEON = 1;
-	public static int ALFIL = 2;
-	public static int CABALLO = 3;
-	public static int TORRE = 5;
-	public static int REINA = 3;
-	public static int REY = 0;
-	private boolean color = true;	
+	public static final boolean BLANCAS = true;
+	public static final boolean NEGRAS = false;
+	public static final int PEON = 1;
+	public static final int ALFIL = 2;
+	public static final int CABALLO = 3;
+	public static final int TORRE = 5;
+	public static final int REINA = 9;
+	public static final int REY = 0;	
 
-	public Pieza(boolean color)
+	public Pieza()
 	{		
-		super();
-		this.color = color;
-	}
-
-	public boolean getColor()
-	{
-		return color;
+		super();		
 	}
 	
 	public abstract int getTipo();
