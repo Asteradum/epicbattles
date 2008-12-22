@@ -1,5 +1,7 @@
 package epicbattles;
 
+import java.util.Date;
+
 import gui.Principal;
 
 /**
@@ -9,8 +11,8 @@ import gui.Principal;
 public final class Main
 {
 	public static void main(String[] args)
-	{	
-		System.out.println("Hola mundo");
-		new Principal().setVisible(true);	
+	{
+		System.out.println(System.currentTimeMillis());
+		new Principal().setVisible(true);
 	}
 }

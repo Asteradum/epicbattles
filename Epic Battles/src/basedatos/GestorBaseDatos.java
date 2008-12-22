@@ -39,23 +39,22 @@ public abstract class GestorBaseDatos
 		if (conexion != null)
 		{
 			Statement stmt = conexion.createStatement();
-			String query = "SELECT p.id_partida \"id\", p.fecha \"fecha\", j1.nom_jugador \"jug1\", j2.nom_jugador \"jug2\"" +
+			String query = "SELECT p.id_partida, p.fechahora, j1.nom_jugador,  j2.nom_jugador " +
 					"FROM Partida p, Jugador j1, Jugador j2 " +
 					"WHERE p.id_jug1 = j1.id_jugador AND p.id_jug2 = j2.id_jugador";
 			ResultSet rs = stmt.executeQuery(query);
 			
-			Date fecha;
 			Long id;
-			Integer jug1, jug2;
+			String fecha, jug1, jug2;
 			
 			while(rs.next())
 			{
-				id = rs.getLong("id");
-				fecha = rs.getDate("fecha");
-				jug1 = rs.getInt("jug1");
-				jug2 = rs.getInt("jug2");
+				id = rs.getLong(1);
+				fecha = new Date(Long.valueOf(rs.getString(2))).toLocaleString() + " || ";
+				jug1 = rs.getString(3);
+				jug2 = rs.getString(4);
 				
-				partidas.put(id, fecha.toString()+" "+jug1.toString()+" "+jug2.toString());
+				partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
 			}
 		}		
 		else
