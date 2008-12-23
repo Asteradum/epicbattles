@@ -30,7 +30,8 @@ public class Principal extends JFrame implements WindowListener
 		super();
 		initialize();
 		this.setResizable(false);
-		this.setSize((int)(dim.getWidth()/1.75), (int)(dim.getHeight()/1.75));
+		//this.setSize((int)(dim.getWidth()/1.75), (int)(dim.getHeight()/1.75));
+		this.setSize(730, 585);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
 	}	

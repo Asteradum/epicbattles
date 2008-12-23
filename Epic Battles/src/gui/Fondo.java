@@ -12,16 +12,16 @@ public abstract class Fondo
 		Escenario, ModoCargar,
 		ModoInicio, ModoJuegoLocal,
 		ModoJuegoRed, ModoOpciones,
-		ModoPausa	
+		ModoPausa
 	}
 	
-	private static String[] Archivos = 
+	private static String[] archivos =
 	{
 		"A BIT OF STARWARS BOBAFETT.png",
 		"BanzaiBot-icon.gif",
 		"foobar2000.png",
 		"millenium Finderclone.png",
-		"QUAKE3.png"		
+		"QUAKE3.png"
 	};
 	
 	public static Image cargar(Pantalla modo)
@@ -30,10 +30,10 @@ public abstract class Fondo
 		
 		try
 	    {
-			image = ImageIO.read(new File("imagenes/" + Archivos[(int)(Math.random()*Archivos.length)]));
+			image = ImageIO.read(new File("imagenes/" + archivos[(int)(Math.random()*archivos.length)]));
 	    }
-	    catch (Exception e) { /*handled in paintComponent()*/ }		
+	    catch (Exception e) { /*handled in paintComponent()*/ }
 		
-		return image;		
+		return image;
 	}
 }

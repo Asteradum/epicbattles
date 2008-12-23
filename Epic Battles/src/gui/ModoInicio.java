@@ -66,7 +66,6 @@ public class ModoInicio extends JPanel implements ActionListener
 		{
 			bLocal = new JButton();
 			bLocal.setText("Juego local");
-			bLocal.setName("jButton1");
 		}
 		return bLocal;
 	}
@@ -82,7 +81,6 @@ public class ModoInicio extends JPanel implements ActionListener
 		{
 			bRed = new JButton();
 			bRed.setText("Juego en red");
-			bRed.setName("jButton2");
 		}
 		return bRed;
 	}
@@ -98,7 +96,6 @@ public class ModoInicio extends JPanel implements ActionListener
 		{
 			bSalir = new JButton();
 			bSalir.setText("Salir");
-			bSalir.setName("jButton3");
 		}
 		return bSalir;
 	}
@@ -114,7 +111,6 @@ public class ModoInicio extends JPanel implements ActionListener
 		{
 			bOpciones = new JButton();
 			bOpciones.setText("Opciones");
-			bOpciones.setName("jButton4");
 		}
 		return bOpciones;
 	}
@@ -161,7 +157,6 @@ public class ModoInicio extends JPanel implements ActionListener
 			GridLayout gridLayout = new GridLayout(2, 2, 10, 10);
 			botonera = new JPanel();
 			botonera.setOpaque(false);
-			botonera.setName("botonera");
 			botonera.setLayout(gridLayout);
 			botonera.add(getBLocal(), 0);
 			botonera.add(getBRed(), 1);

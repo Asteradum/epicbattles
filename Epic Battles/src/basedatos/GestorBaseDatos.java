@@ -116,7 +116,7 @@ public abstract class GestorBaseDatos
 				ip + ")";
 			
 			stmt.executeUpdate(update);
-		}		
+		}
 		else
 		{
 			throw new SQLException("No se puede guardar la partida");
@@ -127,12 +127,12 @@ public abstract class GestorBaseDatos
 	
 	public static void borrarPartida(Long id) throws SQLException
 	{
-Connection conexion = cargar();
+		Connection conexion = cargar();
 		
 		if (conexion != null)
 		{
 		
-		}		
+		}
 		else
 		{
 			throw new SQLException("No se puede guardar la partida");
