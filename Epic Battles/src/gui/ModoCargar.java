@@ -1,10 +1,10 @@
 package gui;
 
+import graficos.Escenario;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -29,7 +29,6 @@ public class ModoCargar extends JPanel implements ActionListener
 	private Principal parent = null;
 	private boolean red = false;
 	private Vector<Long> ordenPartidas = null;
-	private Image image = null;
 	private JPanel lateral = null;
 	private JPanel botonera = null;
 	private JPanel grid = null;
@@ -37,7 +36,8 @@ public class ModoCargar extends JPanel implements ActionListener
 	private JButton bCargar = null;
 	private JButton bVolver = null;
 	private JList partidas = null;
-
+	private Escenario escenario = null;
+	
 	public ModoCargar(Principal parent, boolean red)
 	{
 		super();
@@ -47,7 +47,6 @@ public class ModoCargar extends JPanel implements ActionListener
 		getBCargar().addActionListener(this);
 		getBBorrar().addActionListener(this);
 		getBVolver().addActionListener(this);
-		image = Fondo.cargar(Fondo.Pantalla.ModoCargar);
 	}
 
 	/**
@@ -58,6 +57,8 @@ public class ModoCargar extends JPanel implements ActionListener
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
+		escenario = new Escenario(parent);
+		this.add(escenario, BorderLayout.CENTER);
 		this.add(getLateral(), BorderLayout.EAST);
 	}
 
@@ -177,8 +178,7 @@ public class ModoCargar extends JPanel implements ActionListener
 			{
 				Vector<String> movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
 				
-				new Partida(new Tablero(movimientos), (red ? new Red() : new Local()));
-				parent.loadRootPanel(new ModoJuego(parent, red));
+				parent.loadRootPanel(new ModoJuego(parent, red, new Partida(new Tablero(escenario, movimientos), (red ? new Red() : new Local()))));
 			}
 			catch (SQLException sqle)
 			{
@@ -187,7 +187,19 @@ public class ModoCargar extends JPanel implements ActionListener
 		}
 		else if (ae.getSource().equals(getBBorrar()))
 		{
-			getPartidas().remove(getPartidas().getSelectedIndex());
+			int index = getPartidas().getSelectedIndex();
+			DefaultListModel model = (DefaultListModel) getPartidas().getModel();
+
+			try
+			{
+				GestorBaseDatos.borrarPartida(ordenPartidas.get(index));
+			}
+			catch (SQLException sqle)
+			{
+				sqle.printStackTrace();
+			}
+			
+			model.remove(index);
 		}
 		else if (ae.getSource().equals(getBVolver()))
 		{
@@ -236,13 +248,5 @@ public class ModoCargar extends JPanel implements ActionListener
 			}
 		}
 		return partidas;
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g); 
-	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 }

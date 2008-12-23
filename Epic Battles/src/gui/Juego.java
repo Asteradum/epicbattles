@@ -9,19 +9,23 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
+import logica.Partida;
+
 public class Juego extends JPanel
 {
 	private static final long serialVersionUID = 7325275995219105393L;
 	private Principal parent = null;
 	private ModoJuego juego = null;
+	private Escenario escenario = null;
 	private Image image = null;
 	
-	public Juego(Principal parent, ModoJuego mj)
+	public Juego(Principal parent, ModoJuego mj, Partida partida)
 	{
 		super();
 		this.parent = parent;
 		this.juego = mj;
 		initialize();
+		partida.setEscenario(escenario);
 		//this.setBorder(LineBorder.createGrayLineBorder());
 		try
 	    {
@@ -38,7 +42,8 @@ public class Juego extends JPanel
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
-		this.add(new Escenario(parent), BorderLayout.CENTER);
+		this.escenario = new Escenario(parent);
+		this.add(escenario, BorderLayout.CENTER);
 		this.add(new Info(parent, juego), BorderLayout.SOUTH);
 	}	
 	

@@ -36,7 +36,8 @@ public class Escenario extends JPanel
 	 * This method initializes this
 	 * 
 	 */
-	private void initialize() {
+	private void initialize()
+	{
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new Insets(30, 30, 30, 30);
 		gridBagConstraints.gridy = 0;

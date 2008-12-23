@@ -124,4 +124,20 @@ public abstract class GestorBaseDatos
 		
 		conexion.close();
 	}
+	
+	public static void borrarPartida(Long id) throws SQLException
+	{
+Connection conexion = cargar();
+		
+		if (conexion != null)
+		{
+		
+		}		
+		else
+		{
+			throw new SQLException("No se puede guardar la partida");
+		}
+		
+		conexion.close();
+	}
 }

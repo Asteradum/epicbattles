@@ -1,5 +1,7 @@
 package logica;
 
+import graficos.Escenario;
+
 import java.awt.Point;
 import java.util.Vector;
 
@@ -11,21 +13,23 @@ import piezas.Reina;
 import piezas.Rey;
 import piezas.Torre;
 
-public class Tablero
+public class Tablero implements Runnable
 {	
 	private Vector<String> movimientos = null;
 	private Casilla[][] casillas = null;
+	private Escenario escenario = null;
 	
 	public Tablero()
 	{
 		super();
 		this.movimientos = new Vector<String>(10, 10);
-		generarTablero();		
+		generarTablero();
 	}
 	
-	public Tablero(Vector<String> movs)
+	public Tablero(Escenario escenario, Vector<String> movs)
 	{
 		super();
+		this.escenario = escenario;
 		this.movimientos = movs;
 		generarTablero();
 		for (String mov: movs)
@@ -444,6 +448,19 @@ public class Tablero
 
 	public Vector<String> getMovimientos()
 	{
-		return movimientos;
+		if (movimientos != null)
+			return movimientos;
+		else
+			return null;
+	}
+	
+	public void setEscenario(Escenario e)
+	{
+		this.escenario = e;
+	}
+
+	@Override
+	public void run()
+	{
 	}
 }

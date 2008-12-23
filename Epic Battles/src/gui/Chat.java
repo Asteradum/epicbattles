@@ -1,6 +1,5 @@
-package red;
+package gui;
 
-import gui.Principal;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

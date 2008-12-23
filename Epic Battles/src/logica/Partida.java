@@ -1,5 +1,7 @@
 package logica;
 
+import graficos.Escenario;
+
 public class Partida
 {
 	private Oponente oponente = null;
@@ -17,5 +19,10 @@ public class Partida
 		super();
 		this.tablero = t;
 		this.oponente = op;
+	}
+	
+	public void setEscenario(Escenario e)
+	{
+		tablero.setEscenario(e);
 	}
 }

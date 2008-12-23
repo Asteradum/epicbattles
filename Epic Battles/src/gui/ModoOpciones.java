@@ -20,6 +20,8 @@ public class ModoOpciones extends JPanel implements ActionListener
 	private JButton bCancelar = null;
 	private JPanel izq = null;
 	private JPanel der = null;
+	private JPanel panelOpc = null;
+	
 	public ModoOpciones(Principal parent)
 	{
 		super();
@@ -38,6 +40,7 @@ public class ModoOpciones extends JPanel implements ActionListener
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
+		this.add(getPanelOpc(), BorderLayout.CENTER);
 		this.add(getBotonera(), BorderLayout.SOUTH);
 	}
 
@@ -137,6 +140,22 @@ public class ModoOpciones extends JPanel implements ActionListener
 			der.add(getBCancelar(), null);
 		}
 		return der;
+	}
+	
+	/**
+	 * This method initializes panelOpc	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getPanelOpc()
+	{
+		if (panelOpc == null)
+		{
+			panelOpc = new JPanel();
+			panelOpc.setOpaque(false);
+			panelOpc.setLayout(new FlowLayout());
+		}
+		return panelOpc;
 	}
 	
 	@Override

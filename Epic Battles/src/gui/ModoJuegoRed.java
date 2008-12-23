@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import logica.Local;
 import logica.Partida;
 import logica.Red;
 
@@ -61,7 +62,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		if (ae.getSource().equals(getBEmpezar()))
 		{
 			new Partida(new Red());
-			parent.loadRootPanel(new ModoJuego(parent, true));
+			parent.loadRootPanel(new ModoJuego(parent, true, new Partida(new Red())));
 		}
 		else if (ae.getSource().equals(getBCargar()))
 		{
