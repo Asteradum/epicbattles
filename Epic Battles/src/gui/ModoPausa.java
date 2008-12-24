@@ -164,9 +164,9 @@ public class ModoPausa extends JPanel implements ActionListener
 	@Override
 	protected void paintComponent(Graphics g)
 	{
-		super.paintComponent(g); 
+		super.paintComponent(g);
 	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	    	g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 
 	@Override
@@ -185,14 +185,14 @@ public class ModoPausa extends JPanel implements ActionListener
 			String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
 			switch (JOptionPane.showOptionDialog(this, "¿Desea abandonar el juego?",
 					"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-					null, opciones, opciones[0]))								
+					null, opciones, opciones[0]))
 			{
 				case 0:
 					/*Guardar todo*/
 				case 1:
 					/*Cerrar todo*/
 					parent.loadRootPanel(new ModoInicio(parent));
-					break;				
+					break;
 			}
 		}
 		else if (ae.getSource().equals(getBSalir()))

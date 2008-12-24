@@ -11,13 +11,11 @@ import java.awt.Image;
 public class Imagen extends Canvas
 {
 	private static final long serialVersionUID = -3829851499198293693L;
-	private Principal parent = null;
 	private Image image = null;
 
-	public Imagen(Principal parent)
+	public Imagen()
 	{
 		super();
-		this.parent = parent;
 		this.setSize(new Dimension(80, 80));
 		image = Fondo.cargar(Fondo.Pantalla.Escenario);
 	}	

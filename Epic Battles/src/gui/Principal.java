@@ -101,35 +101,24 @@ public class Principal extends JFrame implements WindowListener
 		//this.pack();
 		this.repaint();
 	}
-
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void windowClosing(WindowEvent we)
 	{
 		if (panel.getClass().equals(ModoJuego.class))
 		{
 			String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
+			
 			switch (JOptionPane.showOptionDialog(this, "¿Desea abandonar el juego?",
 					"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-					null, opciones, opciones[0]))								
+					null, opciones, opciones[0]))
 			{
 				case 0:
 					/*Guardar todo*/
 				case 1:
 					/*Cerrar todo*/
 					System.exit(0);
-					break;				
+					break;
 			}
 		}
 		else
@@ -142,25 +131,37 @@ public class Principal extends JFrame implements WindowListener
 	}
 
 	@Override
-	public void windowDeactivated(WindowEvent arg0) {
+	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void windowDeiconified(WindowEvent arg0) {
+	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void windowIconified(WindowEvent arg0) {
+	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void windowOpened(WindowEvent arg0) {
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

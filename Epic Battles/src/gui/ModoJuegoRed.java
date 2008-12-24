@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import logica.Local;
 import logica.Partida;
 import logica.Red;
 
@@ -175,9 +174,9 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	}
 
 	/**
-	 * This method initializes bVolver	
-	 * 	
-	 * @return javax.swing.JButton	
+	 * This method initializes bVolver
+	 *
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBVolver()
 	{
@@ -192,8 +191,8 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	@Override
 	protected void paintComponent(Graphics g)
 	{
-		super.paintComponent(g); 
+		super.paintComponent(g);
 	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	    	g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 }

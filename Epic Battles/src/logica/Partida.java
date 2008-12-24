@@ -1,6 +1,6 @@
 package logica;
 
-import graficos.Escenario;
+import java.awt.Component;
 
 public class Partida
 {
@@ -20,9 +20,9 @@ public class Partida
 		this.tablero = t;
 		this.oponente = op;
 	}
-	
-	public void setEscenario(Escenario e)
+
+	public Component getEscenario()
 	{
-		tablero.setEscenario(e);
+		return tablero.getEscenario();
 	}
 }

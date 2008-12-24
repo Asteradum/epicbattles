@@ -1,7 +1,10 @@
 package logica;
 
-import piezas.Pieza;
+import java.awt.Graphics;
+import java.awt.Point;
+
 import graficos.Sprite;
+import logica.piezas.Pieza;
 
 public class Casilla extends Sprite
 {
@@ -17,15 +20,10 @@ public class Casilla extends Sprite
 	public Casilla(Pieza p, boolean color, int x, int y)
 	{
 		super();
-		this.setPieza(p);
+		this.pieza = p;
 		this.color = color;
 		this.x = x;
 		this.y = y;
-	}
-
-	public void setPieza(Pieza pieza)
-	{
-		this.pieza = pieza;
 	}
 
 	public Pieza getPieza()
@@ -36,5 +34,19 @@ public class Casilla extends Sprite
 	public boolean getColor()
 	{
 		return color;
+	}
+	
+	@Override
+	public Point getLocation()
+	{
+		return new Point(this.x, this.y);
+	}
+	
+	@Override
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		if (imagen != null)
+	    	g.drawImage(imagen, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 }

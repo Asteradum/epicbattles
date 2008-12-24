@@ -3,26 +3,30 @@ package logica;
 import graficos.Escenario;
 
 import java.awt.Point;
+import java.util.Deque;
 import java.util.Vector;
 
-import piezas.Alfil;
-import piezas.Caballo;
-import piezas.Peon;
-import piezas.Pieza;
-import piezas.Reina;
-import piezas.Rey;
-import piezas.Torre;
+import logica.piezas.Alfil;
+import logica.piezas.Caballo;
+import logica.piezas.Peon;
+import logica.piezas.Pieza;
+import logica.piezas.Reina;
+import logica.piezas.Rey;
+import logica.piezas.Torre;
 
 public class Tablero implements Runnable
-{	
+{
+	private static final long serialVersionUID = -8743924243868541721L;
 	private Vector<String> movimientos = null;
-	private Casilla[][] casillas = null;
 	private Escenario escenario = null;
+	private Casilla[][] casillas = null;
 	
 	public Tablero()
 	{
 		super();
 		this.movimientos = new Vector<String>(10, 10);
+		this.escenario = new Escenario();
+		this.casillas = escenario.getCasillas();
 		generarTablero();
 	}
 	
@@ -132,8 +136,6 @@ public class Tablero implements Runnable
 	
 	private Vector<Point> posibles(Casilla c)
 	{
-		boolean fin = false;
-		int calcX, calcY, k;
 		Casilla test = null;
 		Vector<Point> puntos = new Vector<Point>();
 		
@@ -151,270 +153,34 @@ public class Tablero implements Runnable
 				for (int i=-1; i<2; i+=2)
 				{
 					test = casillas[c.x+sentido][c.y+i];
-				
+					
 					if (test.getPieza() != null)
 					{
 						if (test.getColor() != c.getColor())
 							puntos.add(new Point(c.x+sentido, c.y+i));
 					}
+				}
+				
+				break;
+			
+			default:
+				puntos = c.getPieza().getPosibles(c.getLocation());
+				Casilla cs;
+			
+				for (int i=0; i<puntos.size();)
+				{
+					cs = casillas[puntos.get(i).x][puntos.get(i).y];
+					
+					if (cs.getPieza() != null && cs.getColor() == c.getColor())
+					{
+						puntos.remove(i);
+					}
 					else
 					{
-						String enpassant = String.valueOf((char)(c.y+97+i)) + String.valueOf(c.x+sentido*2);
-						
-						if (movimientos.lastElement().split("-")[0].equals(enpassant))
-							puntos.add(new Point(c.x+sentido*2, c.y+i));
+						i++;
 					}
 				}
-				break;
 				
-			case Pieza.ALFIL:
-				for (int i=-1; i<2; i+=2)
-					for (int j=-1; j<2; j+=2)
-					{
-						k = 1;
-						calcX = c.x+i*k;
-						calcY = c.y+j*k;
-						
-						if (calcX< 0 || calcX > 7 || calcY < 0 || calcY > 7)
-						{
-							fin = true;
-						}
-						else
-						{
-							fin = false;
-							test = casillas[calcX][calcY];
-						}
-						
-						while (!fin)
-						{							
-							if (test == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-								k++;
-								calcX = c.x+i*k;
-								calcY = c.y+j*k;
-								
-								if (calcX < 0 || calcX > 7 || calcY < 0 || calcY > 7)
-								{
-									fin = true;
-								}
-								else
-								{
-									test = casillas[calcX][calcY];
-								}
-							}
-							else if (test.getColor() != c.getColor())
-							{
-								puntos.add(new Point(calcX, calcY));
-								fin = true;								
-							}
-							else
-							{
-								fin = true;
-							}
-						}
-					}				
-				break;
-				
-			case Pieza.CABALLO:
-				for (int i=-1; i<2; i+=2)
-					for (int j=-1; j<2; j+=2)
-					{
-						calcX = c.x+2*i;
-						calcY = c.y+j;
-						
-						if (calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
-						{
-							test = casillas[calcX][calcY];
-							if (test.getPieza() == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-							}
-							else if (c.getColor() != test.getColor())
-							{
-								puntos.add(new Point(calcX, calcY));
-							}
-						}
-						
-						calcX = c.x+i;
-						calcY = c.y+2*j;
-						
-						if (calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
-						{
-							test = casillas[calcX][calcY];
-							if (test.getPieza() == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-							}
-							else if (c.getColor() != test.getColor())
-							{
-								puntos.add(new Point(calcX, calcY));
-							}
-						}
-					}
-				break;
-				
-			case Pieza.TORRE:
-				for (int i=-1; i<2; i+=2)
-					for (int j=-1; j<2; j+=2)
-					{
-						k = 1;
-						calcX = c.x + (i==1 ? 0 : j) * k;
-						calcY = c.y + (i==1 ? j : 0) * k;
-						
-						if (calcX< 0 || calcX > 7 || calcY < 0 || calcY > 7)
-						{
-							fin = true;
-						}
-						else
-						{
-							fin = false;
-							test = casillas[calcX][calcY];
-						}
-						
-						while (!fin)
-						{							
-							if (test == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-								k++;
-								calcX = c.x + (i==1 ? 0 : j) * k;
-								calcY = c.y + (i==1 ? j : 0) * k;
-								
-								if (calcX< 0 || calcX > 7 || calcY < 0 || calcY > 7)
-								{
-									fin = true;
-								}
-								else
-								{
-									test = casillas[calcX][calcY];
-								}
-							}
-							else if (test.getColor() != c.getColor())
-							{
-								puntos.add(new Point(calcX, calcY));
-								fin = true;								
-							}
-							else
-							{
-								fin = true;
-							}
-						}
-					}
-				break;
-				
-			case Pieza.REINA:
-				for (int i=-1; i<2; i+=2)
-					for (int j=-1; j<2; j+=2)
-					{
-						k = 1;
-						calcX = c.x+i*k;
-						calcY = c.y+j*k;
-						
-						if (calcX< 0 || calcX > 7 || calcY < 0 || calcY > 7)
-						{
-							fin = true;
-						}
-						else
-						{
-							fin = false;
-							test = casillas[calcX][calcY];
-						}
-						
-						while (!fin)
-						{							
-							if (test == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-								k++;
-								calcX = c.x+i*k;
-								calcY = c.y+j*k;
-								
-								if (calcX < 0 || calcX > 7 || calcY < 0 || calcY > 7)
-								{
-									fin = true;
-								}
-								else
-								{
-									test = casillas[calcX][calcY];
-								}
-							}
-							else if (test.getColor() != c.getColor())
-							{
-								puntos.add(new Point(calcX, calcY));
-								fin = true;								
-							}
-							else
-							{
-								fin = true;
-							}
-						}
-						
-						k = 1;
-						calcX = c.x + (i==1 ? 0 : j) * k;
-						calcY = c.y + (i==1 ? j : 0) * k;
-						
-						if (calcX< 0 || calcX > 7 || calcY < 0 || calcY > 7)
-						{
-							fin = true;
-						}
-						else
-						{
-							fin = false;
-							test = casillas[calcX][calcY];
-						}
-						
-						while (!fin)
-						{							
-							if (test == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-								k++;
-								calcX = c.x + (i==1 ? 0 : j) * k;
-								calcY = c.y + (i==1 ? j : 0) * k;
-								
-								if (calcX< 0 || calcX > 7 || calcY < 0 || calcY > 7)
-								{
-									fin = true;
-								}
-								else
-								{
-									test = casillas[calcX][calcY];
-								}
-							}
-							else if (test.getColor() != c.getColor())
-							{
-								puntos.add(new Point(calcX, calcY));
-								fin = true;								
-							}
-							else
-							{
-								fin = true;
-							}
-						}
-					}
-				break;
-				
-			case Pieza.REY:
-				for (int i=-1; i<2; i++)
-					for (int j=-1; j<2; j++)
-					{
-						calcX = c.x+i;
-						calcY = c.y+j;
-						
-						if (i!=0 && j!=0 && calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
-						{
-							test = casillas[calcX][calcY];
-							if (test.getPieza() == null)
-							{
-								puntos.add(new Point(calcX, calcY));
-							}
-							else if (c.getColor() != test.getColor())
-							{								
-								puntos.add(new Point(calcX, calcY));
-							}
-						}
-					}
 				break;
 		}
 		
@@ -454,9 +220,14 @@ public class Tablero implements Runnable
 			return null;
 	}
 	
-	public void setEscenario(Escenario e)
+	/*public void setEscenario(Escenario e)
 	{
 		this.escenario = e;
+	}*/
+	
+	public Escenario getEscenario()
+	{
+		return escenario;
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package gui;
 
-import graficos.Escenario;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -36,7 +34,7 @@ public class ModoCargar extends JPanel implements ActionListener
 	private JButton bCargar = null;
 	private JButton bVolver = null;
 	private JList partidas = null;
-	private Escenario escenario = null;
+	private Tablero tablero = null;
 	
 	public ModoCargar(Principal parent, boolean red)
 	{
@@ -57,11 +55,11 @@ public class ModoCargar extends JPanel implements ActionListener
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
-		escenario = new Escenario(parent);
-		this.add(escenario, BorderLayout.CENTER);
+		tablero = new Tablero();
+		this.add(tablero.getEscenario(), BorderLayout.CENTER);
 		this.add(getLateral(), BorderLayout.EAST);
 	}
-
+	
 	@Override
 	public String toString()
 	{
@@ -178,7 +176,7 @@ public class ModoCargar extends JPanel implements ActionListener
 			{
 				Vector<String> movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
 				
-				parent.loadRootPanel(new ModoJuego(parent, red, new Partida(new Tablero(escenario, movimientos), (red ? new Red() : new Local()))));
+				parent.loadRootPanel(new ModoJuego(parent, red, new Partida(tablero, (red ? new Red() : new Local()))));
 			}
 			catch (SQLException sqle)
 			{

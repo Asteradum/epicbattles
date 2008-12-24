@@ -1,7 +1,6 @@
 package graficos;
 
 import gui.Fondo;
-import gui.Principal;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,18 +14,18 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import logica.Casilla;
+
 public class Escenario extends JPanel
 {
 	private static final long serialVersionUID = -3141654143505676034L;
-	private Principal parent = null;
 	private Image image = null;
 	private JPanel tablero = null;
-	private JPanel[][] casillas = new JPanel[8][8];
+	private Casilla[][] casillas = new Casilla[8][8];
 
-	public Escenario(Principal parent)
+	public Escenario()
 	{
 		super();
-		this.parent = parent;
 		initialize();		
 		image = Fondo.cargar(Fondo.Pantalla.Escenario);
 		//this.setBorder(LineBorder.createGrayLineBorder());
@@ -43,28 +42,27 @@ public class Escenario extends JPanel
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridx = 0;
         this.setLayout(new GridBagLayout());
-        this.add(getTablero(), gridBagConstraints);			
+        this.add(getTablero(), gridBagConstraints);
 	}
 
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		super.paintComponent(g); 
+		super.paintComponent(g);
 	    if (image != null)
-	    g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
+	    	g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
 	}
 
 	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
+	 * This method initializes jPanel
+	 *
+	 * @return javax.swing.JPanel
 	 */
-	@SuppressWarnings("serial")
 	private JPanel getTablero()
 	{
 		if (tablero == null)
 		{
-			JPanel jp;
+			Casilla c;
 			boolean dib = false;
 			
 			GridLayout gridLayout = new GridLayout(8, 8);
@@ -74,22 +72,15 @@ public class Escenario extends JPanel
 			{
 				for (int j=0; j<8; j++)
 				{
-					jp = new JPanel()
-					{
-						@Override
-						public void paintComponent(Graphics g)
-						{
-							super.paintComponent(g);
-						}
-					};
-					jp.setPreferredSize(new Dimension(40, 40));
+					c = new Casilla();
+					c.setPreferredSize(new Dimension(40, 40));
 					if (dib)
 					{
-						jp.setBackground(Color.darkGray);					
+						c.setBackground(Color.darkGray);					
 					}
 					dib = !dib;
-					tablero.add(jp, 8*i+j);
-					casillas[i][j] = jp;
+					tablero.add(c, 8*i+j);
+					casillas[i][j] = c;
 				}
 				dib = !dib;
 			}
@@ -99,8 +90,13 @@ public class Escenario extends JPanel
 		return tablero;
 	}
 	
-	public JPanel getCasilla(int i, int j)
+	public Casilla getCasilla(int i, int j)
 	{
 		return casillas[i][j];
+	}
+
+	public Casilla[][] getCasillas()
+	{
+		return casillas;
 	}
 }

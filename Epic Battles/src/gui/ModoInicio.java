@@ -171,7 +171,7 @@ public class ModoInicio extends JPanel implements ActionListener
 	{
 		super.paintComponent(g); 
 	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	    	g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 
 	/**
