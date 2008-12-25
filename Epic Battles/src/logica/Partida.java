@@ -1,11 +1,14 @@
 package logica;
 
+import graficos.Imagen;
+
 import java.awt.Component;
 
 public class Partida
 {
 	private Oponente oponente = null;
 	private Tablero tablero = null;
+	private Imagen imagenInfo = null;
 	
 	public Partida(Oponente op)
 	{
@@ -24,5 +27,10 @@ public class Partida
 	public Component getEscenario()
 	{
 		return tablero.getEscenario();
+	}
+
+	public void setImagenInfo(Imagen i)
+	{
+		this.imagenInfo = i;
 	}
 }

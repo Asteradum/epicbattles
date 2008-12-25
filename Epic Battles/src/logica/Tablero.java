@@ -3,7 +3,6 @@ package logica;
 import graficos.Escenario;
 
 import java.awt.Point;
-import java.util.Deque;
 import java.util.Vector;
 
 import logica.piezas.Alfil;
@@ -24,18 +23,19 @@ public class Tablero implements Runnable
 	public Tablero()
 	{
 		super();
-		this.movimientos = new Vector<String>(10, 10);
 		this.escenario = new Escenario();
 		this.casillas = escenario.getCasillas();
 		generarTablero();
+		this.movimientos = new Vector<String>(10, 10);
 	}
 	
-	public Tablero(Escenario escenario, Vector<String> movs)
+	public Tablero(Vector<String> movs)
 	{
 		super();
-		this.escenario = escenario;
-		this.movimientos = movs;
+		this.escenario = new Escenario();
+		this.casillas = escenario.getCasillas();
 		generarTablero();
+		this.movimientos = movs;
 		for (String mov: movs)
 		{
 			this.mover(mov);
@@ -44,8 +44,6 @@ public class Tablero implements Runnable
 	
 	private void generarTablero()
 	{
-		casillas = new Casilla[8][8];
-		
 		/* Casillas vacías */
 		for (int i=2; i<6; i++)
 			for (int j=0; j<8; j++)
@@ -55,38 +53,38 @@ public class Tablero implements Runnable
 		/* Peones */
 		for (int i=0; i<8; i++)
 		{
-			casillas[1][i] = new Casilla(new Peon(), true, 1, i);
-			casillas[6][i] = new Casilla(new Peon(), false, 6, i);
+			casillas[1][i].setCasilla(new Peon(), true, 1, i);
+			casillas[6][i].setCasilla(new Peon(), false, 6, i);
 		}
 		
 		/* Torres */
 		for (int i=0; i<8; i+=7)
 		{
-			casillas[0][i] = new Casilla(new Torre(), true, 0, i);
-			casillas[7][i] = new Casilla(new Torre(), false, 7, i);
+			casillas[0][i].setCasilla(new Torre(), true, 0, i);
+			casillas[7][i].setCasilla(new Torre(), false, 7, i);
 		}
 		
 		/* Caballos */
 		for (int i=1; i<8; i+=5)
 		{
-			casillas[0][i] = new Casilla(new Caballo(), true, 0, i);
-			casillas[7][i] = new Casilla(new Caballo(), false, 7, i);
+			casillas[0][i].setCasilla(new Caballo(), true, 0, i);
+			casillas[7][i].setCasilla(new Caballo(), false, 7, i);
 		}
 		
 		/* Alfiles */
 		for (int i=2; i<8; i+=3)
 		{
-			casillas[0][i] = new Casilla(new Alfil(), true, 0, i);
-			casillas[7][i] = new Casilla(new Alfil(), false, 7, i);
+			casillas[0][i].setCasilla(new Alfil(), true, 0, i);
+			casillas[7][i].setCasilla(new Alfil(), false, 7, i);
 		}
 		
 		/* Reinas */
-		casillas[0][3] = new Casilla(new Reina(), true, 0, 3);
-		casillas[7][3] = new Casilla(new Reina(), false, 7, 3);
+		casillas[0][3].setCasilla(new Reina(), true, 0, 3);
+		casillas[7][3].setCasilla(new Reina(), false, 7, 3);
 		
 		/* Reyes */
-		casillas[0][4] = new Casilla(new Rey(), true, 0, 4);
-		casillas[7][4] = new Casilla(new Rey(), false, 7, 4);		
+		casillas[0][4].setCasilla(new Rey(), true, 0, 4);
+		casillas[7][4].setCasilla(new Rey(), false, 7, 4);
 	}
 	
 	private boolean esJaque(boolean color)
@@ -126,7 +124,7 @@ public class Tablero implements Runnable
 	/*public boolean makeMove(String mov)
 	{
 		boolean posible = false;
-		/* Condición de jaque */	/*	
+		/* Condición de jaque */	/*
 		
 			this.movimientos.add(mov);
 			posible = true;
@@ -209,7 +207,7 @@ public class Tablero implements Runnable
 				}
 			}
 		
-		return c;		
+		return c;
 	}
 
 	public Vector<String> getMovimientos()
@@ -219,11 +217,6 @@ public class Tablero implements Runnable
 		else
 			return null;
 	}
-	
-	/*public void setEscenario(Escenario e)
-	{
-		this.escenario = e;
-	}*/
 	
 	public Escenario getEscenario()
 	{

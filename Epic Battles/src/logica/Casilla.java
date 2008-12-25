@@ -8,7 +8,7 @@ import logica.piezas.Pieza;
 
 public class Casilla extends Sprite
 {
-	private static final long serialVersionUID = 2663916697888476162L;	
+	private static final long serialVersionUID = 2663916697888476162L;
 	private Pieza pieza = null;
 	private boolean color = true;
 	
@@ -17,9 +17,8 @@ public class Casilla extends Sprite
 		super();
 	}
 	
-	public Casilla(Pieza p, boolean color, int x, int y)
+	public void setCasilla(Pieza p, boolean color, int x, int y)
 	{
-		super();
 		this.pieza = p;
 		this.color = color;
 		this.x = x;
@@ -47,6 +46,6 @@ public class Casilla extends Sprite
 	{
 		super.paint(g);
 		if (imagen != null)
-	    	g.drawImage(imagen, 0,0,this.getWidth(),this.getHeight(),this);
+			g.drawImage(imagen, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 }

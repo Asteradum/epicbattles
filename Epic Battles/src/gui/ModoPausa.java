@@ -54,13 +54,13 @@ public class ModoPausa extends JPanel implements ActionListener
 		gridBagConstraints.gridx = 0;
 		this.setPreferredSize(new Dimension(200, 300));
 		this.setLayout(new GridBagLayout());
-		this.add(getJPanel(), gridBagConstraints);		
+		this.add(getJPanel(), gridBagConstraints);
 	}
 
 	/**
-	 * This method initializes bMenu	
+	 * This method initializes bMenu
 	 * 	
-	 * @return javax.swing.JButton	
+	 * @return javax.swing.JButton
 	 */
 	private JButton getBMenu()
 	{
@@ -81,7 +81,7 @@ public class ModoPausa extends JPanel implements ActionListener
 	/**
 	 * This method initializes botonera	
 	 * 	
-	 * @return javax.swing.JPanel	
+	 * @return javax.swing.JPanel
 	 */
 	private JPanel getBotonera()
 	{
@@ -165,13 +165,13 @@ public class ModoPausa extends JPanel implements ActionListener
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-	    if (image != null)
-	    	g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+		if (image != null)
+			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent ae)
-	{		
+	{
 		if (ae.getSource().equals(getBContinuar()))
 		{
 			parent.loadRootPanel(juego);
@@ -200,14 +200,14 @@ public class ModoPausa extends JPanel implements ActionListener
 			String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
 			switch (JOptionPane.showOptionDialog(this, "¿Desea abandonar el juego?",
 					"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-					null, opciones, opciones[0]))								
+					null, opciones, opciones[0]))
 			{
 				case 0:
 					/*Guardar todo*/
 				case 1:
 					/*Cerrar todo*/
 					System.exit(0);
-					break;				
+					break;
 			}
 		}
 	}

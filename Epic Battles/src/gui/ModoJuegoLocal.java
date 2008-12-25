@@ -106,7 +106,7 @@ public class ModoJuegoLocal extends JPanel implements ActionListener
 		}
 		return grid;
 	}
-
+	
 	/**
 	 * This method initializes bCargar	
 	 * 	
@@ -192,7 +192,7 @@ public class ModoJuegoLocal extends JPanel implements ActionListener
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-	    if (image != null)
-	    	g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+		if (image != null)
+			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 }

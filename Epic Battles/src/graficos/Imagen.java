@@ -1,9 +1,7 @@
 package graficos;
 
-import gui.Fondo;
-import gui.Principal;
-
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,14 +15,27 @@ public class Imagen extends Canvas
 	{
 		super();
 		this.setSize(new Dimension(80, 80));
-		image = Fondo.cargar(Fondo.Pantalla.Escenario);
-	}	
+	}
+	
+	public void setImagen(Image i)
+	{
+		this.image = i;
+		this.paint(this.getGraphics());
+	}
 	
 	@Override
 	public void paint(Graphics g)
 	{
-		super.paint(g); 
-	    if (image != null)
-	    g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+		super.paint(g);
+		
+		if (image != null)
+		{
+			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+		}
+		else
+		{
+			g.setColor(Color.darkGray);
+			g.drawRect(0, 0, 79, 79);
+		}
 	}
 }

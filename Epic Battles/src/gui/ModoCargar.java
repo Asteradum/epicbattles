@@ -46,7 +46,7 @@ public class ModoCargar extends JPanel implements ActionListener
 		getBBorrar().addActionListener(this);
 		getBVolver().addActionListener(this);
 	}
-
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -176,6 +176,7 @@ public class ModoCargar extends JPanel implements ActionListener
 			{
 				Vector<String> movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
 				
+				tablero = new Tablero(movimientos);
 				parent.loadRootPanel(new ModoJuego(parent, red, new Partida(tablero, (red ? new Red() : new Local()))));
 			}
 			catch (SQLException sqle)
@@ -187,7 +188,7 @@ public class ModoCargar extends JPanel implements ActionListener
 		{
 			int index = getPartidas().getSelectedIndex();
 			DefaultListModel model = (DefaultListModel) getPartidas().getModel();
-
+			
 			try
 			{
 				GestorBaseDatos.borrarPartida(ordenPartidas.get(index));
@@ -211,7 +212,7 @@ public class ModoCargar extends JPanel implements ActionListener
 			}
 		}
 	}
-
+	
 	/**
 	 * This method initializes partidas	
 	 * 	
@@ -230,14 +231,14 @@ public class ModoCargar extends JPanel implements ActionListener
 				ordenPartidas = new Vector<Long>();
 				tablaPartidas = GestorBaseDatos.leerPartidas();
 				
-			    for (Entry<Long, String> hs: tablaPartidas.entrySet())
-			    {
-			    	model.addElement(hs.getValue());
-			    	ordenPartidas.add(hs.getKey());
-			    }
-			    
-			    this.getBCargar().setEnabled(true);
-			    this.getBBorrar().setEnabled(true);
+				for (Entry<Long, String> hs: tablaPartidas.entrySet())
+				{
+					model.addElement(hs.getValue());
+					ordenPartidas.add(hs.getKey());
+				}
+				
+				this.getBCargar().setEnabled(true);
+				this.getBBorrar().setEnabled(true);
 			}
 			catch (SQLException sqle)
 			{

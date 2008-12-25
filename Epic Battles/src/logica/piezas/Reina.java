@@ -75,5 +75,5 @@ public class Reina extends Pieza
 			}
 		
 		return puntos;
-	}	
+	}
 }

@@ -1,15 +1,13 @@
 package gui;
 
-import graficos.Escenario;
 import graficos.Imagen;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import logica.Partida;
-import logica.Tablero;
 
 class Juego extends JPanel
 {
@@ -27,7 +24,6 @@ class Juego extends JPanel
 	private Principal parent = null;
 	private ModoJuego juego = null;
 	private Partida partida = null;
-	private Image image = null;
 	
 	public Juego(Principal parent, ModoJuego mj, Partida partida)
 	{
@@ -36,13 +32,6 @@ class Juego extends JPanel
 		this.juego = mj;
 		this.partida = partida;
 		initialize();
-		//partida.setEscenario(escenario);
-		//this.setBorder(LineBorder.createGrayLineBorder());
-		try
-	    {
-	      image = javax.imageio.ImageIO.read(new File("imagenes/BanzaiBot-icon.gif"));
-	    }
-	    catch (Exception e) { /*handled in paintComponent()*/ }
 	}	
 
 	/**
@@ -52,17 +41,12 @@ class Juego extends JPanel
 	 */
 	private void initialize()
 	{
+		Info info = new Info(parent, juego);
+		this.partida.setImagenInfo(info.getImagenInfo());
+		
 		this.setLayout(new BorderLayout());
 		this.add(partida.getEscenario(), BorderLayout.CENTER);
-		this.add(new Info(parent, juego), BorderLayout.SOUTH);
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-	    if (image != null)
-	    	g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+		this.add(info, BorderLayout.SOUTH);
 	}
 }
 
@@ -71,6 +55,7 @@ class Info extends JPanel implements ActionListener
 	private static final long serialVersionUID = 5535961802115944302L;
 	private Principal parent = null;
 	private ModoJuego juego = null;
+	private Imagen imagen = null;
 	private JTextArea texto = null;
 	private JPanel botonera = null;
 	private JPanel datos = null;
@@ -82,8 +67,13 @@ class Info extends JPanel implements ActionListener
 		this.parent = parent;
 		this.juego = mj;
 		initialize();
-		//this.setBorder(LineBorder.createGrayLineBorder());
 		getBPausa().addActionListener(this);
+		this.setText("Bienvenido a EpicBattles");
+	}
+
+	public Imagen getImagenInfo()
+	{
+		return imagen;
 	}
 
 	/**
@@ -114,8 +104,8 @@ class Info extends JPanel implements ActionListener
 		{
 			texto = new JTextArea();
 			texto.setEditable(false);
+			texto.setMargin(new Insets(5, 5, 5, 5));
 			texto.setBackground(this.getBackground());
-			//texto.setBorder(LineBorder.createGrayLineBorder());
 		}
 		return texto;
 	}
@@ -131,7 +121,6 @@ class Info extends JPanel implements ActionListener
 		{
 			botonera = new JPanel();
 			botonera.setLayout(new FlowLayout());
-			//botonera.setBorder(LineBorder.createGrayLineBorder());
 			botonera.add(getBPausa(), null);
 		}
 		return botonera;
@@ -149,7 +138,8 @@ class Info extends JPanel implements ActionListener
 			datos = new JPanel();
 			datos.setLayout(new BorderLayout());
 			datos.setBorder(LineBorder.createGrayLineBorder());
-			datos.add(new Imagen(), BorderLayout.WEST);
+			this.imagen = new Imagen();
+			datos.add(imagen, BorderLayout.WEST);
 			datos.add(getTexto(), BorderLayout.CENTER);
 		}
 		return datos;
@@ -186,13 +176,12 @@ class Chat extends JPanel implements ActionListener
 	private JTextArea chat = null;
 	private JPanel send = null;
 	private JButton sendButton = null;
-	private JTextField message = null;	
+	private JTextField message = null;
 	
 	public Chat()
 	{
 		super();
 		initialize();
-		//this.setBorder(LineBorder.createGrayLineBorder());
 		getSendButton().addActionListener(this);
 	}
 
@@ -299,7 +288,7 @@ public class ModoJuego extends JSplitPane
 		}
 		else
 		{
-			this.setBottomComponent(null);	
+			this.setBottomComponent(null);
 		}
 		this.setDividerSize(0);
 	}

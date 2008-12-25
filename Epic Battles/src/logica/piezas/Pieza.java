@@ -18,8 +18,8 @@ public abstract class Pieza extends Sprite
 	public static final int REY = 10;
 
 	public Pieza()
-	{		
-		super();		
+	{
+		super();
 	}
 	
 	public abstract int getTipo();

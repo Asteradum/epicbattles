@@ -26,10 +26,10 @@ public class Escenario extends JPanel
 	public Escenario()
 	{
 		super();
-		initialize();		
+		initialize();
+		this.setDoubleBuffered(true);
 		image = Fondo.cargar(Fondo.Pantalla.Escenario);
-		//this.setBorder(LineBorder.createGrayLineBorder());
-	}		
+	}
 	
 	/**
 	 * This method initializes this
@@ -37,20 +37,20 @@ public class Escenario extends JPanel
 	 */
 	private void initialize()
 	{
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(30, 30, 30, 30);
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.insets = new Insets(30, 30, 30, 30);
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridx = 0;
-        this.setLayout(new GridBagLayout());
-        this.add(getTablero(), gridBagConstraints);
+		this.setLayout(new GridBagLayout());
+		this.add(getTablero(), gridBagConstraints);
 	}
 
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-	    if (image != null)
-	    	g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
+		if (image != null)
+			g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
 	}
 
 	/**
@@ -68,22 +68,26 @@ public class Escenario extends JPanel
 			GridLayout gridLayout = new GridLayout(8, 8);
 			tablero = new JPanel();
 			tablero.setLayout(gridLayout);
+			
 			for (int i=0; i<8; i++)
 			{
 				for (int j=0; j<8; j++)
 				{
 					c = new Casilla();
 					c.setPreferredSize(new Dimension(40, 40));
+					
 					if (dib)
 					{
-						c.setBackground(Color.darkGray);					
+						c.setBackground(Color.darkGray);
 					}
 					dib = !dib;
+					
 					tablero.add(c, 8*i+j);
 					casillas[i][j] = c;
 				}
 				dib = !dib;
 			}
+			
 			tablero.setOpaque(false);
 			tablero.setBorder(LineBorder.createGrayLineBorder());
 		}

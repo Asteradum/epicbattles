@@ -20,8 +20,8 @@ public class Peon extends Pieza
 	}
 
 	@Override
-	public Vector<Point> getPosibles(Point p) {
-		// TODO Auto-generated method stub
+	public Vector<Point> getPosibles(Point p)
+	{
 		return null;
 	}
 }

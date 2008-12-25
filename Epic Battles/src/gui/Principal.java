@@ -34,7 +34,7 @@ public class Principal extends JFrame implements WindowListener
 		this.setSize(730, 585);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
-	}	
+	}
 
 	/**
 	 * This method initializes this
@@ -46,9 +46,8 @@ public class Principal extends JFrame implements WindowListener
 		this.setContentPane(getJContentPane());
 		this.setTitle("Epic Battles v0.1");
 		this.loadRootPanel(new ModoInicio(this));
-		//this.loadRootPanel(new ModoJuego(this, true));
-	}	
-
+	}
+	
 	/**
 	 * This method initializes jContentPane
 	 * 
@@ -98,7 +97,6 @@ public class Principal extends JFrame implements WindowListener
 		panel = jp;
 		setHelp(jp.toString());
 		jContentPane.add(panel, BorderLayout.CENTER);
-		//this.pack();
 		this.repaint();
 	}
 	
@@ -131,38 +129,20 @@ public class Principal extends JFrame implements WindowListener
 	}
 
 	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowActivated(WindowEvent e) { }
 
 	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowClosed(WindowEvent e) { }
 
 	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeactivated(WindowEvent e) { }
 
 	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent e) { }
 
 	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowIconified(WindowEvent e) { }
 
 	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowOpened(WindowEvent e) { }
 }

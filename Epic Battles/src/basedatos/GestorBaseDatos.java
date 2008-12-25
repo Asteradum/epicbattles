@@ -15,7 +15,7 @@ public abstract class GestorBaseDatos
 	private static String ruta = "epicbattles.MDB";	
 	
 	private static Connection cargar()
-	{		
+	{
 		String db = "jdbc:odbc:Driver={"+ driver +"};DBQ=" + ruta;
 		Connection conexion = null;
 		
@@ -56,7 +56,7 @@ public abstract class GestorBaseDatos
 				
 				partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
 			}
-		}		
+		}
 		else
 		{
 			throw new SQLException("No se pueden leer partidas");
@@ -79,12 +79,12 @@ public abstract class GestorBaseDatos
 					"WHERE p.id_partida = " + id.toString();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			String[] movs = rs.getString("movimientos").split(",");			
+			String[] movs = rs.getString("movimientos").split(",");
 			for (int i=0; i<movs.length; i++)
 			{
 				movimientos.add(movs[i]);
 			}
-		}		
+		}
 		else
 		{
 			throw new SQLException("No se pueden cargar la partida especificada");
