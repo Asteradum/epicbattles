@@ -41,12 +41,9 @@ class Juego extends JPanel
 	 */
 	private void initialize()
 	{
-		Info info = new Info(parent, juego);
-		this.partida.setImagenInfo(info.getImagenInfo());
-		
 		this.setLayout(new BorderLayout());
 		this.add(partida.getEscenario(), BorderLayout.CENTER);
-		this.add(info, BorderLayout.SOUTH);
+		this.add(new Info(parent, juego, partida), BorderLayout.SOUTH);
 	}
 }
 
@@ -55,25 +52,21 @@ class Info extends JPanel implements ActionListener
 	private static final long serialVersionUID = 5535961802115944302L;
 	private Principal parent = null;
 	private ModoJuego juego = null;
-	private Imagen imagen = null;
+	private Partida partida = null;
 	private JTextArea texto = null;
 	private JPanel botonera = null;
 	private JPanel datos = null;
 	private JButton bPausa = null;
 
-	public Info(Principal parent, ModoJuego mj)
+	public Info(Principal parent, ModoJuego mj, Partida partida)
 	{
 		super();
 		this.parent = parent;
 		this.juego = mj;
+		this.partida = partida;
 		initialize();
 		getBPausa().addActionListener(this);
-		this.setText("Bienvenido a EpicBattles");
-	}
-
-	public Imagen getImagenInfo()
-	{
-		return imagen;
+		this.getTexto().setText("Bienvenido a EpicBattles");
 	}
 
 	/**
@@ -86,11 +79,6 @@ class Info extends JPanel implements ActionListener
 		this.setLayout(new BorderLayout());
 		this.add(getDatos(), BorderLayout.CENTER);
 		this.add(getBotonera(), BorderLayout.SOUTH);
-	}
-	
-	public void setText(String text)
-	{
-		texto.setText(text);
 	}
 
 	/**
@@ -106,6 +94,7 @@ class Info extends JPanel implements ActionListener
 			texto.setEditable(false);
 			texto.setMargin(new Insets(5, 5, 5, 5));
 			texto.setBackground(this.getBackground());
+			partida.setTextoInfo(texto);
 		}
 		return texto;
 	}
@@ -135,11 +124,15 @@ class Info extends JPanel implements ActionListener
 	{
 		if (datos == null)
 		{
+			Imagen imagen = new Imagen();
+			
 			datos = new JPanel();
 			datos.setLayout(new BorderLayout());
 			datos.setBorder(LineBorder.createGrayLineBorder());
-			this.imagen = new Imagen();
+			
 			datos.add(imagen, BorderLayout.WEST);
+			partida.setImagenInfo(imagen);
+			
 			datos.add(getTexto(), BorderLayout.CENTER);
 		}
 		return datos;
@@ -173,14 +166,16 @@ class Info extends JPanel implements ActionListener
 class Chat extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1449740754230340465L;
+	private Partida partida = null;
 	private JTextArea chat = null;
 	private JPanel send = null;
 	private JButton sendButton = null;
 	private JTextField message = null;
 	
-	public Chat()
+	public Chat(Partida p)
 	{
 		super();
+		this.partida = p;
 		initialize();
 		getSendButton().addActionListener(this);
 	}
@@ -211,6 +206,7 @@ class Chat extends JPanel implements ActionListener
 			chat.setAutoscrolls(true);
 			chat.setEditable(false);
 			chat.setBorder(LineBorder.createGrayLineBorder());
+			partida.setChat(chat);
 		}
 		return chat;
 	}
@@ -257,6 +253,7 @@ class Chat extends JPanel implements ActionListener
 		if (message == null)
 		{
 			message = new JTextField();
+			partida.setMensajeChat(message);
 		}
 		return message;
 	}
@@ -284,7 +281,7 @@ public class ModoJuego extends JSplitPane
 		
 		if (red)
 		{
-			this.setBottomComponent(new Chat());
+			this.setBottomComponent(new Chat(partida));
 		}
 		else
 		{

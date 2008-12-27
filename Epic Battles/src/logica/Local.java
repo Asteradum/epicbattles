@@ -8,7 +8,7 @@ public class Local implements Oponente
 	}
 
 	@Override
-	public void decidir()
+	public void decidir(Partida p)
 	{
 	}
 }

@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import red.GestorSockets;
+
 import logica.Partida;
 import logica.Red;
 
@@ -18,6 +20,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -8513250153154802461L;
 	private Principal parent = null;
+	private GestorSockets gestor = null;
 	private Image image = null;
 	private JPanel botonera = null;
 	private JPanel sup = null;
@@ -32,6 +35,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		super();
 		this.parent = parent;
 		initialize();
+		this.gestor = new GestorSockets();
 		getBEmpezar().addActionListener(this);
 		getBCargar().addActionListener(this);
 		getBVolver().addActionListener(this);
@@ -60,8 +64,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getBEmpezar()))
 		{
-			new Partida(new Red());
-			parent.loadRootPanel(new ModoJuego(parent, true, new Partida(new Red())));
+			parent.loadRootPanel(new ModoJuego(parent, true, new Partida(new Red(gestor))));
 		}
 		else if (ae.getSource().equals(getBCargar()))
 		{

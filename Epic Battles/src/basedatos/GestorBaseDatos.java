@@ -31,7 +31,7 @@ public abstract class GestorBaseDatos
 		return conexion;
 	}
 	
-	public static Hashtable<Long,String> leerPartidas() throws SQLException
+	public static Hashtable<Long,String> leerPartidas(boolean red) throws SQLException
 	{
 		Connection conexion = cargar();
 		Hashtable<Long,String> partidas = new Hashtable<Long,String>();
@@ -39,7 +39,7 @@ public abstract class GestorBaseDatos
 		if (conexion != null)
 		{
 			Statement stmt = conexion.createStatement();
-			String query = "SELECT p.id_partida, p.fechahora, j1.nom_jugador,  j2.nom_jugador " +
+			String query = "SELECT p.id_partida, p.fechahora, j1.nom_jugador,  j2.nom_jugador, p.ip " +
 					"FROM Partida p, Jugador j1, Jugador j2 " +
 					"WHERE p.id_jug1 = j1.id_jugador AND p.id_jug2 = j2.id_jugador";
 			ResultSet rs = stmt.executeQuery(query);
@@ -54,7 +54,16 @@ public abstract class GestorBaseDatos
 				jug1 = rs.getString(3);
 				jug2 = rs.getString(4);
 				
-				partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
+				if (red)
+				{
+					if (rs.getString(5) != "")
+						partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
+				}
+				else
+				{
+					if (rs.getString(5) == "")
+						partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
+				}
 			}
 		}
 		else
@@ -74,12 +83,14 @@ public abstract class GestorBaseDatos
 		if (conexion != null)
 		{
 			Statement stmt = conexion.createStatement();
-			String query = "SELECT p.movimientos " +
+			String query = "SELECT p.movimientos, p.ip " +
 					"FROM Partida p " +
 					"WHERE p.id_partida = " + id.toString();
 			ResultSet rs = stmt.executeQuery(query);
 			
-			String[] movs = rs.getString("movimientos").split(",");
+			movimientos.add(rs.getString(2));
+			
+			String[] movs = rs.getString(1).split(",");
 			for (int i=0; i<movs.length; i++)
 			{
 				movimientos.add(movs[i]);
@@ -135,7 +146,7 @@ public abstract class GestorBaseDatos
 		}
 		else
 		{
-			throw new SQLException("No se puede guardar la partida");
+			throw new SQLException("No se puede borrar la partida");
 		}
 		
 		conexion.close();

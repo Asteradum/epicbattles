@@ -1,19 +1,30 @@
 package logica;
 
+import red.GestorSockets;
+
 public class Red extends Thread implements Oponente
 {
-	public Red()
+	private GestorSockets gestor = null;
+	
+	public Red(GestorSockets gs)
 	{
 		super();
+		this.gestor = gs;
 	}
-
-	@Override
-	public void decidir()
+	
+	/*public Red(String ip)
 	{
-	}
+		super();
+		this.gestor = new GestorSockets(ip);
+	}*/
 
 	@Override
 	public void run()
+	{
+	}
+
+	@Override
+	public void decidir(Partida p)
 	{
 	}
 }

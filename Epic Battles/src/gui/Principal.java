@@ -2,10 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -20,7 +18,7 @@ import javax.swing.border.LineBorder;
 public class Principal extends JFrame implements WindowListener
 {
 	private static final long serialVersionUID = -3006194651918420869L;
-	private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	//private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	private JPanel jContentPane = null;
 	private JComponent panel = null;
 	private JLabel help = null;
@@ -130,19 +128,14 @@ public class Principal extends JFrame implements WindowListener
 
 	@Override
 	public void windowActivated(WindowEvent e) { }
-
 	@Override
 	public void windowClosed(WindowEvent e) { }
-
 	@Override
 	public void windowDeactivated(WindowEvent e) { }
-
 	@Override
 	public void windowDeiconified(WindowEvent e) { }
-
 	@Override
 	public void windowIconified(WindowEvent e) { }
-
 	@Override
 	public void windowOpened(WindowEvent e) { }
 }

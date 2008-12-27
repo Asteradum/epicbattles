@@ -12,21 +12,28 @@ import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import logica.Local;
 import logica.Partida;
 import logica.Red;
 import logica.Tablero;
+import red.GestorSockets;
 import basedatos.GestorBaseDatos;
 
-public class ModoCargar extends JPanel implements ActionListener
+public class ModoCargar extends JPanel implements ActionListener, ListSelectionListener
 {
 	private static final long serialVersionUID = 467462451714083887L;
 	private Principal parent = null;
 	private boolean red = false;
 	private Vector<Long> ordenPartidas = null;
+	private Vector<String> movimientos = null;
+	private String ip = null;
+	private GestorSockets gestorSockets = null;
 	private JPanel lateral = null;
 	private JPanel botonera = null;
 	private JPanel grid = null;
@@ -45,6 +52,7 @@ public class ModoCargar extends JPanel implements ActionListener
 		getBCargar().addActionListener(this);
 		getBBorrar().addActionListener(this);
 		getBVolver().addActionListener(this);
+		getPartidas().addListSelectionListener(this);
 	}
 	
 	/**
@@ -172,17 +180,21 @@ public class ModoCargar extends JPanel implements ActionListener
 	{	
 		if (ae.getSource().equals(getBCargar()))
 		{
-			try
+			if (red)
 			{
-				Vector<String> movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
+				JDialog jd = new JDialog(parent, "Realizando la conexión", true)
+				{
+					private static final long serialVersionUID = -6891043435460362290L;
+					
+				};
+				jd.setVisible(true);
 				
-				tablero = new Tablero(movimientos);
-				parent.loadRootPanel(new ModoJuego(parent, red, new Partida(tablero, (red ? new Red() : new Local()))));
+				this.gestorSockets = new GestorSockets();
 			}
-			catch (SQLException sqle)
-			{
-				parent.setHelp(sqle.getMessage());
-			}
+			
+			this.tablero = new Tablero(movimientos);
+			
+			parent.loadRootPanel(new ModoJuego(parent, red, new Partida(tablero, (red ? new Red(gestorSockets) : new Local()))));
 		}
 		else if (ae.getSource().equals(getBBorrar()))
 		{
@@ -229,16 +241,13 @@ public class ModoCargar extends JPanel implements ActionListener
 			try
 			{
 				ordenPartidas = new Vector<Long>();
-				tablaPartidas = GestorBaseDatos.leerPartidas();
+				tablaPartidas = GestorBaseDatos.leerPartidas(red);
 				
 				for (Entry<Long, String> hs: tablaPartidas.entrySet())
 				{
 					model.addElement(hs.getValue());
 					ordenPartidas.add(hs.getKey());
 				}
-				
-				this.getBCargar().setEnabled(true);
-				this.getBBorrar().setEnabled(true);
 			}
 			catch (SQLException sqle)
 			{
@@ -247,5 +256,26 @@ public class ModoCargar extends JPanel implements ActionListener
 			}
 		}
 		return partidas;
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent lse)
+	{
+		try
+		{
+			movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
+			this.ip = movimientos.get(0);
+			this.movimientos.remove(0);
+			this.tablero = new Tablero(movimientos);
+			
+			this.getBCargar().setEnabled(true);
+			this.getBBorrar().setEnabled(true);
+		}
+		catch (SQLException sqle)
+		{
+			parent.setHelp(sqle.getMessage());
+		}
+		this.getBCargar().setEnabled(true);
+		this.getBBorrar().setEnabled(true);
 	}
 }
