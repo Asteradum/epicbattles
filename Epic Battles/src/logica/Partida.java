@@ -3,12 +3,15 @@ package logica;
 import graficos.Imagen;
 import gui.Principal;
 
+import java.awt.ActiveEvent;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Partida extends Thread
+public class Partida extends Thread implements ActionListener
 {
 	private Oponente oponente = null;
 	private Tablero tablero = null;
@@ -28,7 +31,7 @@ public class Partida extends Thread
 		}
 		catch (Exception e)
 		{
-			p.setHelp(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		this.oponente = op;
@@ -82,5 +85,10 @@ public class Partida extends Thread
 	public void setMensajeChat(JTextField m)
 	{
 		this.mensaje = m;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent ae)
+	{
 	}
 }

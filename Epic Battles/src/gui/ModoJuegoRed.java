@@ -64,9 +64,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getBEmpezar()))
 		{
-			Partida p = new Partida(parent, new Red(gestor));
-			
-			parent.loadRootPanel(new ModoJuego(parent, true, p));
+			parent.loadRootPanel(new ModoJuego(parent, true, new Partida(parent, new Red(gestor))));
 		}
 		else if (ae.getSource().equals(getBCargar()))
 		{

@@ -54,7 +54,7 @@ public abstract class Pieza
 	
 	public Image getImagen(boolean color)
 	{
-		if (color)
+		if (color == Pieza.BLANCAS)
 		{
 			return this.blanca;
 		}
