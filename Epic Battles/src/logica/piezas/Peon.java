@@ -7,6 +7,11 @@ public class Peon extends Pieza
 {
 	private static final long serialVersionUID = -5218659293609981905L;
 
+	public Peon() throws Exception
+	{
+		super();
+	}
+	
 	@Override
 	public int getTipo()
 	{
@@ -16,7 +21,7 @@ public class Peon extends Pieza
 	@Override
 	public String getNombre()
 	{
-		return "Peón";
+		return "Peon";
 	}
 
 	@Override

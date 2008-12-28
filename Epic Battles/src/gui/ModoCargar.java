@@ -63,7 +63,6 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
-		tablero = new Tablero();
 		this.add(tablero.getEscenario(), BorderLayout.CENTER);
 		this.add(getLateral(), BorderLayout.EAST);
 	}
@@ -192,9 +191,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 				this.gestorSockets = new GestorSockets();
 			}
 			
-			this.tablero = new Tablero(movimientos);
-			
-			parent.loadRootPanel(new ModoJuego(parent, red, new Partida(tablero, (red ? new Red(gestorSockets) : new Local()))));
+			parent.loadRootPanel(new ModoJuego(parent, red, new Partida(parent, tablero, (red ? new Red(gestorSockets) : new Local()))));
 		}
 		else if (ae.getSource().equals(getBBorrar()))
 		{
@@ -275,6 +272,11 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		{
 			parent.setHelp(sqle.getMessage());
 		}
+		catch (Exception e)
+		{
+			parent.setHelp(e.getMessage());
+		}
+		
 		this.getBCargar().setEnabled(true);
 		this.getBBorrar().setEnabled(true);
 	}

@@ -6,7 +6,12 @@ import java.util.Vector;
 public class Alfil extends Pieza
 {
 	private static final long serialVersionUID = 1646351736441866648L;
-
+	
+	public Alfil() throws Exception
+	{
+		super();
+	}
+	
 	@Override
 	public int getTipo()
 	{

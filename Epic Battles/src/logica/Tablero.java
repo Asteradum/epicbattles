@@ -13,14 +13,14 @@ import logica.piezas.Reina;
 import logica.piezas.Rey;
 import logica.piezas.Torre;
 
-public class Tablero implements Runnable
+public class Tablero
 {
 	private static final long serialVersionUID = -8743924243868541721L;
 	private Vector<String> movimientos = null;
 	private Escenario escenario = null;
 	private Casilla[][] casillas = null;
 	
-	public Tablero()
+	public Tablero() throws Exception
 	{
 		super();
 		this.escenario = new Escenario();
@@ -29,7 +29,7 @@ public class Tablero implements Runnable
 		this.movimientos = new Vector<String>(10, 10);
 	}
 	
-	public Tablero(Vector<String> movs)
+	public Tablero(Vector<String> movs) throws Exception
 	{
 		super();
 		this.escenario = new Escenario();
@@ -42,13 +42,12 @@ public class Tablero implements Runnable
 		}
 	}
 	
-	private void generarTablero()
+	private void generarTablero() throws Exception
 	{
 		/* Casillas vacías */
 		for (int i=2; i<6; i++)
 			for (int j=0; j<8; j++)
-				casillas[i][j] = new Casilla();
-		
+				casillas[i][j].setCasilla(null, true, i, j);
 		
 		/* Peones */
 		for (int i=0; i<8; i++)
@@ -87,7 +86,7 @@ public class Tablero implements Runnable
 		casillas[7][4].setCasilla(new Rey(), false, 7, 4);
 	}
 	
-	private boolean esJaque(boolean color)
+	private boolean esJaque(boolean color) throws Exception
 	{
 		boolean jaque = false;
 		int i=0, j=0;
@@ -221,10 +220,5 @@ public class Tablero implements Runnable
 	public Escenario getEscenario()
 	{
 		return escenario;
-	}
-
-	@Override
-	public void run()
-	{
 	}
 }

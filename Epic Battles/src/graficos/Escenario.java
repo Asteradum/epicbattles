@@ -58,7 +58,7 @@ public class Escenario extends JPanel
 	 *
 	 * @return javax.swing.JPanel
 	 */
-	private JPanel getTablero()
+	public JPanel getTablero()
 	{
 		if (tablero == null)
 		{

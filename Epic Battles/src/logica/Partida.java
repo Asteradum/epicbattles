@@ -1,6 +1,7 @@
 package logica;
 
 import graficos.Imagen;
+import gui.Principal;
 
 import java.awt.Component;
 
@@ -17,15 +18,24 @@ public class Partida extends Thread
 	private JTextField mensaje = null;
 	private boolean fin = false;
 	
-	public Partida(Oponente op)
+	public Partida(Principal p, Oponente op)
 	{
 		super();
-		this.tablero = new Tablero();
+		
+		try
+		{
+			this.tablero = new Tablero();
+		}
+		catch (Exception e)
+		{
+			p.setHelp(e.getMessage());
+		}
+		
 		this.oponente = op;
 		this.start();
 	}
 	
-	public Partida(Tablero t, Oponente op)
+	public Partida(Principal p, Tablero t, Oponente op)
 	{
 		super();
 		this.tablero = t;

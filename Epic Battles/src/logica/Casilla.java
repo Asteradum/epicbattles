@@ -23,6 +23,8 @@ public class Casilla extends Sprite
 		this.color = color;
 		this.x = x;
 		this.y = y;
+		//this.imagen = p.getImagen(color);
+		this.repaint();
 	}
 
 	public Pieza getPieza()
@@ -47,5 +49,11 @@ public class Casilla extends Sprite
 		super.paint(g);
 		if (imagen != null)
 			g.drawImage(imagen, 0,0,this.getWidth(),this.getHeight(),this);
+	}
+
+	public void actualizarImagen()
+	{
+		this.imagen = this.pieza.getImagen(this.color);
+		this.repaint();
 	}
 }

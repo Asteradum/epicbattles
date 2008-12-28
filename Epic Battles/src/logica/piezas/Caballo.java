@@ -6,7 +6,12 @@ import java.util.Vector;
 public class Caballo extends Pieza
 {
 	private static final long serialVersionUID = 3449768679721979235L;
-
+	
+	public Caballo() throws Exception
+	{
+		super();
+	}
+	
 	@Override
 	public int getTipo()
 	{
