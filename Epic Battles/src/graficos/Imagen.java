@@ -30,7 +30,7 @@ public class Imagen extends Canvas
 		
 		if (image != null)
 		{
-			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+			g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
 		else
 		{

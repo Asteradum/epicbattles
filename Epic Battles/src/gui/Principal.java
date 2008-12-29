@@ -32,6 +32,7 @@ public class Principal extends JFrame implements WindowListener
 		this.setSize(730, 585);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
+		this.setLocationRelativeTo(null);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package logica.piezas;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
@@ -19,31 +20,33 @@ public abstract class Pieza
 	public static final int REINA = 9;
 	public static final int REY = 10;
 	
-	protected Image blanca;
-	protected Image negra;
+	protected Image blanca = null;
+	protected Image negra = null;
 
 	public Pieza() throws Exception
 	{
 		super();
 		
-		try
+		if (blanca == null || negra == null)
 		{
-			this.blanca = ImageIO.read(new File("imagenes/Blanco" + this.getNombre() + ".png"));
+			try
+			{
+				this.blanca = ImageIO.read(new File("imagenes/piezas/Blanco" + this.getNombre() + ".png"));
+			}
+			catch (IOException e)
+			{
+				throw new Exception("No se ha encontrado " + this.getNombre() + " blanco");
+			}
+			
+			try
+			{
+				this.negra = ImageIO.read(new File("imagenes/piezas/Negro" + this.getNombre() + ".png"));
+			}
+			catch (IOException e)
+			{
+				throw new Exception("No se ha encontrado " + this.getNombre() + " negro");
+			}
 		}
-		catch (IOException e)
-		{
-			throw new Exception("No se ha encontrado " + this.getNombre() + " blanco");
-		}
-		
-		try
-		{
-			this.negra = ImageIO.read(new File("imagenes/Negro" + this.getNombre() + ".png"));
-		}
-		catch (IOException e)
-		{
-			throw new Exception("No se ha encontrado " + this.getNombre() + " negro");
-		}
-		
 	}
 	
 	public abstract int getTipo();

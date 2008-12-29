@@ -1,9 +1,9 @@
 package logica;
 
+import graficos.Escenario;
 import graficos.Imagen;
 import gui.Principal;
 
-import java.awt.ActiveEvent;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,8 +37,8 @@ public class Partida extends Thread implements ActionListener, MouseListener
 		}
 		
 		this.oponente = op;
-		this.start();
 		this.tablero.dameListeners(this);
+		this.start();
 	}
 	
 	public Partida(Principal p, Tablero t, Oponente op)
@@ -65,7 +65,7 @@ public class Partida extends Thread implements ActionListener, MouseListener
 		fin = true;
 	}
 	
-	public Component getEscenario()
+	public Escenario getEscenario()
 	{
 		return tablero.getEscenario();
 	}
@@ -96,22 +96,21 @@ public class Partida extends Thread implements ActionListener, MouseListener
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) 
+	public void mouseClicked(MouseEvent me) 
 	{
-		
-		
-		if (e.getSource() instanceof Casilla)
+		if (me.getSource() instanceof Casilla)
 		{
+			Casilla casillaPulsada = (Casilla)me.getSource();
 			
-			Casilla casillaPulsada= (Casilla)e.getSource();
-			if (casillaPulsada.isMarcado())
+			if (casillaPulsada.esMarcada())
 			{
-				this.tablero.mover(casillaPulsada);
+				//this.tablero.mover(casillaPulsada);
 			}
 			else
 			{
 				this.tablero.limpiarPosibles();
-				if (casillaPulsada.getPieza()!=null)
+				
+				if (casillaPulsada.getPieza() != null)
 					this.tablero.posibles(casillaPulsada);
 			}
 		}
@@ -120,26 +119,11 @@ public class Partida extends Thread implements ActionListener, MouseListener
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseEntered(MouseEvent e) { }
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseExited(MouseEvent e) { }
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mousePressed(MouseEvent e) { }
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent e) { }
 }
