@@ -7,11 +7,13 @@ import java.awt.ActiveEvent;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Partida extends Thread implements ActionListener
+public class Partida extends Thread implements ActionListener, MouseListener
 {
 	private Oponente oponente = null;
 	private Tablero tablero = null;
@@ -36,6 +38,7 @@ public class Partida extends Thread implements ActionListener
 		
 		this.oponente = op;
 		this.start();
+		this.tablero.dameListeners(this);
 	}
 	
 	public Partida(Principal p, Tablero t, Oponente op)
@@ -90,5 +93,53 @@ public class Partida extends Thread implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) 
+	{
+		
+		
+		if (e.getSource() instanceof Casilla)
+		{
+			
+			Casilla casillaPulsada= (Casilla)e.getSource();
+			if (casillaPulsada.isMarcado())
+			{
+				this.tablero.mover(casillaPulsada);
+			}
+			else
+			{
+				this.tablero.limpiarPosibles();
+				if (casillaPulsada.getPieza()!=null)
+					this.tablero.posibles(casillaPulsada);
+			}
+		}
+		else this.tablero.limpiarPosibles();
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

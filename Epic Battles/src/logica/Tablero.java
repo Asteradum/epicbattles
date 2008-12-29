@@ -3,6 +3,8 @@ package logica;
 import graficos.Escenario;
 
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import logica.piezas.Alfil;
@@ -114,7 +116,7 @@ public class Tablero
 		
 	}
 	
-	public boolean mover(String mov)
+	public boolean mover(Casilla c)
 	{
 		return false;
 		
@@ -131,7 +133,7 @@ public class Tablero
 		return posible;
 	}*/
 	
-	private Vector<Point> posibles(Casilla c)
+	public void posibles(Casilla c)
 	{
 		Casilla test = null;
 		Vector<Point> puntos = new Vector<Point>();
@@ -181,7 +183,6 @@ public class Tablero
 				break;
 		}
 		
-		return puntos;
 	}
 	
 	public Point[] showMoves(Point p)
@@ -220,5 +221,20 @@ public class Tablero
 	public Escenario getEscenario()
 	{
 		return escenario;
+	}
+
+	
+	public void dameListeners(Partida p) 
+	{
+		for(int i=0;i<8;i++)
+			for(int j=0;j<8;j++)
+				casillas[i][j].addMouseListener(p);
+	}
+	
+	public void limpiarPosibles()
+	{
+		for(int i=0;i<8;i++)
+			for(int j=0;j<8;j++)
+				casillas[i][j].actualizarImagen(false);
 	}
 }

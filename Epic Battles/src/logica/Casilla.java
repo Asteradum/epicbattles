@@ -1,7 +1,12 @@
 package logica;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import graficos.Sprite;
 import logica.piezas.Pieza;
@@ -11,10 +16,13 @@ public class Casilla extends Sprite
 	private static final long serialVersionUID = 2663916697888476162L;
 	private Pieza pieza = null;
 	private boolean color = true;
+	private Image borde= null;
+	
 	
 	public Casilla()
 	{
 		super();
+		
 	}
 	
 	public void setCasilla(Pieza p, boolean color, int x, int y)
@@ -58,4 +66,6 @@ public class Casilla extends Sprite
 			repaint();
 		}
 	}
+
+
 }
