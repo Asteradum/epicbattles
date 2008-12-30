@@ -176,7 +176,14 @@ public class ModoJuegoLocal extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getBEmpezar()))
 		{
-			parent.loadRootPanel(new ModoJuego(parent, false, new Partida(parent, new Local())));
+			try
+			{
+				parent.loadRootPanel(new ModoJuego(parent, false, new Partida(parent, new Local())));
+			}
+			catch (Exception e)
+			{
+				parent.setHelp(e.getMessage());
+			}
 		}
 		else if (ae.getSource().equals(getBCargar()))
 		{

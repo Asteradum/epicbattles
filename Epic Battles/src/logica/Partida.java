@@ -21,20 +21,12 @@ public class Partida extends Thread implements ActionListener, MouseListener
 	private JTextArea chat = null;
 	private JTextField mensaje = null;
 	private boolean fin = false;
+	private Casilla casillaSelec = null;
 	
-	public Partida(Principal p, Oponente op)
+	public Partida(Principal p, Oponente op) throws Exception
 	{
 		super();
-		
-		try
-		{
-			this.tablero = new Tablero();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
+		this.tablero = new Tablero();
 		this.oponente = op;
 		this.tablero.dameListeners(this);
 		this.start();
@@ -103,18 +95,21 @@ public class Partida extends Thread implements ActionListener, MouseListener
 			
 			if (casillaPulsada.esMarcada())
 			{
-				//this.tablero.mover(casillaPulsada);
+				this.tablero.mover(casillaSelec, casillaPulsada);
+				this.tablero.limpiarPosibles();
 			}
 			else
 			{
 				this.tablero.limpiarPosibles();
 				
 				if (casillaPulsada.getPieza() != null)
+				{
 					this.tablero.posibles(casillaPulsada);
+					this.casillaSelec = casillaPulsada;
+				}
 			}
 		}
-		else this.tablero.limpiarPosibles();
-		
+		//else this.tablero.limpiarPosibles();
 	}
 
 	@Override

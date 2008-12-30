@@ -114,10 +114,30 @@ public class Tablero
 		
 	}
 	
-	public boolean mover(String mov)
+	private void mover(String mov)
 	{
-		return false;
+		char[] letras = mov.toCharArray();
+		Casilla ini = casillas[Integer.valueOf(letras[1])][Integer.valueOf(letras[0]-97)];
+		Casilla fin = casillas[Integer.valueOf(letras[4])][Integer.valueOf(letras[3]-97)];
 		
+		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
+		ini.setCasilla(null, true, ini.x, ini.y);
+	}
+	
+	public void mover(Casilla ini, Casilla fin)
+	{
+		movimientos.add
+		(
+			String.valueOf((char)(ini.y+97)) +
+			ini.x +
+			(fin.getPieza() == null ? "-" : "x") +
+			String.valueOf((char)(fin.y+97)) +
+			fin.x +
+			","
+		);
+		
+		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
+		ini.setCasilla(null, true, ini.x, ini.y);
 	}
 	
 	/*public boolean makeMove(String mov)
@@ -174,6 +194,7 @@ public class Tablero
 					}
 					else
 					{
+						cs.actualizarImagen(true);
 						i++;
 					}
 				}
