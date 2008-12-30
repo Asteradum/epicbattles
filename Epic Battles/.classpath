@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Alberto/Escritorio/java/Epic Battles/swingx-2008_12_28.jar" sourcepath="swingx-2008_12_28.jar"/>
+	<classpathentry kind="lib" path="/Epic Battles/swingx-2008_12_28.jar" sourcepath="swingx-2008_12_28.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
