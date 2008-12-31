@@ -12,7 +12,9 @@ import java.awt.event.MouseListener;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Partida extends Thread implements ActionListener, MouseListener
+import logica.piezas.Pieza;
+
+public class Partida implements ActionListener, MouseListener
 {
 	private Oponente oponente = null;
 	private Tablero tablero = null;
@@ -22,6 +24,7 @@ public class Partida extends Thread implements ActionListener, MouseListener
 	private JTextField mensaje = null;
 	private boolean fin = false;
 	private Casilla casillaSelec = null;
+	private boolean turno = Pieza.BLANCAS;
 	
 	public Partida(Principal p, Oponente op) throws Exception
 	{
@@ -29,7 +32,7 @@ public class Partida extends Thread implements ActionListener, MouseListener
 		this.tablero = new Tablero();
 		this.oponente = op;
 		this.tablero.dameListeners(this);
-		this.start();
+		this.tablero.girarTablero();
 	}
 	
 	public Partida(Principal p, Tablero t, Oponente op)
@@ -37,10 +40,9 @@ public class Partida extends Thread implements ActionListener, MouseListener
 		super();
 		this.tablero = t;
 		this.oponente = op;
-		this.start();
 	}
 
-	@Override
+	/*@Override
 	public void run()
 	{
 		while (imagenInfo == null || textoInfo == null || chat == null || mensaje == null);
@@ -49,7 +51,7 @@ public class Partida extends Thread implements ActionListener, MouseListener
 		{
 			
 		}
-	}
+	}*/
 	
 	public void terminar()
 	{
@@ -97,19 +99,21 @@ public class Partida extends Thread implements ActionListener, MouseListener
 			{
 				this.tablero.mover(casillaSelec, casillaPulsada);
 				this.tablero.limpiarPosibles();
+				turno = !turno;
+				//tablero.girarTablero();
 			}
 			else
 			{
 				this.tablero.limpiarPosibles();
 				
-				if (casillaPulsada.getPieza() != null)
+				if (casillaPulsada.getPieza() != null && casillaPulsada.getColor() == turno)
 				{
-					this.tablero.posibles(casillaPulsada);
+					this.tablero.setSeleccionada(casillaPulsada);
+					this.tablero.dibujarPosibles(casillaPulsada);
 					this.casillaSelec = casillaPulsada;
 				}
 			}
 		}
-		//else this.tablero.limpiarPosibles();
 	}
 
 	@Override

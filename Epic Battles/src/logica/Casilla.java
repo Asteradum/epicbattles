@@ -15,11 +15,18 @@ import org.jdesktop.swingx.image.ColorTintFilter;
 public class Casilla extends Sprite
 {
 	private static final long serialVersionUID = 2663916697888476162L;
+	private static final ColorTintFilter filtroMarcada = new ColorTintFilter(Color.red, 0.5f);
+	private static final ColorTintFilter filtroSeleccionada = new ColorTintFilter(Color.blue, 0.5f);
+	private static BufferedImage cache = null;
+	
+	public static final int INACTIVA = 0;
+	public static final int MARCADA = 1;
+	public static final int SELECCIONADA = 2;
+	
 	private Pieza pieza = null;
 	private boolean color = true;
 	private boolean marcada = false;
-	private static final ColorTintFilter filtro = new ColorTintFilter(Color.red, 0.5f);
-	private static BufferedImage cache = null;
+	private boolean seleccionada  = false;
 	
 	public Casilla()
 	{
@@ -60,7 +67,12 @@ public class Casilla extends Sprite
 		{
 			if (marcada)
 			{
-				filtro.filter((BufferedImage) imagen, cache);
+				filtroMarcada.filter((BufferedImage) imagen, cache);
+				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
+			}
+			else if (seleccionada)
+			{
+				filtroSeleccionada.filter((BufferedImage) imagen, cache);
 				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 			else
@@ -73,23 +85,24 @@ public class Casilla extends Sprite
 			if (marcada)
 			{
 				int mid = this.getWidth()/2;
-				int tam = this.getWidth()/8;
+				int tam = this.getWidth()/7;
 				
 				if (g.getColor().getRed() == 51)
 				{
-					g.setColor(new Color(142, 148, 219));
+					g.setColor(new Color(112, 119, 209));
 				}
 				
-				g.drawOval(mid - tam/2, mid - tam/2, tam, tam);
+				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
 		}
 	}
 
-	private void actualizarImagen() { actualizarImagen(false); }
+	private void actualizarImagen() { actualizarImagen(Casilla.INACTIVA); }
 	
-	public void actualizarImagen(boolean marcada)
+	public void actualizarImagen(int modo)
 	{
-		this.marcada = marcada;
+		this.marcada = (modo == Casilla.MARCADA ? true : false);
+		this.seleccionada = (modo == Casilla.SELECCIONADA ? true : false);
 		
 		if (pieza != null)
 		{

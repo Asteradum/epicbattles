@@ -78,12 +78,12 @@ public class Tablero
 		}
 		
 		/* Reinas */
-		casillas[0][3].setCasilla(new Reina(), true, 0, 3);
-		casillas[7][3].setCasilla(new Reina(), false, 7, 3);
+		casillas[0][4].setCasilla(new Reina(), true, 0, 4);
+		casillas[7][4].setCasilla(new Reina(), false, 7, 4);
 		
 		/* Reyes */
-		casillas[0][4].setCasilla(new Rey(), true, 0, 4);
-		casillas[7][4].setCasilla(new Rey(), false, 7, 4);
+		casillas[0][3].setCasilla(new Rey(), true, 0, 3);
+		casillas[7][3].setCasilla(new Rey(), false, 7, 3);
 	}
 	
 	private boolean esJaque(boolean color) throws Exception
@@ -151,7 +151,7 @@ public class Tablero
 		return posible;
 	}*/
 	
-	public Vector<Point> posibles(Casilla c)
+	private Vector<Point> posibles(Casilla c)
 	{
 		Casilla test = null;
 		Vector<Point> puntos = new Vector<Point>();
@@ -194,7 +194,6 @@ public class Tablero
 					}
 					else
 					{
-						cs.actualizarImagen(true);
 						i++;
 					}
 				}
@@ -203,6 +202,17 @@ public class Tablero
 		}
 		
 		return puntos;
+	}
+	
+	public void dibujarPosibles(Casilla c)
+	{
+		Casilla cs;
+		
+		for (Point p: posibles(c))
+		{
+			cs = casillas[p.x][p.y];
+			cs.actualizarImagen(Casilla.MARCADA);
+		}
 	}
 	
 	private Casilla buscarPieza(Pieza p, boolean color)
@@ -249,6 +259,20 @@ public class Tablero
 	{
 		for (int i=0; i<8; i++)
 			for (int j=0; j<8; j++)
-				casillas[i][j].actualizarImagen(false);
+				casillas[i][j].actualizarImagen(Casilla.INACTIVA);
+	}
+	
+	public void setSeleccionada(Casilla c)
+	{
+		c.actualizarImagen(Casilla.SELECCIONADA);
+	}
+	
+	public void girarTablero()
+	{
+		for (int i=0; i<8; i++)
+			for (int j=0; j<8; j++)
+			{
+				escenario.getTablero().add(casillas[7-i][7-j], 8*i+j);
+			}
 	}
 }
