@@ -5,6 +5,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -24,6 +27,8 @@ import logica.Red;
 import logica.Tablero;
 import red.GestorSockets;
 import basedatos.GestorBaseDatos;
+
+import sun.audio.*;
 
 public class ModoCargar extends JPanel implements ActionListener, ListSelectionListener
 {
@@ -200,11 +205,20 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 			
 			try
 			{
+				AudioPlayer.player.start(new AudioStream(new FileInputStream("sonidos/erased.wav")));
 				GestorBaseDatos.borrarPartida(ordenPartidas.get(index));
 			}
 			catch (SQLException sqle)
 			{
 				sqle.printStackTrace();
+			}
+			catch (FileNotFoundException fnfe)
+			{
+				fnfe.printStackTrace();
+			}
+			catch (IOException ioe)
+			{
+				ioe.printStackTrace();
 			}
 			
 			model.remove(index);

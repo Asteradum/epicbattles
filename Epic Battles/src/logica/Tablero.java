@@ -153,62 +153,100 @@ public class Tablero
 	
 	private Vector<Point> posibles(Casilla c)
 	{
-		Casilla test = null;
-		Vector<Point> puntos = new Vector<Point>();
+		Vector<Point> puntos;
+		Casilla casTest;
 		
 		switch (c.getPieza().getTipo())
 		{
+			/* Los movimientos del peon dependen mucho de la situación otras piezas */
 			case Pieza.PEON:
 				int sentido = (c.getColor() ? 1 : -1);
+				Point test = new Point(c.x+sentido, c.y);
 				
-				if (casillas[c.x+sentido][c.y].getPieza() == null && c.x+sentido >= 0 && c.x+sentido < 8)
-					puntos.add(new Point(c.x+sentido, c.y));
+				puntos = new Vector<Point>();
+				casTest = casillas[test.x][test.y];
 				
-				if (casillas[c.x+sentido*2][c.y].getPieza() == null && c.x+sentido*2 >= 0 && c.x+sentido*2 < 8)
-					puntos.add(new Point(c.x+sentido*2, c.y));
-				
-				for (int i=-1; i<2; i+=2)
+				if (test.x >= 0 && test.x < 8 && casTest.getPieza() == null)
 				{
-					test = casillas[c.x+sentido][c.y+i];
+					puntos.add(test);
 					
-					if (test.getPieza() != null)
+					test = new Point(c.x+sentido*2, c.y);
+					casTest = casillas[test.x][test.y];
+					if (c.x == (c.getColor() ? 1 : 6) && casTest.getPieza() == null)
 					{
-						if (test.getColor() != c.getColor())
-							puntos.add(new Point(c.x+sentido, c.y+i));
+						puntos.add(test);
+					}
+				}
+				
+				test = new Point(c.x+sentido, c.y+1);
+				if (test.x >= 0 && test.x < 8)
+				{
+					if (test.y < 8)
+					{
+						casTest = casillas[test.x][test.y];
+						
+						if (casTest.getPieza() != null && casTest.getColor() != c.getColor())
+							puntos.add(test);
+					}
+					
+					test = new Point(c.x+sentido, c.y-1);
+					if (test.y >= 0)
+					{
+						casTest = casillas[test.x][test.y];
+						
+						if (casTest.getPieza() != null && casTest.getColor() != c.getColor())
+							puntos.add(test);
 					}
 				}
 				
 				break;
 			
 			default:
-				puntos = c.getPieza().getPosibles(c.getLocation());
-				Casilla cs;
+				puntos = c.getPieza().getPosibles(c.getPosicion());
+				break;
+		}
+		
+		/* Quitar puntos invalidos */
+		for (int i=0; i<puntos.size();i++)
+		{
+			casTest = casillas[puntos.get(i).x][puntos.get(i).y];
 			
-				for (int i=0; i<puntos.size();)
+			if (casTest.getPieza() != null && casTest.getColor() == c.getColor())
+					puntos.remove(i--);
+			
+			else
+			{
+				int tipo = c.getPieza().getTipo();
+				
+				if (i>0 && tipo == Pieza.ALFIL && tipo == Pieza.TORRE && tipo == Pieza.REINA)
 				{
-					cs = casillas[puntos.get(i).x][puntos.get(i).y];
-					
-					if (cs.getPieza() != null && cs.getColor() == c.getColor())
+					if (puntos.get(i).distance(puntos.get(i-1)) > 1)
 					{
-						puntos.remove(i);
-					}
-					else
-					{
-						i++;
+						int oldX = puntos.get(i-1).x;
+						int oldY = puntos.get(i-1).y;
+						int newX = puntos.get(i).x;
+						int newY = puntos.get(i).y;
+						
+						if (oldX == newX || oldY == newY || oldY == 0 || newY == 0)
+						{
+								puntos.remove(i--);
+						}
+						else if (oldX/oldY == newX/newY)
+							puntos.remove(i--);
 					}
 				}
-				
-				break;
+			}
 		}
 		
 		return puntos;
 	}
 	
-	public void dibujarPosibles(Casilla c)
+	public void marcarPosibles(Casilla c)
 	{
 		Casilla cs;
+		Vector<Point> puntos = posibles(c);
 		
-		for (Point p: posibles(c))
+		for (Point p: puntos)
 		{
 			cs = casillas[p.x][p.y];
 			cs.actualizarImagen(Casilla.MARCADA);

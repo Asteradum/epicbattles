@@ -27,13 +27,14 @@ public class Alfil extends Pieza
 	@Override
 	public Vector<Point> getPosibles(Point p)
 	{
-		boolean fin = false;
+		boolean fin;
 		int calcX, calcY, k;
 		Vector<Point> puntos = new Vector<Point>();
 		
 		for (int i=-1; i<2; i+=2)
 			for (int j=-1; j<2; j+=2)
 			{
+				fin = false;
 				k = 1;
 				calcX = p.x+i*k;
 				calcY = p.y+j*k;

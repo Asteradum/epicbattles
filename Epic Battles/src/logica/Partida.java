@@ -97,20 +97,20 @@ public class Partida implements ActionListener, MouseListener
 			
 			if (casillaPulsada.esMarcada())
 			{
-				this.tablero.mover(casillaSelec, casillaPulsada);
-				this.tablero.limpiarPosibles();
+				tablero.mover(casillaSelec, casillaPulsada);
+				tablero.limpiarPosibles();
 				turno = !turno;
 				//tablero.girarTablero();
 			}
 			else
 			{
-				this.tablero.limpiarPosibles();
+				tablero.limpiarPosibles();
 				
 				if (casillaPulsada.getPieza() != null && casillaPulsada.getColor() == turno)
 				{
-					this.tablero.setSeleccionada(casillaPulsada);
-					this.tablero.dibujarPosibles(casillaPulsada);
-					this.casillaSelec = casillaPulsada;
+					tablero.setSeleccionada(casillaPulsada);
+					tablero.marcarPosibles(casillaPulsada);
+					casillaSelec = casillaPulsada;
 				}
 			}
 		}

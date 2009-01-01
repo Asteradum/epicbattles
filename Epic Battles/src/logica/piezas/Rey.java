@@ -36,7 +36,7 @@ public class Rey extends Pieza
 				calcX = p.x+i;
 				calcY = p.y+j;
 				
-				if (i!=0 && j!=0 && calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
+				if ((i!=0 || j!=0) && calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
 				{
 					puntos.add(new Point(calcX, calcY));
 				}

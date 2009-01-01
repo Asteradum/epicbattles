@@ -52,8 +52,7 @@ public class Casilla extends Sprite
 		return color;
 	}
 	
-	@Override
-	public Point getLocation()
+	public Point getPosicion()
 	{
 		return new Point(this.x, this.y);
 	}
