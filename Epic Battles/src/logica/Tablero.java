@@ -90,7 +90,7 @@ public class Tablero
 	{
 		boolean jaque = false;
 		int i=0, j=0;
-		Casilla rey = buscarPieza(new Rey(), color), c = null;
+		Casilla rey = buscarRey(color), c = null;
 		
 		while (!jaque && i<8)
 		{
@@ -124,7 +124,7 @@ public class Tablero
 		ini.setCasilla(null, true, ini.x, ini.y);
 	}
 	
-	public void mover(Casilla ini, Casilla fin)
+	public boolean mover(Casilla ini, Casilla fin)
 	{
 		movimientos.add
 		(
@@ -132,12 +132,14 @@ public class Tablero
 			ini.x +
 			(fin.getPieza() == null ? "-" : "x") +
 			String.valueOf((char)(fin.y+97)) +
-			fin.x +
-			","
+			fin.x
 		);
 		
 		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
 		ini.setCasilla(null, true, ini.x, ini.y);
+		
+		/* Condición de jaque mate enemigo */
+		return false;
 	}
 	
 	/*public boolean makeMove(String mov)
@@ -164,23 +166,27 @@ public class Tablero
 				Point test = new Point(c.x+sentido, c.y);
 				
 				puntos = new Vector<Point>();
-				casTest = casillas[test.x][test.y];
 				
-				if (test.x >= 0 && test.x < 8 && casTest.getPieza() == null)
-				{
-					puntos.add(test);
-					
-					test = new Point(c.x+sentido*2, c.y);
-					casTest = casillas[test.x][test.y];
-					if (c.x == (c.getColor() ? 1 : 6) && casTest.getPieza() == null)
-					{
-						puntos.add(test);
-					}
-				}
-				
-				test = new Point(c.x+sentido, c.y+1);
 				if (test.x >= 0 && test.x < 8)
 				{
+					casTest = casillas[test.x][test.y];
+					
+					if (casTest.getPieza() == null)
+					{
+						puntos.add(test);
+						test = new Point(c.x+sentido*2, c.y);
+						
+						if (test.x >= 0 && test.x < 8)
+						{
+							casTest = casillas[test.x][test.y];
+							if (c.x == (c.getColor() ? 1 : 6) && casTest.getPieza() == null)
+							{
+								puntos.add(test);
+							}
+						}
+					}
+					
+					test = new Point(c.x+sentido, c.y+1);
 					if (test.y < 8)
 					{
 						casTest = casillas[test.x][test.y];
@@ -206,36 +212,47 @@ public class Tablero
 				break;
 		}
 		
-		/* Quitar puntos invalidos */
+		/* Quitar posiciones bloqueadas */
+		int tipo = c.getPieza().getTipo();
+		
+		if (tipo == Pieza.ALFIL || tipo == Pieza.TORRE || tipo == Pieza.REINA)
+		{
+			int prevX = puntos.get(0).x;
+			int prevY = puntos.get(0).y;
+			int thisX, thisY, deltaBCx, deltaBCy, deltaABx, deltaABy;
+			
+			for (int i=1; i<puntos.size(); i++)
+			{
+				thisX = puntos.get(i).x;
+				thisY = puntos.get(i).y;
+				deltaBCx = thisX - prevX;
+				deltaBCy = thisY - prevY;
+				deltaABx = prevX - c.x;
+				deltaABy = prevY - c.y;
+				
+				casTest = casillas[puntos.get(i).x][puntos.get(i).y];
+				
+				if (Math.signum(deltaABx) == Math.signum(deltaBCx) && Math.signum(deltaABy) == Math.signum(deltaBCy) && (Math.abs(puntos.get(i).distance(puntos.get(i-1))) > 1.5 || casillas[prevX][prevY].getPieza() != null))
+				{
+					puntos.remove(i--);
+				}
+				
+				prevX = thisX;
+				prevY = thisY;
+			}
+		}
+		
+		/* Quitar posiciones ocupadas por piezas propias */
 		for (int i=0; i<puntos.size();i++)
 		{
 			casTest = casillas[puntos.get(i).x][puntos.get(i).y];
 			
 			if (casTest.getPieza() != null && casTest.getColor() == c.getColor())
 					puntos.remove(i--);
-			
-			else
-			{
-				int tipo = c.getPieza().getTipo();
-				
-				if (i>0 && tipo == Pieza.ALFIL && tipo == Pieza.TORRE && tipo == Pieza.REINA)
-				{
-					if (puntos.get(i).distance(puntos.get(i-1)) > 1)
-					{
-						int oldX = puntos.get(i-1).x;
-						int oldY = puntos.get(i-1).y;
-						int newX = puntos.get(i).x;
-						int newY = puntos.get(i).y;
-						
-						if (oldX == newX || oldY == newY || oldY == 0 || newY == 0)
-						{
-								puntos.remove(i--);
-						}
-						else if (oldX/oldY == newX/newY)
-							puntos.remove(i--);
-					}
-				}
-			}
+		}
+		
+		/* Quitar casillas que supongan jaque propio */
+		{
 		}
 		
 		return puntos;
@@ -246,14 +263,51 @@ public class Tablero
 		Casilla cs;
 		Vector<Point> puntos = posibles(c);
 		
+		/* Condiciones de enroque *//*
+		if (c.getPieza().getTipo() == Pieza.REY)
+		{
+			boolean noEnc = true;
+			int i = 0;
+			String[] torres =
+			{
+				"a" + String.valueOf(c.getColor() ? 0 : 7),
+				"h" + String.valueOf(c.getColor() ? 0 : 7)
+			};
+			
+			while (noEnc && i < movimientos.size())
+			{
+				if
+				(
+					movimientos.get(i).indexOf(torres[0]) != -1 ||
+					movimientos.get(i).indexOf(torres[1]) != -1
+					
+				)
+				{
+					noEnc = false;
+				}
+			}
+			
+			if (!noEnc) ;
+		}*/
+		
 		for (Point p: puntos)
 		{
 			cs = casillas[p.x][p.y];
-			cs.actualizarImagen(Casilla.MARCADA);
+			
+			/* Promoción del peón */
+			if (c.getPieza().getTipo() == Pieza.PEON && p.x == (c.getColor() ? 7 : 0))
+				cs.actualizarImagen(Casilla.Estado.Promocion);
+			
+			/* Movimiento en passant */
+	//		else if (c.getPieza().getTipo() == Pieza.PEON && movimientos.lastElement())
+			
+			/* Marcado normal */
+			else
+				cs.actualizarImagen(Casilla.Estado.Marcada);
 		}
 	}
 	
-	private Casilla buscarPieza(Pieza p, boolean color)
+	private Casilla buscarRey(boolean color)
 	{
 		boolean enc = false;
 		int i=0, j=0;
@@ -262,15 +316,31 @@ public class Tablero
 		while (!enc && i<8)
 			while (!enc && j<8)
 			{
-				c = casillas[i][j];
-				if (c.getPieza().getTipo() == p.getTipo()
-						&& c.getColor() == color)
+				c = casillas[i++][j++];
+				if (c.getPieza().getTipo() == Pieza.REY && c.getColor() == color)
 				{
 					enc = true;
 				}
 			}
 		
 		return c;
+	}
+	
+	private int contarPuntos(boolean color)
+	{
+		int suma = 0;
+		Casilla c;
+		
+		for (int i=0; i<8; i++)
+			for (int j=0; j<8; j++)
+			{
+				c = casillas[i][j];
+				
+				if (c.getColor() == color)
+					suma += c.getPieza().getTipo();
+			}
+		
+		return suma;
 	}
 
 	public Vector<String> getMovimientos()
@@ -297,20 +367,18 @@ public class Tablero
 	{
 		for (int i=0; i<8; i++)
 			for (int j=0; j<8; j++)
-				casillas[i][j].actualizarImagen(Casilla.INACTIVA);
+				casillas[i][j].actualizarImagen(Casilla.Estado.Inactiva);
 	}
 	
 	public void setSeleccionada(Casilla c)
 	{
-		c.actualizarImagen(Casilla.SELECCIONADA);
+		c.actualizarImagen(Casilla.Estado.Seleccionada);
 	}
 	
 	public void girarTablero()
 	{
 		for (int i=0; i<8; i++)
 			for (int j=0; j<8; j++)
-			{
 				escenario.getTablero().add(casillas[7-i][7-j], 8*i+j);
-			}
 	}
 }
