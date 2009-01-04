@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -98,6 +99,13 @@ public class Partida implements ActionListener, MouseListener
 			if (casillaPulsada.esMarcada())
 			{
 				tablero.mover(casillaSelec, casillaPulsada);
+				/*try
+				{
+					if (tablero.esJaque(turno))
+						JOptionPane.showMessageDialog(chat, "Cuidado! Estas en Jaque.");
+				}
+				catch (Exception e){}*/
+
 				tablero.limpiarPosibles();
 				turno = !turno;
 				//tablero.girarTablero();
@@ -108,9 +116,24 @@ public class Partida implements ActionListener, MouseListener
 				
 				if (casillaPulsada.getPieza() != null && casillaPulsada.getColor() == turno)
 				{
+					try
+					{
+						this.imagenInfo.setImagen(casillaPulsada.getPieza().getNombre(), turno);
+						this.textoInfo= casillaPulsada.getPieza().getInformacion();
+					}
+					catch (Exception e){}
 					tablero.setSeleccionada(casillaPulsada);
 					tablero.marcarPosibles(casillaPulsada);
 					casillaSelec = casillaPulsada;
+				}
+				else 
+				{
+					try
+					{
+						this.imagenInfo.setImagen(null, turno);
+						this.textoInfo= null;
+					}
+					catch (Exception e){}
 				}
 			}
 		}

@@ -86,7 +86,7 @@ public class Tablero
 		casillas[7][3].setCasilla(new Rey(), false, 7, 3);
 	}
 	
-	private boolean esJaque(boolean color) throws Exception
+	public boolean esJaque(boolean color) throws Exception
 	{
 		boolean jaque = false;
 		int i=0, j=0;

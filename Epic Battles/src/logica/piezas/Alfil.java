@@ -3,6 +3,8 @@ package logica.piezas;
 import java.awt.Point;
 import java.util.Vector;
 
+import javax.swing.JTextArea;
+
 public class Alfil extends Pieza
 {
 	private static final long serialVersionUID = 1646351736441866648L;
@@ -59,4 +61,5 @@ public class Alfil extends Pieza
 			}
 		return puntos;
 	}
+
 }
