@@ -105,6 +105,9 @@ public class Tablero
 			}
 			i++;
 		}
+		/*if (posibles(c).equals(rey))
+			jaque =true;
+		return true;*/
 		return jaque;
 	}
 	

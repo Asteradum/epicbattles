@@ -63,6 +63,11 @@ public class Partida implements ActionListener, MouseListener
 	{
 		return tablero.getEscenario();
 	}
+	
+	public JTextArea getTexto()
+	{
+		return textoInfo;
+	}
 
 	public void setImagenInfo(Imagen i)
 	{
@@ -101,8 +106,9 @@ public class Partida implements ActionListener, MouseListener
 				tablero.mover(casillaSelec, casillaPulsada);
 				/*try
 				{
-					if (tablero.esJaque(turno))
-						JOptionPane.showMessageDialog(chat, "Cuidado! Estas en Jaque.");
+					if (tablero.esJaque(!turno, casillaPulsada))
+						this.textoInfo.setText("Cuidado Jugador "+ (turno? "Negro":"Blanco")+"! Estas en Jaque.");
+					this.imagenInfo.setImagen(null);
 				}
 				catch (Exception e){}*/
 
@@ -118,8 +124,8 @@ public class Partida implements ActionListener, MouseListener
 				{
 					try
 					{
-						this.imagenInfo.setImagen(casillaPulsada.getPieza().getNombre(), turno);
-						this.textoInfo= casillaPulsada.getPieza().getInformacion();
+						this.imagenInfo.setImagen(casillaPulsada.getPieza().getImagenInfo(turno));
+						this.textoInfo.setText(casillaPulsada.getPieza().getInformacion(turno));
 					}
 					catch (Exception e){}
 					tablero.setSeleccionada(casillaPulsada);
@@ -130,8 +136,8 @@ public class Partida implements ActionListener, MouseListener
 				{
 					try
 					{
-						this.imagenInfo.setImagen(null, turno);
-						this.textoInfo= null;
+						this.imagenInfo.setImagen(null);
+						this.textoInfo.setText(null);
 					}
 					catch (Exception e){}
 				}

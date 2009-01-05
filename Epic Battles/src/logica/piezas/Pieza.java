@@ -22,6 +22,8 @@ public abstract class Pieza
 	
 	protected Image blanca = null;
 	protected Image negra = null;
+	protected Image imagenNegra = null;
+	protected Image imagenBlanca = null;
 
 	public Pieza() throws Exception
 	{
@@ -32,6 +34,7 @@ public abstract class Pieza
 			try
 			{
 				this.blanca = ImageIO.read(new File("imagenes/piezas/Blanco" + this.getNombre() + ".png"));
+				this.imagenBlanca = ImageIO.read(new File("imagenes/Imagen/Imagen" + this.getNombre() + "Blanco.png"));
 			}
 			catch (IOException e)
 			{
@@ -41,6 +44,7 @@ public abstract class Pieza
 			try
 			{
 				this.negra = ImageIO.read(new File("imagenes/piezas/Negro" + this.getNombre() + ".png"));
+				this.imagenNegra = ImageIO.read(new File("imagenes/Imagen/Imagen" + this.getNombre() + "Negro.png"));
 			}
 			catch (IOException e)
 			{
@@ -55,11 +59,10 @@ public abstract class Pieza
 	
 	public abstract Vector<Point> getPosibles(Point p);
 	
-	public  JTextArea getInformacion()
+	public String getInformacion(boolean color)
 	{
-		JTextArea info= new JTextArea();
-		info.append("Nombre: " + this.getNombre() + '\n' + "Valor: " + this.getTipo() + '\n' );
-		return info;
+		//JTextArea info= new JTextArea();
+		return "Nombre: " + this.getNombre() + '\n' + "Valor: " + this.getTipo() + '\n' + "Color: " + (color? "Blanco":"Negro") + '\n';
 	}
 	
 	public Image getImagen(boolean color)
@@ -71,6 +74,18 @@ public abstract class Pieza
 		else
 		{
 			return this.negra;
+		}
+	}
+	
+	public Image getImagenInfo(boolean color)
+	{
+		if (color == Pieza.BLANCAS)
+		{
+			return this.imagenBlanca;
+		}
+		else
+		{
+			return this.imagenNegra;
 		}
 	}
 }

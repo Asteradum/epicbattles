@@ -161,6 +161,11 @@ class Info extends JPanel implements ActionListener
 			parent.loadRootPanel(new ModoPausa(parent, juego));
 		}
 	}
+	
+	public void setTexto(JTextArea t)
+	{
+		this.texto=t;
+	}
 }
 
 class Chat extends JPanel implements ActionListener

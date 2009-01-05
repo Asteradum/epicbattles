@@ -21,34 +21,9 @@ public class Imagen extends Canvas
 		this.setSize(new Dimension(80, 80));
 	}
 	
-	public void setImagen(String NombrePieza, boolean color) throws Exception
+	public void setImagen(Image i) throws Exception
 	{	
-		if (NombrePieza!=null)
-		{
-			if (color)
-			{
-				try
-				{
-					this.image = ImageIO.read(new File("imagenes/Imagen/Imagen" + NombrePieza + "Blanco.png"));
-				}
-				catch (IOException e)
-				{
-					throw new Exception("No se ha encontrado " + NombrePieza + " Blanco");
-				}
-			}
-			else
-			{
-				try
-				{
-					this.image = ImageIO.read(new File("imagenes/Imagen/Imagen" + NombrePieza + "Negro.png"));
-				}
-				catch (IOException e)
-				{
-					throw new Exception("No se ha encontrado " + NombrePieza + " Negro");
-				}
-			}
-		}
-		else image=null; 
+		image=i; 
 		this.paint(this.getGraphics());
 	}
 	
