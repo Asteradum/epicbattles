@@ -96,11 +96,7 @@ public class Partida implements ActionListener, MouseListener
 					String tipoPieza = String.valueOf(casillaPulsada.getPieza().getTipo());
 					String colorPieza = (turno ? "blanco" : "negro");
 					
-					try
-					{
-						imagenInfo.setImagen(casillaPulsada.getPieza().getImagenInfo(turno));
-					}
-					catch (Exception e){}
+					imagenInfo.setImagen(casillaPulsada.getPieza().getImagenInfo(turno));
 					textoInfo.setText("Nombre: " + nombrePieza + "\nValor: " + tipoPieza + "\nColor: " + colorPieza + '\n');
 					
 					tablero.setSeleccionada(casillaPulsada);

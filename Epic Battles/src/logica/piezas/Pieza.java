@@ -21,35 +21,52 @@ public abstract class Pieza
 	
 	protected Image blanca = null;
 	protected Image negra = null;
-	protected Image imagenNegra = null;
 	protected Image imagenBlanca = null;
+	protected Image imagenNegra = null;
 
 	public Pieza() throws Exception
 	{
 		super();
 		
-		if (blanca == null || negra == null)
-		{
+		if (blanca == null)
 			try
 			{
 				this.blanca = ImageIO.read(new File("imagenes/piezas/Blanco" + this.getNombre() + ".png"));
-				this.imagenBlanca = ImageIO.read(new File("imagenes/Imagen/Imagen" + this.getNombre() + "Blanco.png"));
 			}
-			catch (IOException e)
+			catch (IOException ioe)
 			{
 				throw new Exception("No se ha encontrado " + this.getNombre() + " blanco");
 			}
-			
+		
+		if (negra == null)
 			try
 			{
 				this.negra = ImageIO.read(new File("imagenes/piezas/Negro" + this.getNombre() + ".png"));
+			}
+			catch (IOException ioe)
+			{
+				throw new Exception("No se ha encontrado " + this.getNombre() + " negro");
+			}
+	
+		if (imagenBlanca == null)
+			try
+			{
+				this.imagenBlanca = ImageIO.read(new File("imagenes/Imagen/Imagen" + this.getNombre() + "Blanco.png"));
+			}
+			catch (IOException ioe)
+			{
+				throw new Exception("No se ha encontrado la imagen " + this.getNombre() + " blanco");
+			}
+		
+		if (imagenNegra == null)
+			try
+			{
 				this.imagenNegra = ImageIO.read(new File("imagenes/Imagen/Imagen" + this.getNombre() + "Negro.png"));
 			}
 			catch (IOException e)
 			{
-				throw new Exception("No se ha encontrado " + this.getNombre() + " negro");
+				throw new Exception("No se ha encontrado la imagen " + this.getNombre() + " negro");
 			}
-		}
 	}
 	
 	public abstract int getTipo();
