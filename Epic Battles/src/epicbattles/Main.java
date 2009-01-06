@@ -1,12 +1,13 @@
 package epicbattles;
 
+import gui.Principal;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-import gui.Principal;
 
 /**
  * @author Alberto y Alvaro

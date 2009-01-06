@@ -5,10 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Imagen extends Canvas
 {
@@ -21,10 +17,11 @@ public class Imagen extends Canvas
 		this.setSize(new Dimension(80, 80));
 	}
 	
-	public void setImagen(Image i) throws Exception
-	{	
-		image=i; 
-		this.paint(this.getGraphics());
+	public void setImagen(Image i)
+	{
+		this.image = i;
+		repaint();
+		//this.paint(this.getGraphics());
 	}
 	
 	@Override

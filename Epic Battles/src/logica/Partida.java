@@ -3,13 +3,14 @@ package logica;
 import graficos.Escenario;
 import graficos.Imagen;
 import gui.Principal;
+import gui.SeleccionarPieza;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -17,14 +18,14 @@ import logica.piezas.Pieza;
 
 public class Partida implements ActionListener, MouseListener
 {
+	private Casilla casillaSelec = null;
+	private JTextArea chat = null;
+	private boolean fin = false;
+	private Imagen imagenInfo = null;
+	private JTextField mensaje = null;
 	private Oponente oponente = null;
 	private Tablero tablero = null;
-	private Imagen imagenInfo = null;
 	private JTextArea textoInfo = null;
-	private JTextArea chat = null;
-	private JTextField mensaje = null;
-	private boolean fin = false;
-	private Casilla casillaSelec = null;
 	private boolean turno = Pieza.BLANCAS;
 	
 	public Partida(Principal p, Oponente op) throws Exception
@@ -54,44 +55,14 @@ public class Partida implements ActionListener, MouseListener
 		}
 	}*/
 	
-	public void terminar()
+	@Override
+	public void actionPerformed(ActionEvent ae)
 	{
-		fin = true;
 	}
 	
 	public Escenario getEscenario()
 	{
 		return tablero.getEscenario();
-	}
-	
-	public JTextArea getTexto()
-	{
-		return textoInfo;
-	}
-
-	public void setImagenInfo(Imagen i)
-	{
-		this.imagenInfo = i;
-	}
-
-	public void setTextoInfo(JTextArea ti)
-	{
-		this.textoInfo = ti;
-	}
-
-	public void setChat(JTextArea chat)
-	{
-		this.chat = chat;
-	}
-
-	public void setMensajeChat(JTextField m)
-	{
-		this.mensaje = m;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent ae)
-	{
 	}
 
 	@Override
@@ -104,17 +75,16 @@ public class Partida implements ActionListener, MouseListener
 			if (casillaPulsada.esMarcada())
 			{
 				tablero.mover(casillaSelec, casillaPulsada);
-				/*try
-				{
-					if (tablero.esJaque(!turno, casillaPulsada))
-						this.textoInfo.setText("Cuidado Jugador "+ (turno? "Negro":"Blanco")+"! Estas en Jaque.");
-					this.imagenInfo.setImagen(null);
-				}
-				catch (Exception e){}*/
-
 				tablero.limpiarPosibles();
 				turno = !turno;
-				//tablero.girarTablero();
+			}
+			else if(casillaPulsada.esPromocion())
+			{
+				SeleccionarPieza sp = new SeleccionarPieza((Frame) getEscenario().getRootPane().getParent(), casillaSelec.getColor());
+				
+				tablero.promocionarPeon(casillaSelec, casillaPulsada, sp.getOpcion());
+				tablero.limpiarPosibles();
+				turno = !turno;
 			}
 			else
 			{
@@ -122,24 +92,20 @@ public class Partida implements ActionListener, MouseListener
 				
 				if (casillaPulsada.getPieza() != null && casillaPulsada.getColor() == turno)
 				{
+					String nombrePieza = casillaPulsada.getPieza().getNombre();
+					String tipoPieza = String.valueOf(casillaPulsada.getPieza().getTipo());
+					String colorPieza = (turno ? "blanco" : "negro");
+					
 					try
 					{
-						this.imagenInfo.setImagen(casillaPulsada.getPieza().getImagenInfo(turno));
-						this.textoInfo.setText(casillaPulsada.getPieza().getInformacion(turno));
+						imagenInfo.setImagen(casillaPulsada.getPieza().getImagenInfo(turno));
 					}
 					catch (Exception e){}
+					textoInfo.setText("Nombre: " + nombrePieza + "\nValor: " + tipoPieza + "\nColor: " + colorPieza + '\n');
+					
 					tablero.setSeleccionada(casillaPulsada);
 					tablero.marcarPosibles(casillaPulsada);
 					casillaSelec = casillaPulsada;
-				}
-				else 
-				{
-					try
-					{
-						this.imagenInfo.setImagen(null);
-						this.textoInfo.setText(null);
-					}
-					catch (Exception e){}
 				}
 			}
 		}
@@ -147,10 +113,38 @@ public class Partida implements ActionListener, MouseListener
 
 	@Override
 	public void mouseEntered(MouseEvent e) { }
+
 	@Override
 	public void mouseExited(MouseEvent e) { }
+
 	@Override
 	public void mousePressed(MouseEvent e) { }
+
 	@Override
 	public void mouseReleased(MouseEvent e) { }
+
+	public void setChat(JTextArea chat)
+	{
+		this.chat = chat;
+	}
+
+	public void setImagenInfo(Imagen i)
+	{
+		this.imagenInfo = i;
+	}
+	
+	public void setMensajeChat(JTextField m)
+	{
+		this.mensaje = m;
+	}
+	
+	public void setTextoInfo(JTextArea ti)
+	{
+		this.textoInfo = ti;
+	}
+	
+	public void terminar()
+	{
+		fin = true;
+	}
 }

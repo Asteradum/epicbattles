@@ -14,15 +14,17 @@ import org.jdesktop.swingx.image.ColorTintFilter;
 
 public class Casilla extends Sprite
 {
-	private static final long serialVersionUID = 2663916697888476162L;
-	private static final ColorTintFilter filtroMarcada = new ColorTintFilter(Color.red, 0.5f);
-	private static final ColorTintFilter filtroSeleccionada = new ColorTintFilter(Color.blue, 0.5f);
-	private static BufferedImage cache = null;
-	
 	public static enum Estado
 	{
 		Inactiva, Marcada, Seleccionada, EnPassant, Promocion, Enrocable
 	}
+	
+	private static final long serialVersionUID = 2663916697888476162L;
+	private static final ColorTintFilter filtroMarcada = new ColorTintFilter(Color.red, 0.5f);
+	private static final ColorTintFilter filtroSeleccionada = new ColorTintFilter(Color.blue, 0.5f);
+	private static final ColorTintFilter filtroEspecial = new ColorTintFilter(Color.orange, 0.5f);
+	
+	private static BufferedImage cache = null;
 	
 	private Pieza pieza = null;
 	private boolean color = true;
@@ -37,18 +39,37 @@ public class Casilla extends Sprite
 		super();
 	}
 	
-	public void setCasilla(Pieza p, boolean color, int x, int y)
-	{
-		this.pieza = p;
-		this.color = color;
-		this.x = x;
-		this.y = y;
-		actualizarImagen();
-	}
+	private void actualizarImagen() { actualizarImagen(Casilla.Estado.Inactiva); }
 
-	public Pieza getPieza()
+	public void actualizarImagen(Estado modo)
 	{
-		return pieza;
+		this.marcada = (modo == Casilla.Estado.Marcada ? true : false);
+		this.seleccionada = (modo == Casilla.Estado.Seleccionada ? true : false);
+		this.enpassant = (modo == Casilla.Estado.EnPassant ? true : false);
+		this.promocion = (modo == Casilla.Estado.Promocion ? true : false);
+		this.enrocable = (modo == Casilla.Estado.Enrocable ? true : false);
+		
+		if (pieza != null)
+		{
+			imagen = pieza.getImagen(color);
+			
+			if (cache == null)
+			{
+				cache = GraphicsUtilities.createCompatibleImage((BufferedImage) imagen);
+			}
+		}
+		
+		repaint();
+	}
+	
+	public boolean esMarcada()
+	{
+		return marcada;
+	}
+	
+	public boolean esPromocion()
+	{
+		return promocion;
 	}
 	
 	public boolean getColor()
@@ -56,6 +77,11 @@ public class Casilla extends Sprite
 		return color;
 	}
 	
+	public Pieza getPieza()
+	{
+		return pieza;
+	}
+
 	public Point getPosicion()
 	{
 		return new Point(this.x, this.y);
@@ -76,6 +102,11 @@ public class Casilla extends Sprite
 			else if (seleccionada)
 			{
 				filtroSeleccionada.filter((BufferedImage) imagen, cache);
+				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
+			}
+			else if (promocion)
+			{
+				filtroEspecial.filter((BufferedImage) imagen, cache);
 				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 			else
@@ -104,31 +135,12 @@ public class Casilla extends Sprite
 		}
 	}
 
-	private void actualizarImagen() { actualizarImagen(Casilla.Estado.Inactiva); }
-	
-	public void actualizarImagen(Estado modo)
+	public void setCasilla(Pieza p, boolean color, int x, int y)
 	{
-		this.marcada = (modo == Casilla.Estado.Marcada ? true : false);
-		this.seleccionada = (modo == Casilla.Estado.Seleccionada ? true : false);
-		this.enpassant = (modo == Casilla.Estado.EnPassant ? true : false);
-		this.promocion = (modo == Casilla.Estado.Promocion ? true : false);
-		this.enrocable = (modo == Casilla.Estado.Enrocable ? true : false);
-		
-		if (pieza != null)
-		{
-			imagen = pieza.getImagen(color);
-			
-			if (cache == null)
-			{
-				cache = GraphicsUtilities.createCompatibleImage((BufferedImage) imagen);
-			}
-		}
-		
-		repaint();
-	}
-
-	public boolean esMarcada()
-	{
-		return marcada;
+		this.pieza = p;
+		this.color = color;
+		this.x = x;
+		this.y = y;
+		actualizarImagen();
 	}
 }

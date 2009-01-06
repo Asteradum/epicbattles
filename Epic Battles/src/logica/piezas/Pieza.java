@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.JTextArea;
 
 public abstract class Pieza
 {
@@ -58,12 +57,6 @@ public abstract class Pieza
 	public abstract String getNombre();
 	
 	public abstract Vector<Point> getPosibles(Point p);
-	
-	public String getInformacion(boolean color)
-	{
-		//JTextArea info= new JTextArea();
-		return "Nombre: " + this.getNombre() + '\n' + "Valor: " + this.getTipo() + '\n' + "Color: " + (color? "Blanco":"Negro") + '\n';
-	}
 	
 	public Image getImagen(boolean color)
 	{
