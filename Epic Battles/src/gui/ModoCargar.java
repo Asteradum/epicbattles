@@ -213,13 +213,9 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 				sqle.printStackTrace();
 			}
 			catch (FileNotFoundException fnfe)
-			{
-				fnfe.printStackTrace();
-			}
+			{ }
 			catch (IOException ioe)
-			{
-				ioe.printStackTrace();
-			}
+			{ }
 			
 			model.remove(index);
 		}

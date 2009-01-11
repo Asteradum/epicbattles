@@ -163,10 +163,10 @@ class Info extends JPanel implements ActionListener
 	}
 }
 
-class Chat extends JPanel implements ActionListener
+class Chat extends JPanel
 {
 	private static final long serialVersionUID = 1449740754230340465L;
-	private Partida partida = null;
+	Partida partida = null;
 	private JTextArea chat = null;
 	private JPanel send = null;
 	private JButton sendButton = null;
@@ -177,7 +177,8 @@ class Chat extends JPanel implements ActionListener
 		super();
 		this.partida = p;
 		initialize();
-		getSendButton().addActionListener(this);
+		getSendButton().addActionListener(p);
+		getMessage().addKeyListener(p);
 	}
 
 	/**
@@ -256,16 +257,6 @@ class Chat extends JPanel implements ActionListener
 			partida.setMensajeChat(message);
 		}
 		return message;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent ae)
-	{
-		if (ae.getSource().equals(getSendButton()))
-		{
-			getChat().append(getMessage().getText() + "\n");
-			getMessage().setText("");
-		}
 	}
 }
 

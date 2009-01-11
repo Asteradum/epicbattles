@@ -65,13 +65,16 @@ public abstract class GestorBaseDatos
 						partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
 				}
 			}
+			
+			stmt.close();
+			rs.close();
+			conexion.close();
 		}
 		else
 		{
 			throw new SQLException("No se pueden leer partidas");
 		}
 		
-		conexion.close();
 		return partidas;
 	}
 	
@@ -95,13 +98,16 @@ public abstract class GestorBaseDatos
 			{
 				movimientos.add(movs[i]);
 			}
+			
+			stmt.close();
+			rs.close();
+			conexion.close();
 		}
 		else
 		{
 			throw new SQLException("No se pueden cargar la partida especificada");
 		}
 		
-		conexion.close();
 		return movimientos;
 	}
 	
@@ -127,13 +133,14 @@ public abstract class GestorBaseDatos
 				ip + ")";
 			
 			stmt.executeUpdate(update);
+			
+			stmt.close();
+			conexion.close();
 		}
 		else
 		{
 			throw new SQLException("No se puede guardar la partida");
 		}
-		
-		conexion.close();
 	}
 	
 	public static void borrarPartida(Long id) throws SQLException
@@ -143,12 +150,11 @@ public abstract class GestorBaseDatos
 		if (conexion != null)
 		{
 		
+			conexion.close();
 		}
 		else
 		{
 			throw new SQLException("No se puede borrar la partida");
 		}
-		
-		conexion.close();
 	}
 }

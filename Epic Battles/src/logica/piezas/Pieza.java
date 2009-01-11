@@ -63,7 +63,7 @@ public abstract class Pieza
 			{
 				this.imagenNegra = ImageIO.read(new File("imagenes/Imagen/Imagen" + this.getNombre() + "Negro.png"));
 			}
-			catch (IOException e)
+			catch (IOException ioe)
 			{
 				throw new Exception("No se ha encontrado la imagen " + this.getNombre() + " negro");
 			}

@@ -2,8 +2,15 @@ package logica;
 
 import graficos.Escenario;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Vector;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 import logica.piezas.Alfil;
 import logica.piezas.Caballo;
@@ -17,6 +24,7 @@ public class Tablero
 {
 	private static final long serialVersionUID = -8743924243868541721L;
 	private Casilla[][] casillas = null;
+	private Casilla enJaque = null;
 	private Escenario escenario = null;
 	private Vector<String> movimientos = null;
 	
@@ -45,20 +53,43 @@ public class Tablero
 	private Casilla buscarRey(boolean color)
 	{
 		boolean enc = false;
-		int i=0, j=0;
 		Casilla c = null;
 		
-		while (!enc && i<8)
-			while (!enc && j<8)
+		for (int i=0; !enc && i<8; i++)
+			for (int j=0; !enc && j<8; j++)
 			{
-				c = casillas[i++][j++];
-				if (c.getPieza().getTipo() == Pieza.REY && c.getColor() == color)
-				{
-					enc = true;
-				}
+				c = casillas[i][j];
+				if (c.getPieza() != null)
+					if (c.getPieza().getTipo() == Pieza.REY && c.getColor() == color)
+						enc = true;
 			}
 		
 		return c;
+	}
+	
+	public boolean comprobarJaques(boolean color)
+	{
+		Casilla rey = esJaque(color);
+		
+		if (enJaque  == null)
+		{
+			if (rey != null)
+			{
+				rey.setBackground(Color.red);
+				enJaque = rey;
+				return esJaqueMate(color);
+			}
+		}
+		else
+		{
+			int calcX = (enJaque.x>4 ? enJaque.x-1 : enJaque.x+1);
+			int calcY = (enJaque.y>4 ? enJaque.y-1 : enJaque.y+1);
+			
+			enJaque.setBackground(casillas[calcX][calcY].getBackground());
+			enJaque = null;
+		}
+		
+		return false;
 	}
 	
 	private int contarPuntos(boolean color)
@@ -85,47 +116,34 @@ public class Tablero
 				casillas[i][j].addMouseListener(p);
 	}
 	
-	public boolean esJaque(boolean color) throws Exception
+	private Casilla esJaque(boolean color)
 	{
 		boolean jaque = false;
-		int i=0, j=0;
-		Casilla rey = buscarRey(color), c = null;
+		Casilla rey = buscarRey(color), c;
 		
-		while (!jaque && i<8)
-		{
-			while (!jaque && j<8)
+		for (int i=0; !jaque && i<8; i++)
+			for (int j=0; !jaque && j<8; j++)
 			{
 				c = casillas[i][j];
-				if (c.getColor() != color)
+				if (c.getPieza() != null && c.getColor() != color)
 					for (Point p: posibles(c))
-						if (p.equals(rey))
+						if (p.x == rey.x && p.y == rey.y)
 							jaque = true;
-				j++;
 			}
-			i++;
-		}
-		/*if (posibles(c).equals(rey))
-			jaque =true;
-		return true;*/
-		return jaque;
+		
+		if (jaque) return rey;
+		else return null;
 	}
 	
 	private boolean esJaque(Point origen, Point destino)
 	{
 		return false;
-		
 	}
 	
-	/*public boolean makeMove(String mov)
+	private boolean esJaqueMate(boolean color)
 	{
-		boolean posible = false;
-		/* Condición de jaque */	/*
-		
-			this.movimientos.add(mov);
-			posible = true;
-		
-		return posible;
-	}*/
+		return posibles(buscarRey(color)).isEmpty();// && true && true;
+	}
 	
 	private void generarTablero() throws Exception
 	{
@@ -254,8 +272,17 @@ public class Tablero
 		}*/
 	}
 
-	public boolean mover(Casilla ini, Casilla fin)
+	public void mover(Casilla ini, Casilla fin)
 	{
+		try
+		{
+			AudioPlayer.player.start(new AudioStream(new FileInputStream("sonidos/can-to-table-1.wav")));
+		}
+		catch (FileNotFoundException fnfe)
+		{ }
+		catch (IOException ioe)
+		{ }
+		
 		movimientos.add
 		(
 			String.valueOf((char)(ini.y+97)) +
@@ -267,9 +294,6 @@ public class Tablero
 		
 		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
 		ini.setCasilla(null, true, ini.x, ini.y);
-		
-		/* Condición de jaque mate enemigo */
-		return false;
 	}
 
 	private void mover(String mov)

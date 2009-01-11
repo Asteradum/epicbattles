@@ -8,6 +8,8 @@ import gui.SeleccionarPieza;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,13 +18,12 @@ import javax.swing.JTextField;
 
 import logica.piezas.Pieza;
 
-public class Partida implements ActionListener, MouseListener
+public class Partida implements ActionListener, MouseListener, KeyListener
 {
 	private Casilla casillaSelec = null;
-	private JTextArea chat = null;
-	private boolean fin = false;
+	public JTextArea chat = null;
 	private Imagen imagenInfo = null;
-	private JTextField mensaje = null;
+	public JTextField mensaje = null;
 	private Oponente oponente = null;
 	private Tablero tablero = null;
 	private JTextArea textoInfo = null;
@@ -58,6 +59,11 @@ public class Partida implements ActionListener, MouseListener
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{
+		if (chat != null && mensaje != null)
+		{
+			chat.append(mensaje.getText() + "\n");
+			mensaje.setText("");
+		}
 	}
 	
 	public Escenario getEscenario()
@@ -70,12 +76,16 @@ public class Partida implements ActionListener, MouseListener
 	{
 		if (me.getSource() instanceof Casilla)
 		{
+			boolean jaqueMate = false;
 			Casilla casillaPulsada = (Casilla)me.getSource();
 			
 			if (casillaPulsada.esMarcada())
 			{
 				tablero.mover(casillaSelec, casillaPulsada);
+				jaqueMate = tablero.comprobarJaques(!turno);
 				tablero.limpiarPosibles();
+				imagenInfo.setImagen(null);
+				textoInfo.setText("");
 				turno = !turno;
 			}
 			else if(casillaPulsada.esPromocion())
@@ -83,7 +93,10 @@ public class Partida implements ActionListener, MouseListener
 				SeleccionarPieza sp = new SeleccionarPieza((Frame) getEscenario().getRootPane().getParent(), casillaSelec.getColor());
 				
 				tablero.promocionarPeon(casillaSelec, casillaPulsada, sp.getOpcion());
+				jaqueMate = tablero.comprobarJaques(!turno);
 				tablero.limpiarPosibles();
+				imagenInfo.setImagen(null);
+				textoInfo.setText("");
 				turno = !turno;
 			}
 			else
@@ -103,6 +116,11 @@ public class Partida implements ActionListener, MouseListener
 					tablero.marcarPosibles(casillaPulsada);
 					casillaSelec = casillaPulsada;
 				}
+			}
+			
+			if (jaqueMate)
+			{
+				System.out.println("Jaque mate");
 			}
 		}
 	}
@@ -138,9 +156,20 @@ public class Partida implements ActionListener, MouseListener
 	{
 		this.textoInfo = ti;
 	}
-	
-	public void terminar()
+
+	@Override
+	public void keyPressed(KeyEvent arg0)
 	{
-		fin = true;
+		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			chat.append(mensaje.getText() + "\n");
+			mensaje.setText("");
+		}
 	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) { }
+
+	@Override
+	public void keyTyped(KeyEvent arg0) { }
 }
