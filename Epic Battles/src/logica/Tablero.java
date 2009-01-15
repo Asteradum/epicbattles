@@ -12,6 +12,7 @@ import java.util.Vector;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
+import logica.Casilla.Estado;
 import logica.piezas.Alfil;
 import logica.piezas.Caballo;
 import logica.piezas.Peon;
@@ -68,11 +69,11 @@ public class Tablero
 	}
 	
 	public boolean comprobarJaques(boolean color)
-	{
-		Casilla rey = esJaque(color);
-		
+	{		
 		if (enJaque  == null)
 		{
+			Casilla rey = esJaque(color);
+			
 			if (rey != null)
 			{
 				rey.setBackground(Color.red);
@@ -114,6 +115,33 @@ public class Tablero
 		for (int i=0; i<8; i++)
 			for (int j=0; j<8; j++)
 				casillas[i][j].addMouseListener(p);
+	}
+	
+	private boolean esAmenazado(Casilla c, boolean color)
+	{
+		boolean esAmenazado = false;
+		Casilla temp;
+		
+		for (int i=0; !esAmenazado && i<8; i++)
+			for (int j=0; !esAmenazado && j<8; j++)
+			{
+				temp = casillas[i][j];
+				if (temp.getPieza() != null && temp.getColor() == color)
+					for (Point p: posibles(temp))
+						if (p.x == c.x && p.y == c.y)
+							esAmenazado = true;
+			}
+		
+		return esAmenazado;
+	}
+	
+	public void enrocar(Casilla c, boolean color)
+	{
+		Casilla rey = buscarRey(color);
+		int sentido = (c.y > rey.y ? 1 : -1);
+		
+		mover(rey, casillas[c.x][c.y]);
+		mover(casillas[c.x][c.y+sentido], casillas[c.x][c.y-sentido]);
 	}
 	
 	private Casilla esJaque(boolean color)
@@ -227,49 +255,81 @@ public class Tablero
 			
 			/* Marcado normal */
 			cs.actualizarImagen(Casilla.Estado.Marcada);
-			
-			if (c.getPieza().getTipo() == Pieza.PEON)
+		}
+		
+		if (c.getPieza().getTipo() == Pieza.PEON)
+			for (Point p: puntos)
 			{
+				cs = casillas[p.x][p.y];
+				
 				/* Promoción del peón */
 				if (p.x == (c.getColor() ? 7 : 0))
 				{
 					cs.actualizarImagen(Casilla.Estado.Promocion);
 				}
 				
-				/* Movimiento en passant */
-				//else if (c.getPieza().getTipo() == Pieza.PEON && movimientos.lastElement())
+				/* Movimiento en passant *//*
+				else if (c.getPieza().getTipo() == Pieza.PEON && movimientos.lastElement())
 				{
 					
-				}
+				}*/
+			}
+		
+		/* Condiciones de enroque */
+		else if (c.getPieza().getTipo() == Pieza.REY)
+		{
+			boolean reyNoEnc = true;
+			String origenRey = (c.getColor() ? "d1" : "d8");
+			
+			for (int i=0; reyNoEnc && i<movimientos.size(); i++)
+				if (movimientos.get(i).indexOf(origenRey) != -1)
+					reyNoEnc = false;
+			
+			if (reyNoEnc && !esAmenazado(c, !c.getColor()))
+			{
+				boolean torreEnc[] = {false, false};
+				int sentidoTorre[] = {-1, 1};
+				String[] origenTorres =
+				{
+					"a" + String.valueOf(c.getColor() ? 1 : 8),
+					"h" + String.valueOf(c.getColor() ? 1 : 8)
+				};
+			
+				for (int i=0; i<2; i++)
+					for (int j=0; j<movimientos.size() && !torreEnc[i]; j++)
+					{
+						if (movimientos.get(j).indexOf(origenTorres[i]) != -1)
+						{
+							torreEnc[i] = true;
+							sentidoTorre[i] = 0;
+						}
+					}
+				
+				for (int i=0; i<2; i++)
+					if (!torreEnc[i])
+					{
+						boolean fin = false, despejado = true;
+						Casilla temp = c;
+						
+						for (int j=c.y+sentidoTorre[i];	!fin && despejado; j+=sentidoTorre[i])
+						{
+							temp = casillas[c.x][j];
+							if (temp.getPieza() == null)
+							{
+								if (esAmenazado(temp, !c.getColor()))
+									despejado = false;
+							}
+							else if (temp.getPieza().getTipo() == Pieza.TORRE && temp.getColor() == c.getColor())
+								fin = true;
+							else
+								despejado = false;
+						}
+						
+						if (despejado)
+							casillas[c.x][temp.y-sentidoTorre[i]].actualizarImagen(Estado.Enrocable);
+					}
 			}
 		}
-		
-		/* Condiciones de enroque *//*
-		if (c.getPieza().getTipo() == Pieza.REY)
-		{
-			boolean noEnc = true;
-			int i = 0;
-			String[] torres =
-			{
-				"a" + String.valueOf(c.getColor() ? 0 : 7),
-				"h" + String.valueOf(c.getColor() ? 0 : 7)
-			};
-			
-			while (noEnc && i < movimientos.size())
-			{
-				if
-				(
-					movimientos.get(i).indexOf(torres[0]) != -1 ||
-					movimientos.get(i).indexOf(torres[1]) != -1
-					
-				)
-				{
-					noEnc = false;
-				}
-			}
-			
-			if (!noEnc) ;
-		}*/
 	}
 
 	public void mover(Casilla ini, Casilla fin)
@@ -286,10 +346,10 @@ public class Tablero
 		movimientos.add
 		(
 			String.valueOf((char)(ini.y+97)) +
-			ini.x +
+			(ini.x+1) +
 			(fin.getPieza() == null ? "-" : "x") +
 			String.valueOf((char)(fin.y+97)) +
-			fin.x
+			(fin.x+1)
 		);
 		
 		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);

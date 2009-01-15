@@ -88,11 +88,20 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 				textoInfo.setText("");
 				turno = !turno;
 			}
-			else if(casillaPulsada.esPromocion())
+			else if (casillaPulsada.esPromocion())
 			{
 				SeleccionarPieza sp = new SeleccionarPieza((Frame) getEscenario().getRootPane().getParent(), casillaSelec.getColor());
 				
 				tablero.promocionarPeon(casillaSelec, casillaPulsada, sp.getOpcion());
+				jaqueMate = tablero.comprobarJaques(!turno);
+				tablero.limpiarPosibles();
+				imagenInfo.setImagen(null);
+				textoInfo.setText("");
+				turno = !turno;
+			}
+			else if (casillaPulsada.esEnrocable())
+			{
+				tablero.enrocar(casillaPulsada, turno);
 				jaqueMate = tablero.comprobarJaques(!turno);
 				tablero.limpiarPosibles();
 				imagenInfo.setImagen(null);

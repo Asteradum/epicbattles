@@ -22,7 +22,7 @@ public class Casilla extends Sprite
 	private static final long serialVersionUID = 2663916697888476162L;
 	private static final ColorTintFilter filtroMarcada = new ColorTintFilter(Color.red, 0.5f);
 	private static final ColorTintFilter filtroSeleccionada = new ColorTintFilter(Color.blue, 0.5f);
-	private static final ColorTintFilter filtroEspecial = new ColorTintFilter(Color.orange, 0.5f);
+	private static final ColorTintFilter filtroPromo = new ColorTintFilter(Color.orange, 0.5f);
 	
 	private static BufferedImage cache = null;
 	
@@ -72,6 +72,11 @@ public class Casilla extends Sprite
 		return promocion;
 	}
 	
+	public boolean esEnrocable()
+	{
+		return enrocable;
+	}
+	
 	public boolean getColor()
 	{
 		return color;
@@ -106,7 +111,7 @@ public class Casilla extends Sprite
 			}
 			else if (promocion)
 			{
-				filtroEspecial.filter((BufferedImage) imagen, cache);
+				filtroPromo.filter((BufferedImage) imagen, cache);
 				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 			else
@@ -130,6 +135,13 @@ public class Casilla extends Sprite
 				tam = this.getWidth()/6;
 				
 				g.setColor(new Color(235, 182, 20));
+				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
+			}
+			else if (enrocable)
+			{
+				tam = this.getWidth()/4;
+				
+				g.setColor(new Color(124, 186, 69));
 				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
 		}
