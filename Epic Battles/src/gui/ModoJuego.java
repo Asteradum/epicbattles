@@ -5,11 +5,11 @@ import graficos.Imagen;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -55,7 +55,7 @@ class Info extends JPanel implements ActionListener
 	private Partida partida = null;
 	private JTextArea texto = null;
 	private JPanel botonera = null;
-	private JButton bPausa = null;
+	private MiBoton bPausa = null;
 	private JPanel datos = null;
 
 	public Info(Principal parent, ModoJuego mj, Partida partida)
@@ -94,6 +94,7 @@ class Info extends JPanel implements ActionListener
 			texto.setEditable(false);
 			texto.setMargin(new Insets(5, 5, 5, 5));
 			texto.setBackground(this.getBackground());
+			texto.setFont(new Font("Verdana", Font.PLAIN, 14));
 			partida.setTextoInfo(texto);
 		}
 		return texto;
@@ -143,12 +144,11 @@ class Info extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBPausa()
+	private MiBoton getBPausa()
 	{
 		if (bPausa == null)
 		{
-			bPausa = new JButton();
-			bPausa.setText("Pausa");
+			bPausa = new MiBoton("Pausa");
 		}
 		return bPausa;
 	}
@@ -169,7 +169,7 @@ class Chat extends JPanel
 	Partida partida = null;
 	private JTextArea chat = null;
 	private JPanel send = null;
-	private JButton sendButton = null;
+	private MiBoton sendButton = null;
 	private JTextField message = null;
 	
 	public Chat(Partida p)
@@ -206,6 +206,7 @@ class Chat extends JPanel
 			chat = new JTextArea(20, 30);
 			chat.setAutoscrolls(true);
 			chat.setEditable(false);
+			chat.setFont(new Font("Verdana", Font.PLAIN, 12));
 			chat.setBorder(LineBorder.createGrayLineBorder());
 			partida.setChat(chat);
 		}
@@ -234,12 +235,11 @@ class Chat extends JPanel
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getSendButton()
+	private MiBoton getSendButton()
 	{
 		if (sendButton == null)
 		{
-			sendButton = new JButton();
-			sendButton.setText("Enviar");
+			sendButton = new MiBoton("Enviar");
 		}
 		return sendButton;
 	}
@@ -254,6 +254,7 @@ class Chat extends JPanel
 		if (message == null)
 		{
 			message = new JTextField();
+			message.setFont(new Font("Verdana", Font.PLAIN, 12));
 			partida.setMensajeChat(message);
 		}
 		return message;

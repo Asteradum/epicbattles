@@ -28,6 +28,7 @@ public class Tablero
 	private Casilla enJaque = null;
 	private Escenario escenario = null;
 	private Vector<String> movimientos = null;
+	private int nivelJaques = 0;
 	
 	public Tablero() throws Exception
 	{
@@ -93,7 +94,7 @@ public class Tablero
 		return false;
 	}
 	
-	private int contarPuntos(boolean color)
+	public int contarPuntos(boolean color)
 	{
 		int suma = 0;
 		Casilla c;
@@ -103,7 +104,7 @@ public class Tablero
 			{
 				c = casillas[i][j];
 				
-				if (c.getColor() == color)
+				if (c.getPieza() != null && c.getColor() == color)
 					suma += c.getPieza().getTipo();
 			}
 		
@@ -135,13 +136,24 @@ public class Tablero
 		return esAmenazado;
 	}
 	
-	public void enrocar(Casilla c, boolean color)
+	public void enpassant(Casilla ini, Casilla fin)
 	{
-		Casilla rey = buscarRey(color);
-		int sentido = (c.y > rey.y ? 1 : -1);
+		int sentido = (ini.getColor() ? -1 : 1);
 		
-		mover(rey, casillas[c.x][c.y]);
-		mover(casillas[c.x][c.y+sentido], casillas[c.x][c.y-sentido]);
+		mover(ini, fin, true);
+		casillas[fin.x+sentido][fin.y].setCasilla(null, true, fin.x+sentido, fin.y);
+	}
+	
+	public void enrocar(Casilla rey, Casilla fin)
+	{
+		int sentido = (fin.y > rey.y ? 1 : -1);
+		Casilla limpia = new Casilla();
+		
+		limpia.x = fin.x;
+		limpia.y = fin.y+sentido;
+		
+		mover(rey, fin, true);
+		mover(casillas[fin.x][fin.y+sentido], casillas[fin.x][fin.y-sentido], false);
 	}
 	
 	private Casilla esJaque(boolean color)
@@ -163,14 +175,69 @@ public class Tablero
 		else return null;
 	}
 	
-	private boolean esJaque(Point origen, Point destino)
+	/*private boolean esJaque(Casilla rey)
 	{
-		return false;
-	}
+		boolean jaque = false;
+		Casilla c;
+		
+		for (int i=0; !jaque && i<8; i++)
+			for (int j=0; !jaque && j<8; j++)
+			{
+				c = casillas[i][j];
+				if (c.getPieza() != null && c.getColor() != rey.getColor())
+					for (Point p: posibles(c))
+						if (p.x == rey.x && p.y == rey.y)
+							jaque = true;
+			}
+		
+		return jaque;
+	}*/
 	
 	private boolean esJaqueMate(boolean color)
 	{
-		return posibles(buscarRey(color)).isEmpty();// && true && true;
+		boolean jaqueMate = true;
+		Casilla c;
+		
+		for (int i=0; jaqueMate && i<8; i++)
+			for (int j=0; jaqueMate && j<8; j++)
+			{
+				c = casillas[i][j];
+				if (c.getPieza() != null && c.getColor() == color)
+					if (!posibles(c).isEmpty())
+						jaqueMate = false;
+			}
+		
+		return jaqueMate;
+	}
+	
+	private boolean esJaquePropio(Casilla ini, Casilla fin)
+	{
+		boolean jaquePropio = false;
+		
+		if (nivelJaques == 0)
+		{
+			Casilla iniTemp = ini.clon(), limpia = new Casilla();
+		
+			nivelJaques++;
+			limpia.x = ini.x;
+			limpia.y = ini.y;
+			iniTemp.x = fin.x;
+			iniTemp.y = fin.y;
+			
+			casillas[fin.x][fin.y] = iniTemp;
+			casillas[ini.x][ini.y] = limpia;
+			
+			if (esJaque(ini.getColor()) == null)
+				jaquePropio = false;
+			else
+				jaquePropio = true;
+			
+			casillas[ini.x][ini.y] = ini;
+			casillas[fin.x][fin.y] = fin;
+			nivelJaques--;
+		}
+		
+		return jaquePropio;
 	}
 	
 	private void generarTablero() throws Exception
@@ -230,6 +297,20 @@ public class Tablero
 			return null;
 	}
 	
+	public int getNumMovs(boolean color)
+	{
+		int suma = 0;
+		
+		for (int i=0; i<movimientos.size(); i++)
+		{
+			suma+=i%2;
+		}
+		
+		suma = (color ? movimientos.size()-suma : suma );
+		
+		return suma;
+	}
+	
 	public void girarTablero()
 	{
 		for (int i=0; i<8; i++)
@@ -239,13 +320,19 @@ public class Tablero
 
 	public void limpiarPosibles()
 	{
+		Casilla c;
 		for (int i=0; i<8; i++)
 			for (int j=0; j<8; j++)
-				casillas[i][j].actualizarImagen(Casilla.Estado.Inactiva);
+			{
+				c = casillas[i][j];
+				if (c.esMarcada() || c.esSeleccionada() || c.esEnrocable() || c.esPromocion() || c.esEnpassant())
+					casillas[i][j].actualizarImagen(Casilla.Estado.Inactiva);
+			}
 	}
 	
 	public void marcarPosibles(Casilla c)
 	{
+		boolean color = c.getColor();
 		Casilla cs;
 		Vector<Point> puntos = posibles(c);
 		
@@ -258,41 +345,50 @@ public class Tablero
 		}
 		
 		if (c.getPieza().getTipo() == Pieza.PEON)
+		{
+			/* Promoción del peón */
 			for (Point p: puntos)
 			{
 				cs = casillas[p.x][p.y];
-				
-				/* Promoción del peón */
-				if (p.x == (c.getColor() ? 7 : 0))
-				{
+				if (p.x == (color ? 7 : 0))
 					cs.actualizarImagen(Casilla.Estado.Promocion);
-				}
-				
-				/* Movimiento en passant *//*
-				else if (c.getPieza().getTipo() == Pieza.PEON && movimientos.lastElement())
-				{
-					
-				}*/
 			}
+			
+			/* Movimiento en passant */
+			if (c.x == (color ? 4 : 3))
+			{
+				int numIni = (color ? 7 : 2), numFin = (color ? 5 : 4), indice = (color ? 5 : 2);
+				String[] letras = {String.valueOf((char)(c.y+96)), String.valueOf((char)(c.y+98))};
+				String[] movs =
+				{
+						letras[0]+numIni+"-"+letras[0]+numFin,
+						letras[1]+numIni+"-"+letras[1]+numFin
+				};
+				
+				for (int i=0; i<2; i++)
+					if (movimientos.lastElement().equals(movs[i]))
+						casillas[indice][c.y+i*2-1].actualizarImagen(Casilla.Estado.EnPassant);
+			}
+		}
 		
 		/* Condiciones de enroque */
 		else if (c.getPieza().getTipo() == Pieza.REY)
 		{
 			boolean reyNoEnc = true;
-			String origenRey = (c.getColor() ? "d1" : "d8");
+			String origenRey = (color ? "d1" : "d8");
 			
 			for (int i=0; reyNoEnc && i<movimientos.size(); i++)
 				if (movimientos.get(i).indexOf(origenRey) != -1)
 					reyNoEnc = false;
 			
-			if (reyNoEnc && !esAmenazado(c, !c.getColor()))
+			if (reyNoEnc && !esAmenazado(c, !color))
 			{
 				boolean torreEnc[] = {false, false};
 				int sentidoTorre[] = {-1, 1};
 				String[] origenTorres =
 				{
-					"a" + String.valueOf(c.getColor() ? 1 : 8),
-					"h" + String.valueOf(c.getColor() ? 1 : 8)
+					"a" + String.valueOf(color ? 1 : 8),
+					"h" + String.valueOf(color ? 1 : 8)
 				};
 			
 				for (int i=0; i<2; i++)
@@ -316,10 +412,10 @@ public class Tablero
 							temp = casillas[c.x][j];
 							if (temp.getPieza() == null)
 							{
-								if (esAmenazado(temp, !c.getColor()))
+								if (esAmenazado(temp, !color))
 									despejado = false;
 							}
-							else if (temp.getPieza().getTipo() == Pieza.TORRE && temp.getColor() == c.getColor())
+							else if (temp.getPieza().getTipo() == Pieza.TORRE && temp.getColor() == color)
 								fin = true;
 							else
 								despejado = false;
@@ -332,7 +428,7 @@ public class Tablero
 		}
 	}
 
-	public void mover(Casilla ini, Casilla fin)
+	public void mover(Casilla ini, Casilla fin, boolean consta)
 	{
 		try
 		{
@@ -343,14 +439,15 @@ public class Tablero
 		catch (IOException ioe)
 		{ }
 		
-		movimientos.add
-		(
-			String.valueOf((char)(ini.y+97)) +
-			(ini.x+1) +
-			(fin.getPieza() == null ? "-" : "x") +
-			String.valueOf((char)(fin.y+97)) +
-			(fin.x+1)
-		);
+		if (consta)
+			movimientos.add
+			(
+				String.valueOf((char)(ini.y+97)) +
+				(ini.x+1) +
+				(fin.getPieza() == null ? "-" : "x") +
+				String.valueOf((char)(fin.y+97)) +
+				(fin.x+1)
+			);
 		
 		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
 		ini.setCasilla(null, true, ini.x, ini.y);
@@ -373,7 +470,7 @@ public class Tablero
 		
 		switch (c.getPieza().getTipo())
 		{
-			/* Los movimientos del peon dependen mucho de la situación otras piezas */
+			/* Los movimientos del peon dependen mucho de la situación de otras piezas */
 			case Pieza.PEON:
 				int sentido = (c.getColor() ? 1 : -1);
 				Point test = new Point(c.x+sentido, c.y);
@@ -456,16 +553,15 @@ public class Tablero
 		}
 		
 		/* Quitar posiciones ocupadas por piezas propias */
-		for (int i=0; i<puntos.size();i++)
+		for (int i=0; i<puntos.size(); i++)
 		{
 			casTest = casillas[puntos.get(i).x][puntos.get(i).y];
-			
 			if (casTest.getPieza() != null && casTest.getColor() == c.getColor())
+				puntos.remove(i--);
+			else
+				/* Quitar posiciones ocupadas por piezas propias */
+				if (esJaquePropio(c, casTest))
 					puntos.remove(i--);
-		}
-		
-		/* Quitar casillas que supongan jaque propio */
-		{
 		}
 		
 		return puntos;
@@ -473,9 +569,24 @@ public class Tablero
 	
 	public void promocionarPeon(Casilla ini, Casilla fin, Pieza p)
 	{
+		try
+		{
+			AudioPlayer.player.start(new AudioStream(new FileInputStream("sonidos/can-to-table-1.wav")));
+		}
+		catch (FileNotFoundException fnfe)
+		{ }
+		catch (IOException ioe)
+		{ }
+		
 		fin.setCasilla(p, ini.getColor(), fin.x, fin.y);
 		ini.setCasilla(null, true, ini.x, ini.y);
-		
+	}
+	
+	public void quitaListeners(Partida p)
+	{
+		for (int i=0; i<8; i++)
+			for (int j=0; j<8; j++)
+				casillas[i][j].removeMouseListener(p);
 	}
 	
 	public void setSeleccionada(Casilla c)

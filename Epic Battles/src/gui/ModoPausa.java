@@ -11,7 +11,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,12 +20,12 @@ public class ModoPausa extends JPanel implements ActionListener
 	private Principal parent = null;
 	private ModoJuego juego = null;
 	private Image image = null;
-	private JButton bMenu = null;
+	private MiBoton bMenu = null;
 	private JPanel botonera = null;
-	private JButton bContinuar = null;
+	private MiBoton bContinuar = null;
 	private JPanel jPanel = null;
-	private JButton bSalir = null;
-	private JButton bGuardar = null;
+	private MiBoton bSalir = null;
+	private MiBoton bGuardar = null;
 
 	public ModoPausa(Principal parent, ModoJuego mj)
 	{
@@ -62,12 +61,11 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton
 	 */
-	private JButton getBMenu()
+	private MiBoton getBMenu()
 	{
 		if (bMenu == null)
 		{
-			bMenu = new JButton();
-			bMenu.setText("Menu principal");
+			bMenu = new MiBoton("Menu principal");
 		}
 		return bMenu;
 	}
@@ -104,12 +102,11 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBContinuar()
+	private MiBoton getBContinuar()
 	{
 		if (bContinuar == null)
 		{
-			bContinuar = new JButton();
-			bContinuar.setText("Continuar");
+			bContinuar = new MiBoton("Continuar");
 		}
 		return bContinuar;
 	}
@@ -136,12 +133,11 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBSalir()
+	private MiBoton getBSalir()
 	{
 		if (bSalir == null)
 		{
-			bSalir = new JButton();
-			bSalir.setText("Salir");
+			bSalir = new MiBoton("Salir");
 		}
 		return bSalir;
 	}
@@ -151,12 +147,11 @@ public class ModoPausa extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBGuardar()
+	private MiBoton getBGuardar()
 	{
 		if (bGuardar == null)
 		{
-			bGuardar = new JButton();
-			bGuardar.setText("Guardar partida");
+			bGuardar = new MiBoton("Guardar partida");
 		}
 		return bGuardar;
 	}

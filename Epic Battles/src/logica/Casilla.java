@@ -62,6 +62,28 @@ public class Casilla extends Sprite
 		repaint();
 	}
 	
+	public Casilla clon()
+	{
+		Casilla clon = new Casilla();
+		
+		clon.pieza = this.pieza;
+		clon.color = this.color;
+		clon.x = this.x;
+		clon.y = this.y;
+		
+		return clon;
+	}
+	
+	public boolean esEnpassant()
+	{
+		return enpassant;
+	}
+	
+	public boolean esEnrocable()
+	{
+		return enrocable;
+	}
+	
 	public boolean esMarcada()
 	{
 		return marcada;
@@ -72,9 +94,9 @@ public class Casilla extends Sprite
 		return promocion;
 	}
 	
-	public boolean esEnrocable()
+	public boolean esSeleccionada()
 	{
-		return enrocable;
+		return seleccionada;
 	}
 	
 	public boolean getColor()
@@ -132,16 +154,23 @@ public class Casilla extends Sprite
 			}
 			else if (promocion)
 			{
-				tam = this.getWidth()/6;
+				tam = this.getWidth()/5;
 				
 				g.setColor(new Color(235, 182, 20));
 				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
 			else if (enrocable)
 			{
-				tam = this.getWidth()/4;
+				tam = this.getWidth()/5;
 				
 				g.setColor(new Color(124, 186, 69));
+				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
+			}
+			else if (enpassant)
+			{
+				tam = this.getWidth()/5;
+				
+				g.setColor(Color.red);
 				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
 		}

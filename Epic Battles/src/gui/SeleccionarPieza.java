@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
@@ -22,10 +21,10 @@ import logica.piezas.Torre;
 public class SeleccionarPieza extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = 5832293965968994352L;
-	private JButton bAlfil = null;
-	private JButton bCaballo = null;
-	private JButton bReina = null;
-	private JButton bTorre = null;
+	private MiBoton bAlfil = null;
+	private MiBoton bCaballo = null;
+	private MiBoton bReina = null;
+	private MiBoton bTorre = null;
 	private JPanel panel = null;
 	private Frame frame = null;
 	private boolean color;
@@ -82,11 +81,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBAlfil()
+	private MiBoton getBAlfil()
 	{
 		if (bAlfil == null)
 		{
-			bAlfil = new JButton()
+			bAlfil = new MiBoton("")
 			{
 				private static final long serialVersionUID = -4292939848931950501L;
 
@@ -112,11 +111,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBCaballo()
+	private MiBoton getBCaballo()
 	{
 		if (bCaballo == null)
 		{
-			bCaballo = new JButton()
+			bCaballo = new MiBoton("")
 			{
 				private static final long serialVersionUID = 1933539406529644438L;
 
@@ -142,11 +141,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBReina()
+	private MiBoton getBReina()
 	{
 		if (bReina == null) 
 		{
-			bReina = new JButton()
+			bReina = new MiBoton("")
 			{
 				private static final long serialVersionUID = -8965922067985387060L;
 
@@ -172,11 +171,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBTorre()
+	private MiBoton getBTorre()
 	{
 		if (bTorre == null)
 		{
-			bTorre = new JButton()
+			bTorre = new MiBoton("")
 			{
 				private static final long serialVersionUID = -4965165659906129588L;
 

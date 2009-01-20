@@ -11,7 +11,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,10 +21,10 @@ public class ModoInicio extends JPanel implements ActionListener
 	private Image image = null;
 	private JPanel jPanel = null;
 	private JPanel botonera = null;	
-	private JButton bLocal = null;
-	private JButton bRed = null;
-	private JButton bSalir = null;
-	private JButton bOpciones = null;	
+	private MiBoton bLocal = null;
+	private MiBoton bRed = null;
+	private MiBoton bSalir = null;
+	private MiBoton bOpciones = null;	
 	
 	public ModoInicio(Principal parent)
 	{
@@ -60,12 +59,11 @@ public class ModoInicio extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBLocal()
+	private MiBoton getBLocal()
 	{
 		if (bLocal == null)
 		{
-			bLocal = new JButton();
-			bLocal.setText("Juego local");
+			bLocal = new MiBoton("Juego local");
 		}
 		return bLocal;
 	}
@@ -75,12 +73,11 @@ public class ModoInicio extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBRed()
+	private MiBoton getBRed()
 	{
 		if (bRed == null) 
 		{
-			bRed = new JButton();
-			bRed.setText("Juego en red");
+			bRed = new MiBoton("Juego en red");
 		}
 		return bRed;
 	}
@@ -90,12 +87,11 @@ public class ModoInicio extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBSalir()
+	private MiBoton getBSalir()
 	{
 		if (bSalir == null)
 		{
-			bSalir = new JButton();
-			bSalir.setText("Salir");
+			bSalir = new MiBoton("Salir");
 		}
 		return bSalir;
 	}
@@ -105,12 +101,11 @@ public class ModoInicio extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBOpciones()
+	private MiBoton getBOpciones()
 	{
 		if (bOpciones == null)
 		{
-			bOpciones = new JButton();
-			bOpciones.setText("Opciones");
+			bOpciones = new MiBoton("Opciones");
 		}
 		return bOpciones;
 	}

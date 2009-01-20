@@ -14,7 +14,6 @@ import java.util.Vector;
 import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -42,9 +41,9 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	private JPanel lateral = null;
 	private JPanel botonera = null;
 	private JPanel grid = null;
-	private JButton bBorrar = null;
-	private JButton bCargar = null;
-	private JButton bVolver = null;
+	private MiBoton bBorrar = null;
+	private MiBoton bCargar = null;
+	private MiBoton bVolver = null;
 	private JList partidas = null;
 	private Tablero tablero = null;
 	
@@ -137,12 +136,11 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBBorrar()
+	private MiBoton getBBorrar()
 	{
 		if (bBorrar == null)
 		{
-			bBorrar = new JButton();
-			bBorrar.setText("Borrar partida");
+			bBorrar = new MiBoton("Borrar partida");
 			bBorrar.setEnabled(false);
 		}
 		return bBorrar;
@@ -153,12 +151,11 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBCargar()
+	private MiBoton getBCargar()
 	{
 		if (bCargar == null)
 		{
-			bCargar = new JButton();
-			bCargar.setText("Cargar partida");
+			bCargar = new MiBoton("Cargar partida");
 			bCargar.setEnabled(false);
 		}
 		return bCargar;
@@ -169,12 +166,11 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBVolver()
+	private MiBoton getBVolver()
 	{
 		if (bVolver == null)
 		{
-			bVolver = new JButton();
-			bVolver.setText("Volver");
+			bVolver = new MiBoton("Volver");
 		}
 		return bVolver;
 	}

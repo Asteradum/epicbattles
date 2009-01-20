@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ModoOpciones extends JPanel implements ActionListener
@@ -16,8 +15,8 @@ public class ModoOpciones extends JPanel implements ActionListener
 	private Principal parent = null;
 	private Image image = null;
 	private JPanel botonera = null;
-	private JButton bAceptar = null;
-	private JButton bCancelar = null;
+	private MiBoton bAceptar = null;
+	private MiBoton bCancelar = null;
 	private JPanel izq = null;
 	private JPanel der = null;
 	private JPanel panelOpc = null;
@@ -83,12 +82,11 @@ public class ModoOpciones extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBAceptar()
+	private MiBoton getBAceptar()
 	{
 		if (bAceptar == null)
 		{
-			bAceptar = new JButton();
-			bAceptar.setText("Aceptar");
+			bAceptar = new MiBoton("Aceptar");
 		}
 		return bAceptar;
 	}
@@ -98,12 +96,11 @@ public class ModoOpciones extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBCancelar()
+	private MiBoton getBCancelar()
 	{
 		if (bCancelar == null)
 		{
-			bCancelar = new JButton();
-			bCancelar.setText("Cancelar");
+			bCancelar = new MiBoton("Cancelar");
 		}
 		return bCancelar;
 	}

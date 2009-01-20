@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import red.GestorSockets;
@@ -25,10 +24,10 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	private JPanel botonera = null;
 	private JPanel sup = null;
 	private JPanel grid = null;
-	private JButton bEmpezar = null;
-	private JButton bCargar = null;
+	private MiBoton bEmpezar = null;
+	private MiBoton bCargar = null;
 	private JPanel inf = null;
-	private JButton bVolver = null;
+	private MiBoton bVolver = null;
 
 	public ModoJuegoRed(Principal parent)
 	{
@@ -141,12 +140,11 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBEmpezar()
+	private MiBoton getBEmpezar()
 	{
 		if (bEmpezar == null)
 		{
-			bEmpezar = new JButton();
-			bEmpezar.setText("Empezar partida");
+			bEmpezar = new MiBoton("Empezar partida");
 		}
 		return bEmpezar;
 	}
@@ -156,12 +154,11 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBCargar()
+	private MiBoton getBCargar()
 	{
 		if (bCargar == null)
 		{
-			bCargar = new JButton();
-			bCargar.setText("Cargar partida");
+			bCargar = new MiBoton("Cargar partida");
 		}
 		return bCargar;
 	}
@@ -188,12 +185,11 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 	 *
 	 * @return javax.swing.JButton
 	 */
-	private JButton getBVolver()
+	private MiBoton getBVolver()
 	{
 		if (bVolver == null)
 		{
-			bVolver = new JButton();
-			bVolver.setText("Volver");
+			bVolver = new MiBoton("Volver");
 		}
 		return bVolver;
 	}

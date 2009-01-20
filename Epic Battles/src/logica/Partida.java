@@ -81,7 +81,7 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 			
 			if (casillaPulsada.esMarcada())
 			{
-				tablero.mover(casillaSelec, casillaPulsada);
+				tablero.mover(casillaSelec, casillaPulsada, true);
 				jaqueMate = tablero.comprobarJaques(!turno);
 				tablero.limpiarPosibles();
 				imagenInfo.setImagen(null);
@@ -101,7 +101,16 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 			}
 			else if (casillaPulsada.esEnrocable())
 			{
-				tablero.enrocar(casillaPulsada, turno);
+				tablero.enrocar(casillaSelec, casillaPulsada);
+				jaqueMate = tablero.comprobarJaques(!turno);
+				tablero.limpiarPosibles();
+				imagenInfo.setImagen(null);
+				textoInfo.setText("");
+				turno = !turno;
+			}
+			else if (casillaPulsada.esEnpassant())
+			{
+				tablero.enpassant(casillaSelec, casillaPulsada);
 				jaqueMate = tablero.comprobarJaques(!turno);
 				tablero.limpiarPosibles();
 				imagenInfo.setImagen(null);
@@ -129,7 +138,14 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 			
 			if (jaqueMate)
 			{
-				System.out.println("Jaque mate");
+				tablero.quitaListeners(this);
+				textoInfo.setText
+				(
+					"¡Jaque mate! " + Pieza.getNombreColor(turno) + " pierden.\n"+
+					Pieza.getNombreColor(!turno) + " ganan con " + tablero.contarPuntos(!turno) + " puntos.\n"+
+					"La partida se ha resuelto en " + tablero.getNumMovs(!turno) + " movimientos de " + Pieza.getNombreColor(!turno) + "."
+				);
+				
 			}
 		}
 	}

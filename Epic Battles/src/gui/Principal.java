@@ -73,11 +73,10 @@ public class Principal extends JFrame
 	{
 		if (help == null)
 		{
-			help = new JLabel();
+			help = new JLabel("");
 			help.setBorder(new LineBorder(Color.gray, 1));
 			help.setForeground(Color.gray);
-			help.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 11));
-			help.setText("");
+			help.setFont(new Font("Verdana", Font.PLAIN, 12));
 			help.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return help;
