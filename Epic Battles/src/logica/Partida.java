@@ -2,6 +2,7 @@ package logica;
 
 import graficos.Escenario;
 import graficos.Imagen;
+import gui.MiBoton;
 import gui.Principal;
 import gui.SeleccionarPieza;
 
@@ -21,18 +22,20 @@ import logica.piezas.Pieza;
 public class Partida implements ActionListener, MouseListener, KeyListener
 {
 	private Casilla casillaSelec = null;
-	public JTextArea chat = null;
+	private JTextArea chat = null;
 	private Imagen imagenInfo = null;
-	public JTextField mensaje = null;
+	private JTextField mensaje = null;
 	private Oponente oponente = null;
 	private Tablero tablero = null;
 	private JTextArea textoInfo = null;
+	private MiBoton pausa = null;
 	private boolean turno = Pieza.BLANCAS;
+	private boolean fin = false;
 	
 	public Partida(Principal p, Oponente op) throws Exception
 	{
 		super();
-		this.tablero = new Tablero();
+		this.tablero = new Tablero(op.esRed());
 		this.oponente = op;
 		this.tablero.dameListeners(this);
 		this.tablero.girarTablero();
@@ -69,6 +72,11 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	public Escenario getEscenario()
 	{
 		return tablero.getEscenario();
+	}
+	
+	public boolean getFin()
+	{
+		return fin;
 	}
 
 	@Override
@@ -145,7 +153,8 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 					Pieza.getNombreColor(!turno) + " ganan con " + tablero.contarPuntos(!turno) + " puntos.\n"+
 					"La partida se ha resuelto en " + tablero.getNumMovs(!turno) + " movimientos de " + Pieza.getNombreColor(!turno) + "."
 				);
-				
+				pausa.setText("Salir");
+				fin = true;
 			}
 		}
 	}
@@ -175,6 +184,11 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	public void setMensajeChat(JTextField m)
 	{
 		this.mensaje = m;
+	}
+	
+	public void setPausa(MiBoton mb)
+	{
+		this.pausa = mb;
 	}
 	
 	public void setTextoInfo(JTextArea ti)

@@ -11,4 +11,10 @@ public class Local implements Oponente
 	public void decidir(Partida p)
 	{
 	}
+
+	@Override
+	public boolean esRed()
+	{
+		return false;
+	}
 }

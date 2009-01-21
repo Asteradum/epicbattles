@@ -30,19 +30,19 @@ public class Tablero
 	private Vector<String> movimientos = null;
 	private int nivelJaques = 0;
 	
-	public Tablero() throws Exception
+	public Tablero(boolean red) throws Exception
 	{
 		super();
-		this.escenario = new Escenario();
+		this.escenario = new Escenario(red);
 		this.casillas = escenario.getCasillas();
 		generarTablero();
 		this.movimientos = new Vector<String>(10, 10);
 	}
 	
-	public Tablero(Vector<String> movs) throws Exception
+	public Tablero(Vector<String> movs, boolean red) throws Exception
 	{
 		super();
-		this.escenario = new Escenario();
+		this.escenario = new Escenario(red);
 		this.casillas = escenario.getCasillas();
 		generarTablero();
 		this.movimientos = movs;
