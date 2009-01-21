@@ -23,12 +23,15 @@ public class Escenario extends JPanel
 	private JPanel tablero = null;
 	private Casilla[][] casillas = new Casilla[8][8];
 
-	public Escenario()
+	public Escenario(boolean red)
 	{
 		super();
 		initialize();
 		this.setDoubleBuffered(true);
-		image = Fondo.cargar(Fondo.Pantalla.Escenario);
+		if (red)
+			image = Fondo.cargar(Fondo.EscenarioRed);
+		else
+			image = Fondo.cargar(Fondo.EscenarioLocal);
 	}
 	
 	/**

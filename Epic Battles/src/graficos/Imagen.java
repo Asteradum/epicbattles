@@ -14,14 +14,13 @@ public class Imagen extends Canvas
 	public Imagen()
 	{
 		super();
-		this.setSize(new Dimension(80, 80));
+		this.setSize(new Dimension(82, 82));
 	}
 	
 	public void setImagen(Image i)
 	{
 		this.image = i;
 		repaint();
-		//this.paint(this.getGraphics());
 	}
 	
 	@Override
@@ -36,7 +35,7 @@ public class Imagen extends Canvas
 		else
 		{
 			g.setColor(Color.darkGray);
-			g.drawRect(0, 0, 79, 79);
+			g.drawRect(0, 0, 81, 81);
 		}
 	}
 }
