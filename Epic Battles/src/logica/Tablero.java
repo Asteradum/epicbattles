@@ -212,7 +212,7 @@ public class Tablero
 		return jaqueMate;
 	}
 	
-	private boolean esJaquePropio(Casilla ini, Casilla fin)
+	/*private boolean esJaquePropio(Casilla ini, Casilla fin)
 	{
 		boolean jaquePropio = false;
 		
@@ -240,7 +240,7 @@ public class Tablero
 		}
 		
 		return jaquePropio;
-	}
+	}*/
 	
 	private void generarTablero() throws Exception
 	{
