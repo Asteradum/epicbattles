@@ -269,7 +269,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 			movimientos = GestorBaseDatos.leerPartida(ordenPartidas.get(getPartidas().getSelectedIndex()));
 			this.ip = movimientos.get(0);
 			this.movimientos.remove(0);
-			this.tablero = new Tablero(movimientos);
+			this.tablero = new Tablero(movimientos, red);
 			
 			this.getBCargar().setEnabled(true);
 			this.getBBorrar().setEnabled(true);

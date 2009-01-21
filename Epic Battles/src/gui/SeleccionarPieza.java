@@ -1,9 +1,14 @@
 package gui;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -26,9 +31,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	private MiBoton bReina = null;
 	private MiBoton bTorre = null;
 	private JPanel panel = null;
+	private JPanel botonera = null;
 	private Frame frame = null;
 	private boolean color;
 	private Pieza opcion = null;
+	private Image image = null;
 	
 	public SeleccionarPieza(Frame frame, boolean color)
 	{
@@ -41,6 +48,7 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		addWindowListener(new WindowAdapter()
 		{ public void windowClosing(WindowEvent we) {}	});
 
+		image = Fondo.cargar(Fondo.Promocion);
 		pack();
 		setLocationRelativeTo(frame);
 		setVisible(true);
@@ -85,22 +93,27 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	{
 		if (bAlfil == null)
 		{
-			bAlfil = new MiBoton("")
+			try
 			{
-				private static final long serialVersionUID = -4292939848931950501L;
-
-				@Override
-				protected void paintComponent(Graphics g)
+				bAlfil = new MiBoton("")
 				{
-					super.paintComponent(g);
-					try
+					private static final long serialVersionUID = -4292939848931950501L;
+					private Image image = new Alfil().getImagen(color);
+
+					@Override
+					protected void paintComponent(Graphics g)
 					{
-						g.drawImage(new Alfil().getImagen(color), 0,0,this.getWidth(),this.getHeight(),this);
+						super.paintComponent(g);
+						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 					}
-					catch (Exception e) {}
-				}
-			};
-			bAlfil.setPreferredSize(new Dimension(35, 70));
+				};
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			bAlfil.setPreferredSize(new Dimension(60, 70));
 			bAlfil.addActionListener(this);
 		}
 		return bAlfil;
@@ -115,22 +128,27 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	{
 		if (bCaballo == null)
 		{
-			bCaballo = new MiBoton("")
+			try
 			{
-				private static final long serialVersionUID = 1933539406529644438L;
-
-				@Override
-				protected void paintComponent(Graphics g)
+				bCaballo = new MiBoton("")
 				{
-					super.paintComponent(g);
-					try
+					private static final long serialVersionUID = 1933539406529644438L;
+					private Image image = new Caballo().getImagen(color);
+
+					@Override
+					protected void paintComponent(Graphics g)
 					{
-						g.drawImage(new Caballo().getImagen(color), 0,0,this.getWidth(),this.getHeight(),this);
+						super.paintComponent(g);
+						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 					}
-					catch (Exception e) {}
-				}
-			};
-			bCaballo.setPreferredSize(new Dimension(35, 70));
+				};
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			bCaballo.setPreferredSize(new Dimension(60, 70));
 			bCaballo.addActionListener(this);
 		}
 		return bCaballo;
@@ -145,22 +163,27 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	{
 		if (bReina == null) 
 		{
-			bReina = new MiBoton("")
+			try
 			{
-				private static final long serialVersionUID = -8965922067985387060L;
-
-				@Override
-				protected void paintComponent(Graphics g)
+				bReina = new MiBoton("")
 				{
-					super.paintComponent(g);
-					try
+					private static final long serialVersionUID = -8965922067985387060L;
+					private Image image = new Reina().getImagen(color);
+
+					@Override
+					protected void paintComponent(Graphics g)
 					{
-						g.drawImage(new Reina().getImagen(color), 0,0,this.getWidth(),this.getHeight(),this);
+						super.paintComponent(g);
+						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 					}
-					catch (Exception e) {}
-				}
-			};
-			bReina.setPreferredSize(new Dimension(35, 70));
+				};
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			bReina.setPreferredSize(new Dimension(60, 70));
 			bReina.addActionListener(this);
 		}
 		return bReina;
@@ -175,25 +198,46 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	{
 		if (bTorre == null)
 		{
-			bTorre = new MiBoton("")
+			try
 			{
-				private static final long serialVersionUID = -4965165659906129588L;
-
-				@Override
-				protected void paintComponent(Graphics g)
+				bTorre = new MiBoton("")
 				{
-					super.paintComponent(g);
-					try
+					private static final long serialVersionUID = -4965165659906129588L;
+					private Image image = new Torre().getImagen(color);
+
+					@Override
+					protected void paintComponent(Graphics g)
 					{
-						g.drawImage(new Torre().getImagen(color), 0,0,this.getWidth(),this.getHeight(),this);
+						super.paintComponent(g);
+						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 					}
-					catch (Exception e) {}
-				}
-			};
-			bTorre.setPreferredSize(new Dimension(35, 70));
+				};
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+			bTorre.setPreferredSize(new Dimension(60, 70));
 			bTorre.addActionListener(this);
 		}
 		return bTorre;
+	}
+	
+	private JPanel getBotonera()
+	{
+		if (botonera == null)
+		{
+			FlowLayout fl = new FlowLayout();
+			fl.setHgap(30);
+			botonera = new JPanel();
+			botonera.setLayout(fl);
+			botonera.add(getBAlfil());
+			botonera.add(getBCaballo());
+			botonera.add(getBTorre());
+			botonera.add(getBReina());
+		}
+		return botonera;
 	}
 
 	/**
@@ -205,12 +249,14 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	{
 		if (panel == null)
 		{
+			GridBagConstraints gridBagConstraints = new GridBagConstraints();
+			gridBagConstraints.insets = new Insets(0, 0, 0, 0);
+			gridBagConstraints.gridy = 0;
+			gridBagConstraints.gridx = 0;
 			panel = new JPanel();
-			panel.setLayout(new GridLayout(2, 2));
-			panel.add(getBAlfil());
-			panel.add(getBCaballo());
-			panel.add(getBTorre());
-			panel.add(getBReina());
+			panel.setLayout(new GridBagLayout());
+			panel.setPreferredSize(new Dimension(597, 446));
+			panel.add(getBotonera(), gridBagConstraints);
 		}
 		return panel;
 	}
@@ -222,11 +268,20 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	private void initialize()
 	{
         this.setContentPane(getPanel());
+        this.setTitle("Promoción del peón");
         this.setResizable(false);
 	}
 
 	public Pieza getOpcion()
 	{
 		return opcion;
+	}
+	
+	@Override
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		if (image != null)
+			getGraphics().drawImage(image, 0, 0, getWidth(), getHeight(), this);
 	}
 }

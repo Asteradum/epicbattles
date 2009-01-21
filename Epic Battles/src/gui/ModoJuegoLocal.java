@@ -34,7 +34,7 @@ public class ModoJuegoLocal extends JPanel implements ActionListener
 		getBEmpezar().addActionListener(this);
 		getBCargar().addActionListener(this);
 		getBVolver().addActionListener(this);
-		image = Fondo.cargar(Fondo.Pantalla.ModoJuegoLocal);
+		image = Fondo.cargar(Fondo.ModoJuegoLocal);
 	}
 
 	/**

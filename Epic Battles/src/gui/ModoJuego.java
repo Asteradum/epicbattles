@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -149,6 +150,7 @@ class Info extends JPanel implements ActionListener
 		if (bPausa == null)
 		{
 			bPausa = new MiBoton("Pausa");
+			partida.setPausa(bPausa);
 		}
 		return bPausa;
 	}
@@ -158,7 +160,25 @@ class Info extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getBPausa()))
 		{
-			parent.loadRootPanel(new ModoPausa(parent, juego));
+			if (partida.getFin())
+			{
+				String [] opciones = {"Menú principal", "Salir del programa", "Volver"};
+				
+				switch (JOptionPane.showOptionDialog(parent, "¿Desea abandonar el juego?",
+						"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+						null, opciones, opciones[0]))
+				{
+					case 0:
+						parent.loadRootPanel(new ModoInicio(parent));
+						break;
+					case 1:
+						/*Cerrar todo*/
+						System.exit(0);
+						break;
+				}
+			}
+			else
+				parent.loadRootPanel(new ModoPausa(parent, juego));
 		}
 	}
 }

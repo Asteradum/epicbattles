@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -35,7 +34,7 @@ public class ModoInicio extends JPanel implements ActionListener
 		getBRed().addActionListener(this);
 		getBOpciones().addActionListener(this);
 		getBSalir().addActionListener(this);
-		image = Fondo.cargar(Fondo.Pantalla.ModoInicio);
+		image = Fondo.cargar(Fondo.ModoInicio);
 	}	
 
 	/**
@@ -49,7 +48,7 @@ public class ModoInicio extends JPanel implements ActionListener
 		gridBagConstraints.insets = new Insets(5, 0, 0, 0);
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.gridx = 0;
-		this.setPreferredSize(new Dimension(300,200));
+		//this.setPreferredSize(new Dimension(300,200));
 		this.setLayout(new GridBagLayout());
 		this.add(getJPanel(), gridBagConstraints);
 	}
@@ -164,7 +163,7 @@ public class ModoInicio extends JPanel implements ActionListener
 	@Override
 	protected void paintComponent(Graphics g)
 	{
-		super.paintComponent(g); 
+		super.paintComponent(g);
 		if (image != null)
 			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}

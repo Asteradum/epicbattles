@@ -28,7 +28,7 @@ public class ModoOpciones extends JPanel implements ActionListener
 		initialize();
 		getBAceptar().addActionListener(this);
 		getBCancelar().addActionListener(this);
-		image = Fondo.cargar(Fondo.Pantalla.ModoOpciones);
+		image = Fondo.cargar(Fondo.ModoOpciones);
 	}
 
 	/**
