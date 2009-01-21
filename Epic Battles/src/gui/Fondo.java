@@ -25,7 +25,7 @@ public abstract class Fondo
 		"Wanna_play_by_MovE1.png",						// ModoJuegoLocal
 		"Chess_Globe_v3_by_evilhomer145.png",			// ModoJuegoRed
 		"The_Acerbus_Configuration_by_steelgohst.png",	// ModoOpciones
-		"",												// ModoPausa
+		"Chess_Clock_by_Menotodokukagiri.png",			// ModoPausa
 		"A_peon__s_tale___Blessed_by_Frostwake.png"		// Promocion
 	};
 	

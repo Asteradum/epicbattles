@@ -38,7 +38,7 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 		this.tablero = new Tablero(op.esRed());
 		this.oponente = op;
 		this.tablero.dameListeners(this);
-		this.tablero.girarTablero();
+		this.tablero.girarTablero(Pieza.BLANCAS);
 	}
 	
 	public Partida(Principal p, Tablero t, Oponente op)
@@ -84,48 +84,13 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	{
 		if (me.getSource() instanceof Casilla)
 		{
-			boolean jaqueMate = false;
 			Casilla casillaPulsada = (Casilla)me.getSource();
 			
-			if (casillaPulsada.esMarcada())
-			{
-				tablero.mover(casillaSelec, casillaPulsada, true);
-				jaqueMate = tablero.comprobarJaques(!turno);
-				tablero.limpiarPosibles();
-				imagenInfo.setImagen(null);
-				textoInfo.setText("");
-				turno = !turno;
-			}
-			else if (casillaPulsada.esPromocion())
-			{
-				SeleccionarPieza sp = new SeleccionarPieza((Frame) getEscenario().getRootPane().getParent(), casillaSelec.getColor());
-				
-				tablero.promocionarPeon(casillaSelec, casillaPulsada, sp.getOpcion());
-				jaqueMate = tablero.comprobarJaques(!turno);
-				tablero.limpiarPosibles();
-				imagenInfo.setImagen(null);
-				textoInfo.setText("");
-				turno = !turno;
-			}
-			else if (casillaPulsada.esEnrocable())
-			{
-				tablero.enrocar(casillaSelec, casillaPulsada);
-				jaqueMate = tablero.comprobarJaques(!turno);
-				tablero.limpiarPosibles();
-				imagenInfo.setImagen(null);
-				textoInfo.setText("");
-				turno = !turno;
-			}
-			else if (casillaPulsada.esEnpassant())
-			{
-				tablero.enpassant(casillaSelec, casillaPulsada);
-				jaqueMate = tablero.comprobarJaques(!turno);
-				tablero.limpiarPosibles();
-				imagenInfo.setImagen(null);
-				textoInfo.setText("");
-				turno = !turno;
-			}
-			else
+			if
+			(
+				!casillaPulsada.esMarcada() && !casillaPulsada.esPromocion() &&
+				!casillaPulsada.esEnrocable() && !casillaPulsada.esEnpassant()
+			)
 			{
 				tablero.limpiarPosibles();
 				
@@ -143,18 +108,42 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 					casillaSelec = casillaPulsada;
 				}
 			}
-			
-			if (jaqueMate)
+			else
 			{
-				tablero.quitaListeners(this);
-				textoInfo.setText
-				(
-					"¡Jaque mate! " + Pieza.getNombreColor(turno) + " pierden.\n"+
-					Pieza.getNombreColor(!turno) + " ganan con " + tablero.contarPuntos(!turno) + " puntos.\n"+
-					"La partida se ha resuelto en " + tablero.getNumMovs(!turno) + " movimientos de " + Pieza.getNombreColor(!turno) + "."
-				);
-				pausa.setText("Salir");
-				fin = true;
+				if (casillaPulsada.esMarcada())
+					tablero.mover(casillaSelec, casillaPulsada, true);
+				
+				else if (casillaPulsada.esPromocion())
+				{
+					SeleccionarPieza sp = new SeleccionarPieza((Frame) getEscenario().getRootPane().getParent(), casillaSelec.getColor());
+					
+					tablero.promocionarPeon(casillaSelec, casillaPulsada, sp.getOpcion());
+				}
+				
+				else if (casillaPulsada.esEnrocable())
+					tablero.enrocar(casillaSelec, casillaPulsada);
+				
+				else if (casillaPulsada.esEnpassant())
+					tablero.enpassant(casillaSelec, casillaPulsada);
+				
+				tablero.limpiarPosibles();
+				imagenInfo.setImagen(null);
+				textoInfo.setText("");
+				turno = !turno;
+				tablero.girarTablero(turno);
+				
+				if (tablero.comprobarJaques(turno))
+				{
+					tablero.quitaListeners(this);
+					textoInfo.setText
+					(
+						"¡Jaque mate! " + Pieza.getNombreColor(turno) + " pierden.\n"+
+						Pieza.getNombreColor(!turno) + " ganan con " + tablero.contarPuntos(!turno) + " puntos.\n"+
+						"La partida se ha resuelto en " + tablero.getNumMovs(!turno) + " movimientos de " + Pieza.getNombreColor(!turno) + "."
+					);
+					pausa.setText("Salir");
+					fin = true;
+				}
 			}
 		}
 	}

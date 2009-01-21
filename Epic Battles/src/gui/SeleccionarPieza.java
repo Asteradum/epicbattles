@@ -95,25 +95,14 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		{
 			try
 			{
-				bAlfil = new MiBoton("")
-				{
-					private static final long serialVersionUID = -4292939848931950501L;
-					private Image image = new Alfil().getImagen(color);
-
-					@Override
-					protected void paintComponent(Graphics g)
-					{
-						super.paintComponent(g);
-						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
-					}
-				};
+				bAlfil = new MiBoton(new Alfil().getImagenInfo(color));
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
 			
-			bAlfil.setPreferredSize(new Dimension(60, 70));
+			bAlfil.setPreferredSize(new Dimension(60, 60));
 			bAlfil.addActionListener(this);
 		}
 		return bAlfil;
@@ -130,25 +119,14 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		{
 			try
 			{
-				bCaballo = new MiBoton("")
-				{
-					private static final long serialVersionUID = 1933539406529644438L;
-					private Image image = new Caballo().getImagen(color);
-
-					@Override
-					protected void paintComponent(Graphics g)
-					{
-						super.paintComponent(g);
-						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
-					}
-				};
+				bCaballo = new MiBoton(new Caballo().getImagenInfo(color));
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
 			
-			bCaballo.setPreferredSize(new Dimension(60, 70));
+			bCaballo.setPreferredSize(new Dimension(60, 60));
 			bCaballo.addActionListener(this);
 		}
 		return bCaballo;
@@ -165,25 +143,14 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		{
 			try
 			{
-				bReina = new MiBoton("")
-				{
-					private static final long serialVersionUID = -8965922067985387060L;
-					private Image image = new Reina().getImagen(color);
-
-					@Override
-					protected void paintComponent(Graphics g)
-					{
-						super.paintComponent(g);
-						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
-					}
-				};
+				bReina = new MiBoton(new Reina().getImagenInfo(color));
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
 			
-			bReina.setPreferredSize(new Dimension(60, 70));
+			bReina.setPreferredSize(new Dimension(60, 60));
 			bReina.addActionListener(this);
 		}
 		return bReina;
@@ -200,25 +167,14 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		{
 			try
 			{
-				bTorre = new MiBoton("")
-				{
-					private static final long serialVersionUID = -4965165659906129588L;
-					private Image image = new Torre().getImagen(color);
-
-					@Override
-					protected void paintComponent(Graphics g)
-					{
-						super.paintComponent(g);
-						g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
-					}
-				};
+				bTorre = new MiBoton(new Torre().getImagenInfo(color));
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
 			
-			bTorre.setPreferredSize(new Dimension(60, 70));
+			bTorre.setPreferredSize(new Dimension(60, 60));
 			bTorre.addActionListener(this);
 		}
 		return bTorre;
@@ -229,7 +185,7 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		if (botonera == null)
 		{
 			FlowLayout fl = new FlowLayout();
-			fl.setHgap(30);
+			fl.setHgap(35);
 			botonera = new JPanel();
 			botonera.setLayout(fl);
 			botonera.add(getBAlfil());

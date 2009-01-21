@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -175,23 +177,23 @@ public class Tablero
 		else return null;
 	}
 	
-	/*private boolean esJaque(Casilla rey)
+	private boolean esJaque(Casilla rey)
 	{
-		boolean jaque = false;
+		boolean jaque = false, color = rey.getColor();
 		Casilla c;
 		
 		for (int i=0; !jaque && i<8; i++)
 			for (int j=0; !jaque && j<8; j++)
 			{
 				c = casillas[i][j];
-				if (c.getPieza() != null && c.getColor() != rey.getColor())
+				if (c.getPieza() != null && c.getColor() != color)
 					for (Point p: posibles(c))
 						if (p.x == rey.x && p.y == rey.y)
 							jaque = true;
 			}
 		
 		return jaque;
-	}*/
+	}
 	
 	private boolean esJaqueMate(boolean color)
 	{
@@ -311,11 +313,23 @@ public class Tablero
 		return suma;
 	}
 	
-	public void girarTablero()
+	public void girarTablero(boolean color)
 	{
-		for (int i=0; i<8; i++)
-			for (int j=0; j<8; j++)
-				escenario.getTablero().add(casillas[7-i][7-j], 8*i+j);
+		JPanel tablero = escenario.getTablero();
+		
+		tablero.setVisible(false);
+		tablero.removeAll();
+		
+		if (color)
+			for (int i=0; i<8; i++)
+				for (int j=0; j<8; j++)
+					tablero.add(casillas[7-i][7-j], 8*i+j);
+		else
+			for (int i=0; i<8; i++)
+				for (int j=0; j<8; j++)
+					tablero.add(casillas[i][j], 8*i+j);
+		
+		tablero.setVisible(true);
 	}
 
 	public void limpiarPosibles()
@@ -465,14 +479,15 @@ public class Tablero
 	
 	private Vector<Point> posibles(Casilla c)
 	{
-		Vector<Point> puntos;
+		boolean color = c.getColor();
 		Casilla casTest;
+		Vector<Point> puntos;
 		
 		switch (c.getPieza().getTipo())
 		{
 			/* Los movimientos del peon dependen mucho de la situación de otras piezas */
 			case Pieza.PEON:
-				int sentido = (c.getColor() ? 1 : -1);
+				int sentido = (color ? 1 : -1);
 				Point test = new Point(c.x+sentido, c.y);
 				
 				puntos = new Vector<Point>();
@@ -489,7 +504,7 @@ public class Tablero
 						if (test.x >= 0 && test.x < 8)
 						{
 							casTest = casillas[test.x][test.y];
-							if (c.x == (c.getColor() ? 1 : 6) && casTest.getPieza() == null)
+							if (c.x == (color ? 1 : 6) && casTest.getPieza() == null)
 							{
 								puntos.add(test);
 							}
@@ -501,7 +516,7 @@ public class Tablero
 					{
 						casTest = casillas[test.x][test.y];
 						
-						if (casTest.getPieza() != null && casTest.getColor() != c.getColor())
+						if (casTest.getPieza() != null && casTest.getColor() != color)
 							puntos.add(test);
 					}
 					
@@ -510,7 +525,7 @@ public class Tablero
 					{
 						casTest = casillas[test.x][test.y];
 						
-						if (casTest.getPieza() != null && casTest.getColor() != c.getColor())
+						if (casTest.getPieza() != null && casTest.getColor() != color)
 							puntos.add(test);
 					}
 				}
@@ -556,12 +571,40 @@ public class Tablero
 		for (int i=0; i<puntos.size(); i++)
 		{
 			casTest = casillas[puntos.get(i).x][puntos.get(i).y];
-			if (casTest.getPieza() != null && casTest.getColor() == c.getColor())
+			if (casTest.getPieza() != null && casTest.getColor() == color)
 				puntos.remove(i--);
-			else
-				/* Quitar posiciones ocupadas por piezas propias */
-				if (esJaquePropio(c, casTest))
+		}
+		
+		/* Quitar posiciones inválidas por jaque propio */
+		if (nivelJaques == 0)
+		{
+			Casilla iniTemp = c.clon(), limpia = new Casilla(), rey = buscarRey(color);
+			
+			limpia.x = c.x;
+			limpia.y = c.y;
+			nivelJaques++;
+			
+			for (int i=0; i<puntos.size(); i++)
+			{
+				casTest = casillas[puntos.get(i).x][puntos.get(i).y];
+				
+				iniTemp.x = casTest.x;
+				iniTemp.y = casTest.y;
+				
+				casillas[casTest.x][casTest.y] = iniTemp;
+				casillas[c.x][c.y] = limpia;
+				
+				if (c.getPieza().getTipo() == Pieza.REY)
+					rey = iniTemp;
+				
+				if (esJaque(rey))
 					puntos.remove(i--);
+				
+				casillas[c.x][c.y] = c;
+				casillas[casTest.x][casTest.y] = casTest;
+			}
+			
+			nivelJaques--;
 		}
 		
 		return puntos;

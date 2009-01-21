@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -11,6 +13,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 public class MiBoton extends JButton implements MouseListener
 {
 	private static final long serialVersionUID = -7883759316335518307L;
+	private Image image = null;
 
 	public MiBoton(String arg0)
 	{
@@ -19,6 +22,14 @@ public class MiBoton extends JButton implements MouseListener
 		setUI(new BasicButtonUI());
 		setForeground(Color.darkGray);
 		addMouseListener(this);
+	}
+	
+	public MiBoton(Image i)
+	{
+		super();
+		this.image = i;
+		setFont(new Font("Verdana", Font.BOLD, 14));
+		setUI(new BasicButtonUI());
 	}
 
 	@Override
@@ -41,4 +52,12 @@ public class MiBoton extends JButton implements MouseListener
 
 	@Override
 	public void mouseReleased(MouseEvent e) { }
+	
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		if (image != null)
+			g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
+	}
 }
