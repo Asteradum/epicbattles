@@ -4,6 +4,7 @@ import red.GestorSockets;
 
 public class Red extends Thread implements Oponente
 {
+	@SuppressWarnings("unused")
 	private GestorSockets gestor = null;
 	
 	public Red(GestorSockets gs)

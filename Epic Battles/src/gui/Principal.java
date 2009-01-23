@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -13,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import logica.GameSave;
+import basedatos.GestorBaseDatos;
 
 public class Principal extends JFrame
 {
@@ -39,18 +43,40 @@ public class Principal extends JFrame
 			{
 				if (panel instanceof ModoJuego)
 				{
-					String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
-					
-					switch (JOptionPane.showOptionDialog(frame, "¿Desea abandonar el juego?",
-							"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-							null, opciones, opciones[0]))
+					if (!((ModoJuego)panel).getFin())
 					{
-						case 0:
-							/*Guardar todo*/
-						case 1:
-							/*Cerrar todo*/
+						String [] opciones = {"Guardar y salir", "Salir sin guardar", "Cancelar"};
+						
+						switch (JOptionPane.showOptionDialog(frame, "¿Desea abandonar el juego?",
+								"Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+								null, opciones, opciones[0]))
+						{
+							case 0:
+								/*Guardar todo*/
+								try
+								{
+									GestorBaseDatos.guardarPartida
+									(
+										GameSave.ahora(), GameSave.jug1, GameSave.jug2,
+										GameSave.crearMemo(), GameSave.ip
+									);
+								}
+								catch (SQLException sqle)
+								{
+									setHelp(sqle.getMessage());
+								}
+							case 1:
+								/*Cerrar todo*/
+								System.exit(0);
+								break;
+						}
+					}
+					else
+					{
+						if (JOptionPane.showConfirmDialog(frame, "¿Desea abandonar el juego?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+						{
 							System.exit(0);
-							break;
+						}
 					}
 				}
 				else

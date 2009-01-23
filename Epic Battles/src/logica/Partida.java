@@ -21,10 +21,13 @@ import logica.piezas.Pieza;
 
 public class Partida implements ActionListener, MouseListener, KeyListener
 {
+	public static String jugador1;
+	public static String jugador2;
 	private Casilla casillaSelec = null;
 	private JTextArea chat = null;
 	private Imagen imagenInfo = null;
 	private JTextField mensaje = null;
+	@SuppressWarnings("unused")
 	private Oponente oponente = null;
 	private Tablero tablero = null;
 	private JTextArea textoInfo = null;
@@ -46,6 +49,9 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 		super();
 		this.tablero = t;
 		this.oponente = op;
+		this.tablero.dameListeners(this);
+		turno = t.getMovimientos().size() % 2 == 0;
+		this.tablero.girarTablero(turno);
 	}
 
 	/*@Override

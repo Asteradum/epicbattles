@@ -25,26 +25,27 @@ import logica.Partida;
 import logica.Red;
 import logica.Tablero;
 import red.GestorSockets;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 import basedatos.GestorBaseDatos;
-
-import sun.audio.*;
 
 public class ModoCargar extends JPanel implements ActionListener, ListSelectionListener
 {
 	private static final long serialVersionUID = 467462451714083887L;
-	private Principal parent = null;
-	private boolean red = false;
-	private Vector<Long> ordenPartidas = null;
-	private Vector<String> movimientos = null;
-	private String ip = null;
-	private GestorSockets gestorSockets = null;
-	private JPanel lateral = null;
-	private JPanel botonera = null;
-	private JPanel grid = null;
 	private MiBoton bBorrar = null;
 	private MiBoton bCargar = null;
+	private JPanel botonera = null;
 	private MiBoton bVolver = null;
+	private GestorSockets gestorSockets = null;
+	private JPanel grid = null;
+	@SuppressWarnings("unused")
+	private String ip = null;
+	private JPanel lateral = null;
+	private Vector<String> movimientos = null;
+	private Vector<Long> ordenPartidas = null;
+	private Principal parent = null;
 	private JList partidas = null;
+	private boolean red = false;
 	private Tablero tablero = null;
 	
 	public ModoCargar(Principal parent, boolean red)
@@ -59,122 +60,6 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		getPartidas().addListSelectionListener(this);
 	}
 	
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize()
-	{
-		this.setLayout(new BorderLayout());
-		this.add(tablero.getEscenario(), BorderLayout.CENTER);
-		this.add(getLateral(), BorderLayout.EAST);
-	}
-	
-	@Override
-	public String toString()
-	{
-		return "Pantalla de carga";
-	}
-
-	/**
-	 * This method initializes lateral	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getLateral()
-	{
-		if (lateral == null)
-		{
-			lateral = new JPanel();
-			lateral.setOpaque(false);
-			lateral.setLayout(new BorderLayout());
-			lateral.add(getPartidas(), BorderLayout.CENTER);
-			lateral.add(getBotonera(), BorderLayout.SOUTH);
-		}
-		return lateral;
-	}
-
-	/**
-	 * This method initializes botonera	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getBotonera()
-	{
-		if (botonera == null)
-		{
-			botonera = new JPanel();
-			botonera.setOpaque(false);
-			botonera.setLayout(new FlowLayout());
-			botonera.add(getGrid(), null);
-		}
-		return botonera;
-	}
-
-	/**
-	 * This method initializes grid	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getGrid()
-	{
-		if (grid == null)
-		{
-			grid = new JPanel();
-			grid.setOpaque(false);
-			grid.setLayout(new GridLayout(3, 0, 10, 10));
-			grid.add(getBCargar(), null);
-			grid.add(getBBorrar(), null);
-			grid.add(getBVolver(), null);
-		}
-		return grid;
-	}
-
-	/**
-	 * This method initializes bBorrar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBBorrar()
-	{
-		if (bBorrar == null)
-		{
-			bBorrar = new MiBoton("Borrar partida");
-			bBorrar.setEnabled(false);
-		}
-		return bBorrar;
-	}
-
-	/**
-	 * This method initializes bCargar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBCargar()
-	{
-		if (bCargar == null)
-		{
-			bCargar = new MiBoton("Cargar partida");
-			bCargar.setEnabled(false);
-		}
-		return bCargar;
-	}
-
-	/**
-	 * This method initializes bVolver	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBVolver()
-	{
-		if (bVolver == null)
-		{
-			bVolver = new MiBoton("Volver");
-		}
-		return bVolver;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{	
@@ -214,6 +99,11 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 			{ }
 			
 			model.remove(index);
+			this.removeAll();
+			this.add(getLateral(), BorderLayout.EAST);
+			getBBorrar().setEnabled(false);
+			getBCargar().setEnabled(false);
+			repaint();
 		}
 		else if (ae.getSource().equals(getBVolver()))
 		{
@@ -229,6 +119,104 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	}
 	
 	/**
+	 * This method initializes bBorrar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private MiBoton getBBorrar()
+	{
+		if (bBorrar == null)
+		{
+			bBorrar = new MiBoton("Borrar partida");
+			bBorrar.setEnabled(false);
+		}
+		return bBorrar;
+	}
+
+	/**
+	 * This method initializes bCargar	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private MiBoton getBCargar()
+	{
+		if (bCargar == null)
+		{
+			bCargar = new MiBoton("Cargar partida");
+			bCargar.setEnabled(false);
+		}
+		return bCargar;
+	}
+
+	/**
+	 * This method initializes botonera	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getBotonera()
+	{
+		if (botonera == null)
+		{
+			botonera = new JPanel();
+			botonera.setOpaque(false);
+			botonera.setLayout(new FlowLayout());
+			botonera.add(getGrid(), null);
+		}
+		return botonera;
+	}
+
+	/**
+	 * This method initializes bVolver	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private MiBoton getBVolver()
+	{
+		if (bVolver == null)
+		{
+			bVolver = new MiBoton("Volver");
+		}
+		return bVolver;
+	}
+
+	/**
+	 * This method initializes grid	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getGrid()
+	{
+		if (grid == null)
+		{
+			grid = new JPanel();
+			grid.setOpaque(false);
+			grid.setLayout(new GridLayout(3, 0, 10, 10));
+			grid.add(getBCargar(), null);
+			grid.add(getBBorrar(), null);
+			grid.add(getBVolver(), null);
+		}
+		return grid;
+	}
+
+	/**
+	 * This method initializes lateral	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getLateral()
+	{
+		if (lateral == null)
+		{
+			lateral = new JPanel();
+			lateral.setOpaque(false);
+			lateral.setLayout(new BorderLayout());
+			lateral.add(getPartidas(), BorderLayout.CENTER);
+			lateral.add(getBotonera(), BorderLayout.SOUTH);
+		}
+		return lateral;
+	}
+
+	/**
 	 * This method initializes partidas	
 	 * 	
 	 * @return javax.swing.JList	
@@ -237,19 +225,20 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 	{
 		if (partidas == null)
 		{
-			DefaultListModel model = new DefaultListModel();
-			partidas = new JList(model);
-			
 			Hashtable<Long,String> tablaPartidas = null;
+			DefaultListModel model = new DefaultListModel();
+			
+			partidas = new JList(model);
+			ordenPartidas = new Vector<Long>();
+			
 			try
 			{
-				ordenPartidas = new Vector<Long>();
-				tablaPartidas = GestorBaseDatos.leerPartidas(red);
 				
-				for (Entry<Long, String> hs: tablaPartidas.entrySet())
+				tablaPartidas = GestorBaseDatos.leerPartidas(red);
+				for (Entry<Long, String> e: tablaPartidas.entrySet())
 				{
-					model.addElement(hs.getValue());
-					ordenPartidas.add(hs.getKey());
+					model.addElement(e.getValue());
+					ordenPartidas.add(e.getKey());
 				}
 			}
 			catch (SQLException sqle)
@@ -259,6 +248,23 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 			}
 		}
 		return partidas;
+	}
+
+	/**
+	 * This method initializes this
+	 * 
+	 * @return void
+	 */
+	private void initialize()
+	{
+		this.setLayout(new BorderLayout());
+		this.add(getLateral(), BorderLayout.EAST);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Pantalla de carga";
 	}
 
 	@Override
@@ -271,19 +277,22 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 			this.movimientos.remove(0);
 			this.tablero = new Tablero(movimientos, red);
 			
+			this.removeAll();
+			this.add(getLateral(), BorderLayout.EAST);
+			this.add(tablero.getEscenario(), BorderLayout.CENTER);
+			validate();
+			
 			this.getBCargar().setEnabled(true);
 			this.getBBorrar().setEnabled(true);
 		}
 		catch (SQLException sqle)
 		{
 			parent.setHelp(sqle.getMessage());
+			return;
 		}
 		catch (Exception e)
 		{
 			parent.setHelp(e.getMessage());
 		}
-		
-		this.getBCargar().setEnabled(true);
-		this.getBBorrar().setEnabled(true);
 	}
 }

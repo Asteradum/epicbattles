@@ -10,9 +10,13 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import logica.GameSave;
+import basedatos.GestorBaseDatos;
 
 public class ModoPausa extends JPanel implements ActionListener
 {
@@ -173,7 +177,21 @@ public class ModoPausa extends JPanel implements ActionListener
 		}
 		else if (ae.getSource().equals(getBGuardar()))
 		{
-			/* Guardar */
+			try
+			{
+				GestorBaseDatos.guardarPartida
+				(
+					GameSave.ahora(), GameSave.jug1, GameSave.jug2,
+					GameSave.crearMemo(), GameSave.ip
+				);
+			}
+			catch (SQLException sqle)
+			{
+				parent.setHelp(sqle.getMessage());
+			}
+			
+			parent.loadRootPanel(juego);
+			parent.setHelp("Partida guardada");
 		}
 		else if (ae.getSource().equals(getBMenu()))
 		{
@@ -184,6 +202,19 @@ public class ModoPausa extends JPanel implements ActionListener
 			{
 				case 0:
 					/*Guardar todo*/
+					try
+					{
+						GestorBaseDatos.guardarPartida
+						(
+							GameSave.ahora(), GameSave.jug1, GameSave.jug2,
+							GameSave.crearMemo(), GameSave.ip
+						);
+					}
+					catch (SQLException sqle)
+					{
+						parent.setHelp(sqle.getMessage());
+					}
+					
 				case 1:
 					/*Cerrar todo*/
 					parent.loadRootPanel(new ModoInicio(parent));
@@ -199,6 +230,18 @@ public class ModoPausa extends JPanel implements ActionListener
 			{
 				case 0:
 					/*Guardar todo*/
+					try
+					{
+						GestorBaseDatos.guardarPartida
+						(
+							GameSave.ahora(), GameSave.jug1, GameSave.jug2,
+							GameSave.crearMemo(), GameSave.ip
+						);
+					}
+					catch (SQLException sqle)
+					{
+						parent.setHelp(sqle.getMessage());
+					}
 				case 1:
 					/*Cerrar todo*/
 					System.exit(0);

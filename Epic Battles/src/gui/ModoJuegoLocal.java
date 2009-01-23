@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import logica.GameSave;
 import logica.Local;
 import logica.Partida;
 
@@ -172,6 +173,9 @@ public class ModoJuegoLocal extends JPanel implements ActionListener
 	{
 		if (ae.getSource().equals(getBEmpezar()))
 		{
+			GameSave.jug1 = 1;
+			GameSave.jug2 = 2;
+			GameSave.ip = "0.0.0.0";
 			try
 			{
 				parent.loadRootPanel(new ModoJuego(parent, false, new Partida(parent, new Local())));

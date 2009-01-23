@@ -284,10 +284,12 @@ class Chat extends JPanel
 public class ModoJuego extends JSplitPane
 {
 	private static final long serialVersionUID = -8925322799587248232L;
+	private Partida partida = null;
 	
 	public ModoJuego(Principal parent, boolean red, Partida partida)
 	{
 		super();
+		this.partida = partida;
 		this.setOrientation(HORIZONTAL_SPLIT);
 		this.setTopComponent(new Juego(parent, this, partida));
 		
@@ -300,6 +302,11 @@ public class ModoJuego extends JSplitPane
 			this.setBottomComponent(null);
 		}
 		this.setDividerSize(0);
+	}
+	
+	public boolean getFin()
+	{
+		return partida.getFin();
 	}
 	
 	@Override

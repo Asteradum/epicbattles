@@ -77,6 +77,7 @@ public class ModoInicio extends JPanel implements ActionListener
 		if (bRed == null) 
 		{
 			bRed = new MiBoton("Juego en red");
+			bRed.setEnabled(false);
 		}
 		return bRed;
 	}

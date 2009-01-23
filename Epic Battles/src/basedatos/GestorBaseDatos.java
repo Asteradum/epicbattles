@@ -11,8 +11,8 @@ import java.util.Vector;
 
 public abstract class GestorBaseDatos
 {
-	private static String driver = "Microsoft Access Driver (*.mdb)";
-	private static String ruta = "epicbattles.MDB";	
+	private static final String driver = "Microsoft Access Driver (*.mdb)";
+	private static final String ruta = "epicbattles.MDB";
 	
 	private static Connection cargar()
 	{
@@ -21,7 +21,7 @@ public abstract class GestorBaseDatos
 		
 		try
 		{
-			conexion =  DriverManager.getConnection( db, "", "");
+			conexion =  DriverManager.getConnection(db, "", "");
 		}
 		catch (SQLException sqle)
 		{
@@ -31,6 +31,7 @@ public abstract class GestorBaseDatos
 		return conexion;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static Hashtable<Long,String> leerPartidas(boolean red) throws SQLException
 	{
 		Connection conexion = cargar();
@@ -39,35 +40,34 @@ public abstract class GestorBaseDatos
 		if (conexion != null)
 		{
 			Statement stmt = conexion.createStatement();
-			String query = "SELECT p.id_partida, p.fechahora, j1.nom_jugador,  j2.nom_jugador, p.ip " +
+			String query = "SELECT p.fechahora, j1.nom_jugador,  j2.nom_jugador, p.ip " +
 					"FROM Partida p, Jugador j1, Jugador j2 " +
 					"WHERE p.id_jug1 = j1.id_jugador AND p.id_jug2 = j2.id_jugador";
 			ResultSet rs = stmt.executeQuery(query);
 			
-			Long id;
 			String fecha, jug1, jug2;
+			long fechaLong;
 			
 			while(rs.next())
 			{
-				id = rs.getLong(1);
-				fecha = new Date(Long.valueOf(rs.getString(2))).toLocaleString() + " || ";
-				jug1 = rs.getString(3);
-				jug2 = rs.getString(4);
+				fechaLong = Long.valueOf(rs.getString(1)).longValue();
+				fecha = new Date(fechaLong).toLocaleString() + " || ";
+				jug1 = rs.getString(2);
+				jug2 = rs.getString(3);
 				
 				if (red)
 				{
-					if (rs.getString(5) != "")
-						partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
+					if (rs.getString(4) != "")
+						partidas.put(fechaLong, fecha+" "+jug1+" vs. "+jug2+" ");
 				}
 				else
 				{
-					if (rs.getString(5) == "")
-						partidas.put(id, fecha+" "+jug1+" vs. "+jug2+" ");
+					partidas.put(fechaLong, fecha+" "+jug1+" vs. "+jug2+" ");
 				}
 			}
 			
-			stmt.close();
 			rs.close();
+			stmt.close();
 			conexion.close();
 		}
 		else
@@ -88,19 +88,22 @@ public abstract class GestorBaseDatos
 			Statement stmt = conexion.createStatement();
 			String query = "SELECT p.movimientos, p.ip " +
 					"FROM Partida p " +
-					"WHERE p.id_partida = " + id.toString();
+					"WHERE p.fechahora = '" + id.toString() + "'";
 			ResultSet rs = stmt.executeQuery(query);
 			
-			movimientos.add(rs.getString(2));
-			
-			String[] movs = rs.getString(1).split(",");
-			for (int i=0; i<movs.length; i++)
+			if (rs.next())
 			{
-				movimientos.add(movs[i]);
+				movimientos.add(rs.getString(2));
+				
+				String[] movs = rs.getString(1).split(",");
+				for (int i=0; i<movs.length; i++)
+				{
+					movimientos.add(movs[i]);
+				}	
 			}
 			
-			stmt.close();
 			rs.close();
+			stmt.close();
 			conexion.close();
 		}
 		else
@@ -111,26 +114,19 @@ public abstract class GestorBaseDatos
 		return movimientos;
 	}
 	
-	public static void guardarPartida(Date fecha, Integer jug1, Integer jug2, Vector<String> movs, String ip) throws SQLException
+	public static void guardarPartida(Long fecha, Long jug1, Long jug2, String movs, String ip) throws SQLException
 	{
 		Connection conexion = cargar();
 		
 		if (conexion != null)
 		{
-			String movimientos = "";
-			
-			for (String mov: movs)
-			{
-				movimientos += mov + ",";
-			}
-			
 			Statement stmt = conexion.createStatement();
-			String update = "INSERT INTO Partida VALUES ("+
-				fecha.toString() + ", "+
-				jug1.toString() + ", " +
-				jug2.toString() + ", " +
-				movimientos + ", " +
-				ip + ")";
+			String update = "INSERT INTO Partida VALUES ('"+
+				fecha.toString() + "', " +
+				jug1 + ", " +
+				jug2 + ", '" +
+				movs + "', '" +
+				ip + "')";
 			
 			stmt.executeUpdate(update);
 			
@@ -149,7 +145,12 @@ public abstract class GestorBaseDatos
 		
 		if (conexion != null)
 		{
-		
+			Statement stmt = conexion.createStatement();
+			String update = "DELETE FROM Partida where fechahora='" + id.toString() + "'";
+			
+			stmt.executeUpdate(update);
+			
+			stmt.close();
 			conexion.close();
 		}
 		else

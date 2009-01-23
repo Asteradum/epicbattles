@@ -237,6 +237,6 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	{
 		super.paint(g);
 		if (image != null)
-			getGraphics().drawImage(image, 0, 0, getWidth(), getHeight(), this);
+			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 	}
 }

@@ -39,6 +39,7 @@ public class Tablero
 		this.casillas = escenario.getCasillas();
 		generarTablero();
 		this.movimientos = new Vector<String>(10, 10);
+		GameSave.vs = movimientos;
 	}
 	
 	public Tablero(Vector<String> movs, boolean red) throws Exception
@@ -48,6 +49,7 @@ public class Tablero
 		this.casillas = escenario.getCasillas();
 		generarTablero();
 		this.movimientos = movs;
+		GameSave.vs = movimientos;
 		for (String mov: movs)
 		{
 			this.mover(mov);
@@ -470,8 +472,9 @@ public class Tablero
 	private void mover(String mov)
 	{
 		char[] letras = mov.toCharArray();
-		Casilla ini = casillas[Integer.valueOf(letras[1])][Integer.valueOf(letras[0]-97)];
-		Casilla fin = casillas[Integer.valueOf(letras[4])][Integer.valueOf(letras[3]-97)];
+		
+		Casilla ini = casillas[Character.getNumericValue(letras[1])-1][letras[0]-97];
+		Casilla fin = casillas[Character.getNumericValue(letras[4])-1][letras[3]-97];
 		
 		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
 		ini.setCasilla(null, true, ini.x, ini.y);

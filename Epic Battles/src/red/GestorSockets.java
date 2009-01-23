@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
+@SuppressWarnings("unused")
 public class GestorSockets extends Thread
 {
 	public static enum Estado
