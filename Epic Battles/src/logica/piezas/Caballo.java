@@ -13,12 +13,6 @@ public class Caballo extends Pieza
 	}
 	
 	@Override
-	public int getTipo()
-	{
-		return Pieza.CABALLO;
-	}
-
-	@Override
 	public String getNombre()
 	{
 		return "Caballo";
@@ -51,5 +45,11 @@ public class Caballo extends Pieza
 			}
 		
 		return puntos;
+	}
+
+	@Override
+	public int getTipo()
+	{
+		return Pieza.CABALLO;
 	}
 }

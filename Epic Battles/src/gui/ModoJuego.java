@@ -33,13 +33,8 @@ class Juego extends JPanel
 		this.juego = mj;
 		this.partida = partida;
 		initialize();
-	}	
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
+	}
+	
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
@@ -69,24 +64,14 @@ class Info extends JPanel implements ActionListener
 		getBPausa().addActionListener(this);
 		this.getTexto().setText("Bienvenido a EpicBattles");
 	}
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
+	
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
 		this.add(getDatos(), BorderLayout.CENTER);
 		this.add(getBotonera(), BorderLayout.SOUTH);
 	}
-
-	/**
-	 * This method initializes texto	
-	 * 	
-	 * @return javax.swing.JTextArea	
-	 */
+	
 	private JTextArea getTexto()
 	{
 		if (texto == null)
@@ -100,12 +85,7 @@ class Info extends JPanel implements ActionListener
 		}
 		return texto;
 	}
-
-	/**
-	 * This method initializes botonera	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getBotonera()
 	{
 		if (botonera == null)
@@ -116,12 +96,7 @@ class Info extends JPanel implements ActionListener
 		}
 		return botonera;
 	}
-
-	/**
-	 * This method initializes datos	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getDatos()
 	{
 		if (datos == null)
@@ -139,12 +114,7 @@ class Info extends JPanel implements ActionListener
 		}
 		return datos;
 	}
-
-	/**
-	 * This method initializes bPausa	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getBPausa()
 	{
 		if (bPausa == null)
@@ -200,12 +170,7 @@ class Chat extends JPanel
 		getSendButton().addActionListener(p);
 		getMessage().addKeyListener(p);
 	}
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
+	
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());
@@ -213,12 +178,7 @@ class Chat extends JPanel
 		this.add(getChat(), BorderLayout.CENTER);
 		this.add(getSend(), BorderLayout.SOUTH);
 	}
-
-	/**
-	 * This method initializes chat	
-	 * 	
-	 * @return javax.swing.JTextArea	
-	 */
+	
 	private JTextArea getChat()
 	{
 		if (chat == null)
@@ -232,12 +192,7 @@ class Chat extends JPanel
 		}
 		return chat;
 	}
-
-	/**
-	 * This method initializes send	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getSend()
 	{
 		if (send == null)
@@ -249,12 +204,7 @@ class Chat extends JPanel
 		}
 		return send;
 	}
-
-	/**
-	 * This method initializes sendButton	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getSendButton()
 	{
 		if (sendButton == null)
@@ -263,12 +213,7 @@ class Chat extends JPanel
 		}
 		return sendButton;
 	}
-
-	/**
-	 * This method initializes message	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
+	
 	private JTextField getMessage()
 	{
 		if (message == null)

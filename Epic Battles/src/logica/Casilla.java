@@ -20,10 +20,10 @@ public class Casilla extends Sprite
 	}
 	
 	private static final long serialVersionUID = 2663916697888476162L;
+	
 	private static final ColorTintFilter filtroMarcada = new ColorTintFilter(Color.red, 0.5f);
 	private static final ColorTintFilter filtroSeleccionada = new ColorTintFilter(Color.blue, 0.5f);
 	private static final ColorTintFilter filtroPromo = new ColorTintFilter(Color.orange, 0.5f);
-	
 	private static BufferedImage cache = null;
 	
 	private Pieza pieza = null;

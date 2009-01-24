@@ -16,14 +16,14 @@ import javax.swing.JPanel;
 public class ModoInicio extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -7943530594020763917L;
-	private Principal parent = null;
+	private MiBoton bLocal = null;
+	private MiBoton bOpciones = null;
+	private JPanel botonera = null;
+	private MiBoton bRed = null;	
+	private MiBoton bSalir = null;
 	private Image image = null;
 	private JPanel jPanel = null;
-	private JPanel botonera = null;	
-	private MiBoton bLocal = null;
-	private MiBoton bRed = null;
-	private MiBoton bSalir = null;
-	private MiBoton bOpciones = null;	
+	private Principal parent = null;	
 	
 	public ModoInicio(Principal parent)
 	{
@@ -35,87 +35,8 @@ public class ModoInicio extends JPanel implements ActionListener
 		getBOpciones().addActionListener(this);
 		getBSalir().addActionListener(this);
 		image = Fondo.cargar(Fondo.ModoInicio);
-	}	
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize()
-	{
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.insets = new Insets(5, 0, 0, 0);
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridx = 0;
-		//this.setPreferredSize(new Dimension(300,200));
-		this.setLayout(new GridBagLayout());
-		this.add(getJPanel(), gridBagConstraints);
-	}
-
-	/**
-	 * This method initializes bLocal	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBLocal()
-	{
-		if (bLocal == null)
-		{
-			bLocal = new MiBoton("Juego local");
-		}
-		return bLocal;
-	}
-
-	/**
-	 * This method initializes bRed	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBRed()
-	{
-		if (bRed == null) 
-		{
-			bRed = new MiBoton("Juego en red");
-			bRed.setEnabled(false);
-		}
-		return bRed;
-	}
-
-	/**
-	 * This method initializes bSalir	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBSalir()
-	{
-		if (bSalir == null)
-		{
-			bSalir = new MiBoton("Salir");
-		}
-		return bSalir;
-	}
-
-	/**
-	 * This method initializes bOpciones	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBOpciones()
-	{
-		if (bOpciones == null)
-		{
-			bOpciones = new MiBoton("Opciones");
-		}
-		return bOpciones;
 	}
 	
-	@Override
-	public String toString()
-	{
-		return "Pantalla de inicio";
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{	
@@ -139,12 +60,25 @@ public class ModoInicio extends JPanel implements ActionListener
 			}
 		}
 	}
-
-	/**
-	 * This method initializes botonera	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
+	private MiBoton getBLocal()
+	{
+		if (bLocal == null)
+		{
+			bLocal = new MiBoton("Juego local");
+		}
+		return bLocal;
+	}
+	
+	private MiBoton getBOpciones()
+	{
+		if (bOpciones == null)
+		{
+			bOpciones = new MiBoton("Opciones");
+		}
+		return bOpciones;
+	}
+	
 	private JPanel getBotonera() 
 	{
 		if (botonera == null)
@@ -161,19 +95,24 @@ public class ModoInicio extends JPanel implements ActionListener
 		return botonera;
 	}
 	
-	@Override
-	protected void paintComponent(Graphics g)
+	private MiBoton getBRed()
 	{
-		super.paintComponent(g);
-		if (image != null)
-			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+		if (bRed == null) 
+		{
+			bRed = new MiBoton("Juego en red");
+		}
+		return bRed;
+	}
+	
+	private MiBoton getBSalir()
+	{
+		if (bSalir == null)
+		{
+			bSalir = new MiBoton("Salir");
+		}
+		return bSalir;
 	}
 
-	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
 	private JPanel getJPanel()
 	{
 		if (jPanel == null)
@@ -184,5 +123,29 @@ public class ModoInicio extends JPanel implements ActionListener
 			jPanel.add(getBotonera(), null);
 		}
 		return jPanel;
+	}
+	
+	private void initialize()
+	{
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.insets = new Insets(5, 0, 0, 0);
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridx = 0;
+		this.setLayout(new GridBagLayout());
+		this.add(getJPanel(), gridBagConstraints);
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		if (image != null)
+			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Pantalla de inicio";
 	}
 }

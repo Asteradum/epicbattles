@@ -13,12 +13,6 @@ public class Reina extends Pieza
 	}
 	
 	@Override
-	public int getTipo()
-	{
-		return Pieza.REINA;
-	}
-
-	@Override
 	public String getNombre()
 	{
 		return "Reina";
@@ -82,5 +76,11 @@ public class Reina extends Pieza
 			}
 		
 		return puntos;
+	}
+
+	@Override
+	public int getTipo()
+	{
+		return Pieza.REINA;
 	}
 }

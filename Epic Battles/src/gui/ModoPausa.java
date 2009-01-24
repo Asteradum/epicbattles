@@ -21,15 +21,15 @@ import basedatos.GestorBaseDatos;
 public class ModoPausa extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 6099231033223006821L;
-	private Principal parent = null;
-	private ModoJuego juego = null;
-	private Image image = null;
+	private MiBoton bContinuar = null;
+	private MiBoton bGuardar = null;
 	private MiBoton bMenu = null;
 	private JPanel botonera = null;
-	private MiBoton bContinuar = null;
-	private JPanel jPanel = null;
 	private MiBoton bSalir = null;
-	private MiBoton bGuardar = null;
+	private Image image = null;
+	private JPanel jPanel = null;
+	private ModoJuego juego = null;
+	private Principal parent = null;
 
 	public ModoPausa(Principal parent, ModoJuego mj)
 	{
@@ -42,130 +42,6 @@ public class ModoPausa extends JPanel implements ActionListener
 		getBMenu().addActionListener(this);
 		getBSalir().addActionListener(this);
 		image = Fondo.cargar(Fondo.ModoPausa);
-	}
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize()
-	{
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.insets = new Insets(5, 0, 0, 0);
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridx = 0;
-		this.setPreferredSize(new Dimension(200, 300));
-		this.setLayout(new GridBagLayout());
-		this.add(getJPanel(), gridBagConstraints);
-	}
-
-	/**
-	 * This method initializes bMenu
-	 * 	
-	 * @return javax.swing.JButton
-	 */
-	private MiBoton getBMenu()
-	{
-		if (bMenu == null)
-		{
-			bMenu = new MiBoton("Menu principal");
-		}
-		return bMenu;
-	}
-	
-	@Override
-	public String toString()
-	{
-		return "Pantalla de pausa";
-	}
-
-	/**
-	 * This method initializes botonera	
-	 * 	
-	 * @return javax.swing.JPanel
-	 */
-	private JPanel getBotonera()
-	{
-		if (botonera == null)
-		{
-			GridLayout gridLayout = new GridLayout(4, 1, 10, 10);
-			botonera = new JPanel();
-			botonera.setLayout(gridLayout);
-			botonera.setOpaque(false);
-			botonera.add(getBContinuar(), null);
-			botonera.add(getBGuardar(), null);
-			botonera.add(getBMenu(), null);
-			botonera.add(getBSalir(), null);
-		}
-		return botonera;
-	}
-
-	/**
-	 * This method initializes bContinuar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBContinuar()
-	{
-		if (bContinuar == null)
-		{
-			bContinuar = new MiBoton("Continuar");
-		}
-		return bContinuar;
-	}
-
-	/**
-	 * This method initializes jPanel	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getJPanel()
-	{
-		if (jPanel == null)
-		{
-			jPanel = new JPanel();
-			jPanel.setOpaque(false);
-			jPanel.setLayout(new FlowLayout());
-			jPanel.add(getBotonera(), null);
-		}
-		return jPanel;
-	}
-
-	/**
-	 * This method initializes bSalir	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBSalir()
-	{
-		if (bSalir == null)
-		{
-			bSalir = new MiBoton("Salir");
-		}
-		return bSalir;
-	}
-
-	/**
-	 * This method initializes bGuardar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBGuardar()
-	{
-		if (bGuardar == null)
-		{
-			bGuardar = new MiBoton("Guardar partida");
-		}
-		return bGuardar;
-	}
-
-	@Override
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		if (image != null)
-			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
 	}
 	
 	@Override
@@ -248,5 +124,94 @@ public class ModoPausa extends JPanel implements ActionListener
 					break;
 			}
 		}
+	}
+	
+	private MiBoton getBContinuar()
+	{
+		if (bContinuar == null)
+		{
+			bContinuar = new MiBoton("Continuar");
+		}
+		return bContinuar;
+	}
+	
+	private MiBoton getBGuardar()
+	{
+		if (bGuardar == null)
+		{
+			bGuardar = new MiBoton("Guardar partida");
+		}
+		return bGuardar;
+	}
+	
+	private MiBoton getBMenu()
+	{
+		if (bMenu == null)
+		{
+			bMenu = new MiBoton("Menu principal");
+		}
+		return bMenu;
+	}
+	
+	private JPanel getBotonera()
+	{
+		if (botonera == null)
+		{
+			GridLayout gridLayout = new GridLayout(4, 1, 10, 10);
+			botonera = new JPanel();
+			botonera.setLayout(gridLayout);
+			botonera.setOpaque(false);
+			botonera.add(getBContinuar(), null);
+			botonera.add(getBGuardar(), null);
+			botonera.add(getBMenu(), null);
+			botonera.add(getBSalir(), null);
+		}
+		return botonera;
+	}
+	
+	private MiBoton getBSalir()
+	{
+		if (bSalir == null)
+		{
+			bSalir = new MiBoton("Salir");
+		}
+		return bSalir;
+	}
+	
+	private JPanel getJPanel()
+	{
+		if (jPanel == null)
+		{
+			jPanel = new JPanel();
+			jPanel.setOpaque(false);
+			jPanel.setLayout(new FlowLayout());
+			jPanel.add(getBotonera(), null);
+		}
+		return jPanel;
+	}
+	
+	private void initialize()
+	{
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.insets = new Insets(5, 0, 0, 0);
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridx = 0;
+		this.setPreferredSize(new Dimension(200, 300));
+		this.setLayout(new GridBagLayout());
+		this.add(getJPanel(), gridBagConstraints);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		if (image != null)
+			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Pantalla de pausa";
 	}
 }

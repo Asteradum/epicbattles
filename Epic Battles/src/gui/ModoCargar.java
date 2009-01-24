@@ -118,11 +118,6 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 	}
 	
-	/**
-	 * This method initializes bBorrar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
 	private MiBoton getBBorrar()
 	{
 		if (bBorrar == null)
@@ -132,12 +127,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return bBorrar;
 	}
-
-	/**
-	 * This method initializes bCargar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getBCargar()
 	{
 		if (bCargar == null)
@@ -147,12 +137,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return bCargar;
 	}
-
-	/**
-	 * This method initializes botonera	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getBotonera()
 	{
 		if (botonera == null)
@@ -164,12 +149,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return botonera;
 	}
-
-	/**
-	 * This method initializes bVolver	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getBVolver()
 	{
 		if (bVolver == null)
@@ -178,12 +158,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return bVolver;
 	}
-
-	/**
-	 * This method initializes grid	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getGrid()
 	{
 		if (grid == null)
@@ -197,12 +172,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return grid;
 	}
-
-	/**
-	 * This method initializes lateral	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getLateral()
 	{
 		if (lateral == null)
@@ -215,12 +185,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return lateral;
 	}
-
-	/**
-	 * This method initializes partidas	
-	 * 	
-	 * @return javax.swing.JList	
-	 */
+	
 	private JList getPartidas()
 	{
 		if (partidas == null)
@@ -249,12 +214,7 @@ public class ModoCargar extends JPanel implements ActionListener, ListSelectionL
 		}
 		return partidas;
 	}
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
+	
 	private void initialize()
 	{
 		this.setLayout(new BorderLayout());

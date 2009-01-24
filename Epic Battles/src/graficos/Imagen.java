@@ -17,12 +17,6 @@ public class Imagen extends Canvas
 		this.setSize(new Dimension(82, 82));
 	}
 	
-	public void setImagen(Image i)
-	{
-		this.image = i;
-		repaint();
-	}
-	
 	@Override
 	public void paint(Graphics g)
 	{
@@ -37,5 +31,11 @@ public class Imagen extends Canvas
 			g.setColor(Color.darkGray);
 			g.drawRect(0, 0, 81, 81);
 		}
+	}
+	
+	public void setImagen(Image i)
+	{
+		this.image = i;
+		repaint();
 	}
 }

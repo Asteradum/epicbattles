@@ -25,15 +25,15 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	public static String jugador2;
 	private Casilla casillaSelec = null;
 	private JTextArea chat = null;
+	private boolean fin = false;
 	private Imagen imagenInfo = null;
 	private JTextField mensaje = null;
 	@SuppressWarnings("unused")
 	private Oponente oponente = null;
+	private MiBoton pausa = null;
 	private Tablero tablero = null;
 	private JTextArea textoInfo = null;
-	private MiBoton pausa = null;
 	private boolean turno = Pieza.BLANCAS;
-	private boolean fin = false;
 	
 	public Partida(Principal p, Oponente op) throws Exception
 	{
@@ -53,17 +53,6 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 		turno = t.getMovimientos().size() % 2 == 0;
 		this.tablero.girarTablero(turno);
 	}
-
-	/*@Override
-	public void run()
-	{
-		while (imagenInfo == null || textoInfo == null || chat == null || mensaje == null);
-		
-		while (!fin)
-		{
-			
-		}
-	}*/
 	
 	@Override
 	public void actionPerformed(ActionEvent ae)
@@ -84,6 +73,22 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	{
 		return fin;
 	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0)
+	{
+		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			chat.append(mensaje.getText() + "\n");
+			mensaje.setText("");
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) { }
+
+	@Override
+	public void keyTyped(KeyEvent arg0) { }
 
 	@Override
 	public void mouseClicked(MouseEvent me) 
@@ -162,48 +167,32 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void mousePressed(MouseEvent e) { }
-
+	
 	@Override
 	public void mouseReleased(MouseEvent e) { }
-
+	
 	public void setChat(JTextArea chat)
 	{
 		this.chat = chat;
 	}
-
+	
 	public void setImagenInfo(Imagen i)
 	{
 		this.imagenInfo = i;
 	}
-	
+
 	public void setMensajeChat(JTextField m)
 	{
 		this.mensaje = m;
 	}
-	
+
 	public void setPausa(MiBoton mb)
 	{
 		this.pausa = mb;
 	}
-	
+
 	public void setTextoInfo(JTextArea ti)
 	{
 		this.textoInfo = ti;
 	}
-
-	@Override
-	public void keyPressed(KeyEvent arg0)
-	{
-		if (arg0.getKeyCode() == KeyEvent.VK_ENTER)
-		{
-			chat.append(mensaje.getText() + "\n");
-			mensaje.setText("");
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) { }
-
-	@Override
-	public void keyTyped(KeyEvent arg0) { }
 }

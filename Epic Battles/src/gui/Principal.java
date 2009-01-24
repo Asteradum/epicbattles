@@ -89,12 +89,7 @@ public class Principal extends JFrame
 		    }
 		});
 	}
-
-	/**
-	 * This method initializes help	
-	 * 	
-	 * @return javax.swing.JLabel	
-	 */
+	
 	private JLabel getHelp()
 	{
 		if (help == null)
@@ -108,11 +103,6 @@ public class Principal extends JFrame
 		return help;
 	}
 	
-	/**
-	 * This method initializes jContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
 	private JPanel getJContentPane()
 	{
 		if (jContentPane == null)
@@ -122,13 +112,8 @@ public class Principal extends JFrame
 			jContentPane.add(getHelp(), BorderLayout.SOUTH);
 		}
 		return jContentPane;
-	}	
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
+	}
+	
 	private void initialize()
 	{
 		this.setContentPane(getJContentPane());

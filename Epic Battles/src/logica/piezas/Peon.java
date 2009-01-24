@@ -13,12 +13,6 @@ public class Peon extends Pieza
 	}
 	
 	@Override
-	public int getTipo()
-	{
-		return Pieza.PEON;
-	}
-
-	@Override
 	public String getNombre()
 	{
 		return "Peon";
@@ -28,5 +22,11 @@ public class Peon extends Pieza
 	public Vector<Point> getPosibles(Point p)
 	{
 		return null;
+	}
+
+	@Override
+	public int getTipo()
+	{
+		return Pieza.PEON;
 	}
 }

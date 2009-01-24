@@ -13,12 +13,6 @@ public class Alfil extends Pieza
 	}
 	
 	@Override
-	public int getTipo()
-	{
-		return Pieza.ALFIL;
-	}
-
-	@Override
 	public String getNombre()
 	{
 		return "Alfil";
@@ -60,4 +54,9 @@ public class Alfil extends Pieza
 		return puntos;
 	}
 
+	@Override
+	public int getTipo()
+	{
+		return Pieza.ALFIL;
+	}
 }

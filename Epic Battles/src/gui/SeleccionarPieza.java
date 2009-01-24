@@ -27,14 +27,14 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 	private static final long serialVersionUID = 5832293965968994352L;
 	private MiBoton bAlfil = null;
 	private MiBoton bCaballo = null;
+	private JPanel botonera = null;
 	private MiBoton bReina = null;
 	private MiBoton bTorre = null;
-	private JPanel panel = null;
-	private JPanel botonera = null;
-	private Frame frame = null;
 	private boolean color;
-	private Pieza opcion = null;
+	private Frame frame = null;
 	private Image image = null;
+	private Pieza opcion = null;
+	private JPanel panel = null;
 	
 	public SeleccionarPieza(Frame frame, boolean color)
 	{
@@ -82,12 +82,7 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		
 		setVisible(false);
 	}
-
-	/**
-	 * This method initializes bAlfil	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getBAlfil()
 	{
 		if (bAlfil == null)
@@ -106,12 +101,7 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		}
 		return bAlfil;
 	}
-
-	/**
-	 * This method initializes bCaballo	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getBCaballo()
 	{
 		if (bCaballo == null)
@@ -130,12 +120,23 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		}
 		return bCaballo;
 	}
-
-	/**
-	 * This method initializes bReina	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
+	private JPanel getBotonera()
+	{
+		if (botonera == null)
+		{
+			FlowLayout fl = new FlowLayout();
+			fl.setHgap(35);
+			botonera = new JPanel();
+			botonera.setLayout(fl);
+			botonera.add(getBAlfil());
+			botonera.add(getBCaballo());
+			botonera.add(getBTorre());
+			botonera.add(getBReina());
+		}
+		return botonera;
+	}
+	
 	private MiBoton getBReina()
 	{
 		if (bReina == null) 
@@ -154,12 +155,7 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		}
 		return bReina;
 	}
-
-	/**
-	 * This method initializes bTorre	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
+	
 	private MiBoton getBTorre()
 	{
 		if (bTorre == null)
@@ -179,27 +175,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		return bTorre;
 	}
 	
-	private JPanel getBotonera()
+	public Pieza getOpcion()
 	{
-		if (botonera == null)
-		{
-			FlowLayout fl = new FlowLayout();
-			fl.setHgap(35);
-			botonera = new JPanel();
-			botonera.setLayout(fl);
-			botonera.add(getBAlfil());
-			botonera.add(getBCaballo());
-			botonera.add(getBTorre());
-			botonera.add(getBReina());
-		}
-		return botonera;
+		return opcion;
 	}
-
-	/**
-	 * This method initializes panel	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getPanel()
 	{
 		if (panel == null)
@@ -216,20 +196,11 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		return panel;
 	}
 
-	/**
-	 * This method initializes this
-	 * 
-	 */
 	private void initialize()
 	{
         this.setContentPane(getPanel());
         this.setTitle("Promoción del peón");
         this.setResizable(false);
-	}
-
-	public Pieza getOpcion()
-	{
-		return opcion;
 	}
 	
 	@Override

@@ -122,24 +122,6 @@ public class Tablero
 				casillas[i][j].addMouseListener(p);
 	}
 	
-	private boolean esAmenazado(Casilla c, boolean color)
-	{
-		boolean esAmenazado = false;
-		Casilla temp;
-		
-		for (int i=0; !esAmenazado && i<8; i++)
-			for (int j=0; !esAmenazado && j<8; j++)
-			{
-				temp = casillas[i][j];
-				if (temp.getPieza() != null && temp.getColor() == color)
-					for (Point p: posibles(temp))
-						if (p.x == c.x && p.y == c.y)
-							esAmenazado = true;
-			}
-		
-		return esAmenazado;
-	}
-	
 	public void enpassant(Casilla ini, Casilla fin)
 	{
 		int sentido = (ini.getColor() ? -1 : 1);
@@ -158,6 +140,24 @@ public class Tablero
 		
 		mover(rey, fin, true);
 		mover(casillas[fin.x][fin.y+sentido], casillas[fin.x][fin.y-sentido], false);
+	}
+	
+	private boolean esAmenazado(Casilla c, boolean color)
+	{
+		boolean esAmenazado = false;
+		Casilla temp;
+		
+		for (int i=0; !esAmenazado && i<8; i++)
+			for (int j=0; !esAmenazado && j<8; j++)
+			{
+				temp = casillas[i][j];
+				if (temp.getPieza() != null && temp.getColor() == color)
+					for (Point p: posibles(temp))
+						if (p.x == c.x && p.y == c.y)
+							esAmenazado = true;
+			}
+		
+		return esAmenazado;
 	}
 	
 	private Casilla esJaque(boolean color)
@@ -213,36 +213,6 @@ public class Tablero
 		
 		return jaqueMate;
 	}
-	
-	/*private boolean esJaquePropio(Casilla ini, Casilla fin)
-	{
-		boolean jaquePropio = false;
-		
-		if (nivelJaques == 0)
-		{
-			Casilla iniTemp = ini.clon(), limpia = new Casilla();
-		
-			nivelJaques++;
-			limpia.x = ini.x;
-			limpia.y = ini.y;
-			iniTemp.x = fin.x;
-			iniTemp.y = fin.y;
-			
-			casillas[fin.x][fin.y] = iniTemp;
-			casillas[ini.x][ini.y] = limpia;
-			
-			if (esJaque(ini.getColor()) == null)
-				jaquePropio = false;
-			else
-				jaquePropio = true;
-			
-			casillas[ini.x][ini.y] = ini;
-			casillas[fin.x][fin.y] = fin;
-			nivelJaques--;
-		}
-		
-		return jaquePropio;
-	}*/
 	
 	private void generarTablero() throws Exception
 	{

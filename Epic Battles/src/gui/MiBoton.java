@@ -15,6 +15,14 @@ public class MiBoton extends JButton implements MouseListener
 	private static final long serialVersionUID = -7883759316335518307L;
 	private Image image = null;
 
+	public MiBoton(Image i)
+	{
+		super();
+		this.image = i;
+		setFont(new Font("Verdana", Font.BOLD, 14));
+		setUI(new BasicButtonUI());
+	}
+	
 	public MiBoton(String arg0)
 	{
 		super(arg0);
@@ -22,14 +30,6 @@ public class MiBoton extends JButton implements MouseListener
 		setUI(new BasicButtonUI());
 		setForeground(Color.darkGray);
 		addMouseListener(this);
-	}
-	
-	public MiBoton(Image i)
-	{
-		super();
-		this.image = i;
-		setFont(new Font("Verdana", Font.BOLD, 14));
-		setUI(new BasicButtonUI());
 	}
 
 	@Override

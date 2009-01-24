@@ -13,12 +13,6 @@ public class Rey extends Pieza
 	}
 	
 	@Override
-	public int getTipo()
-	{
-		return Pieza.REY;
-	}
-
-	@Override
 	public String getNombre()
 	{
 		return "Rey";
@@ -43,5 +37,11 @@ public class Rey extends Pieza
 			}
 		
 		return puntos;
+	}
+
+	@Override
+	public int getTipo()
+	{
+		return Pieza.REY;
 	}
 }

@@ -20,11 +20,6 @@ public class Red extends Thread implements Oponente
 	}*/
 
 	@Override
-	public void run()
-	{
-	}
-
-	@Override
 	public void decidir(Partida p)
 	{
 	}
@@ -33,5 +28,10 @@ public class Red extends Thread implements Oponente
 	public boolean esRed()
 	{
 		return true;
+	}
+
+	@Override
+	public void run()
+	{
 	}
 }

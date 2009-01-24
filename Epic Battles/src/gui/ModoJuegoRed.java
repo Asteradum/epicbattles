@@ -18,16 +18,16 @@ import logica.Red;
 public class ModoJuegoRed extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = -8513250153154802461L;
-	private Principal parent = null;
-	private GestorSockets gestor = null;
-	private Image image = null;
-	private JPanel botonera = null;
-	private JPanel sup = null;
-	private JPanel grid = null;
-	private MiBoton bEmpezar = null;
 	private MiBoton bCargar = null;
-	private JPanel inf = null;
+	private MiBoton bEmpezar = null;
+	private JPanel botonera = null;
 	private MiBoton bVolver = null;
+	private GestorSockets gestor = null;
+	private JPanel grid = null;
+	private Image image = null;
+	private JPanel inf = null;
+	private Principal parent = null;
+	private JPanel sup = null;
 
 	public ModoJuegoRed(Principal parent)
 	{
@@ -40,24 +40,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		getBVolver().addActionListener(this);
 		image = Fondo.cargar(Fondo.ModoJuegoRed);
 	}
-
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize()
-	{
-		this.setLayout(new BorderLayout());
-		this.add(getBotonera(), BorderLayout.EAST);
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Configurar juego en red";
-	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent ae)
 	{
@@ -82,11 +65,24 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		}
 	}
 
-	/**
-	 * This method initializes botonera	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	private MiBoton getBCargar()
+	{
+		if (bCargar == null)
+		{
+			bCargar = new MiBoton("Cargar partida");
+		}
+		return bCargar;
+	}
+
+	private MiBoton getBEmpezar()
+	{
+		if (bEmpezar == null)
+		{
+			bEmpezar = new MiBoton("Empezar partida");
+		}
+		return bEmpezar;
+	}
+	
 	private JPanel getBotonera()
 	{
 		if (botonera == null)
@@ -99,29 +95,16 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		}
 		return botonera;
 	}
-
-	/**
-	 * This method initializes sup	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
-	private JPanel getSup()
+	
+	private MiBoton getBVolver()
 	{
-		if (sup == null)
+		if (bVolver == null)
 		{
-			sup = new JPanel();
-			sup.setOpaque(false);
-			sup.setLayout(new FlowLayout());
-			sup.add(getGrid(), null);
+			bVolver = new MiBoton("Volver");
 		}
-		return sup;
+		return bVolver;
 	}
-
-	/**
-	 * This method initializes grid	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getGrid()
 	{
 		if (grid == null)
@@ -134,40 +117,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		}
 		return grid;
 	}
-
-	/**
-	 * This method initializes bEmpezar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBEmpezar()
-	{
-		if (bEmpezar == null)
-		{
-			bEmpezar = new MiBoton("Empezar partida");
-		}
-		return bEmpezar;
-	}
-
-	/**
-	 * This method initializes bCargar	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private MiBoton getBCargar()
-	{
-		if (bCargar == null)
-		{
-			bCargar = new MiBoton("Cargar partida");
-		}
-		return bCargar;
-	}
-
-	/**
-	 * This method initializes inf	
-	 * 	
-	 * @return javax.swing.JPanel	
-	 */
+	
 	private JPanel getInf()
 	{
 		if (inf == null) 
@@ -179,19 +129,23 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		}
 		return inf;
 	}
-
-	/**
-	 * This method initializes bVolver
-	 *
-	 * @return javax.swing.JButton
-	 */
-	private MiBoton getBVolver()
+	
+	private JPanel getSup()
 	{
-		if (bVolver == null)
+		if (sup == null)
 		{
-			bVolver = new MiBoton("Volver");
+			sup = new JPanel();
+			sup.setOpaque(false);
+			sup.setLayout(new FlowLayout());
+			sup.add(getGrid(), null);
 		}
-		return bVolver;
+		return sup;
+	}
+	
+	private void initialize()
+	{
+		this.setLayout(new BorderLayout());
+		this.add(getBotonera(), BorderLayout.EAST);
 	}
 	
 	@Override
@@ -200,5 +154,11 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		super.paintComponent(g);
 		if (image != null)
 			g.drawImage(image, 0,0,this.getWidth(),this.getHeight(),this);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Configurar juego en red";
 	}
 }

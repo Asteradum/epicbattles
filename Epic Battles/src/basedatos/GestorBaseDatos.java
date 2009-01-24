@@ -14,6 +14,26 @@ public abstract class GestorBaseDatos
 	private static final String driver = "Microsoft Access Driver (*.mdb)";
 	private static final String ruta = "epicbattles.MDB";
 	
+	public static void borrarPartida(Long id) throws SQLException
+	{
+		Connection conexion = cargar();
+		
+		if (conexion != null)
+		{
+			Statement stmt = conexion.createStatement();
+			String update = "DELETE FROM Partida where fechahora='" + id.toString() + "'";
+			
+			stmt.executeUpdate(update);
+			
+			stmt.close();
+			conexion.close();
+		}
+		else
+		{
+			throw new SQLException("No se puede borrar la partida");
+		}
+	}
+	
 	private static Connection cargar()
 	{
 		String db = "jdbc:odbc:Driver={"+ driver +"};DBQ=" + ruta;
@@ -29,6 +49,67 @@ public abstract class GestorBaseDatos
 		}
 		
 		return conexion;
+	}
+	
+	public static void guardarPartida(Long fecha, Long jug1, Long jug2, String movs, String ip) throws SQLException
+	{
+		Connection conexion = cargar();
+		
+		if (conexion != null)
+		{
+			Statement stmt = conexion.createStatement();
+			String update = "INSERT INTO Partida VALUES ('"+
+				fecha.toString() + "', " +
+				jug1 + ", " +
+				jug2 + ", '" +
+				movs + "', '" +
+				ip + "')";
+			
+			stmt.executeUpdate(update);
+			
+			stmt.close();
+			conexion.close();
+		}
+		else
+		{
+			throw new SQLException("No se puede guardar la partida");
+		}
+	}
+	
+	public static Vector<String> leerPartida(Long id) throws SQLException
+	{
+		Connection conexion = cargar();
+		Vector<String> movimientos = new Vector<String>();
+		
+		if (conexion != null)
+		{
+			Statement stmt = conexion.createStatement();
+			String query = "SELECT p.movimientos, p.ip " +
+					"FROM Partida p " +
+					"WHERE p.fechahora = '" + id.toString() + "'";
+			ResultSet rs = stmt.executeQuery(query);
+			
+			if (rs.next())
+			{
+				movimientos.add(rs.getString(2));
+				
+				String[] movs = rs.getString(1).split(",");
+				for (int i=0; i<movs.length; i++)
+				{
+					movimientos.add(movs[i]);
+				}	
+			}
+			
+			rs.close();
+			stmt.close();
+			conexion.close();
+		}
+		else
+		{
+			throw new SQLException("No se pueden cargar la partida especificada");
+		}
+		
+		return movimientos;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -76,86 +157,5 @@ public abstract class GestorBaseDatos
 		}
 		
 		return partidas;
-	}
-	
-	public static Vector<String> leerPartida(Long id) throws SQLException
-	{
-		Connection conexion = cargar();
-		Vector<String> movimientos = new Vector<String>();
-		
-		if (conexion != null)
-		{
-			Statement stmt = conexion.createStatement();
-			String query = "SELECT p.movimientos, p.ip " +
-					"FROM Partida p " +
-					"WHERE p.fechahora = '" + id.toString() + "'";
-			ResultSet rs = stmt.executeQuery(query);
-			
-			if (rs.next())
-			{
-				movimientos.add(rs.getString(2));
-				
-				String[] movs = rs.getString(1).split(",");
-				for (int i=0; i<movs.length; i++)
-				{
-					movimientos.add(movs[i]);
-				}	
-			}
-			
-			rs.close();
-			stmt.close();
-			conexion.close();
-		}
-		else
-		{
-			throw new SQLException("No se pueden cargar la partida especificada");
-		}
-		
-		return movimientos;
-	}
-	
-	public static void guardarPartida(Long fecha, Long jug1, Long jug2, String movs, String ip) throws SQLException
-	{
-		Connection conexion = cargar();
-		
-		if (conexion != null)
-		{
-			Statement stmt = conexion.createStatement();
-			String update = "INSERT INTO Partida VALUES ('"+
-				fecha.toString() + "', " +
-				jug1 + ", " +
-				jug2 + ", '" +
-				movs + "', '" +
-				ip + "')";
-			
-			stmt.executeUpdate(update);
-			
-			stmt.close();
-			conexion.close();
-		}
-		else
-		{
-			throw new SQLException("No se puede guardar la partida");
-		}
-	}
-	
-	public static void borrarPartida(Long id) throws SQLException
-	{
-		Connection conexion = cargar();
-		
-		if (conexion != null)
-		{
-			Statement stmt = conexion.createStatement();
-			String update = "DELETE FROM Partida where fechahora='" + id.toString() + "'";
-			
-			stmt.executeUpdate(update);
-			
-			stmt.close();
-			conexion.close();
-		}
-		else
-		{
-			throw new SQLException("No se puede borrar la partida");
-		}
 	}
 }

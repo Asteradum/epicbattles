@@ -13,12 +13,6 @@ public class Torre extends Pieza
 	}
 
 	@Override
-	public int getTipo()
-	{
-		return Pieza.TORRE;
-	}
-
-	@Override
 	public String getNombre()
 	{
 		return "Torre";
@@ -59,5 +53,11 @@ public class Torre extends Pieza
 			}
 		
 		return puntos;
+	}
+
+	@Override
+	public int getTipo()
+	{
+		return Pieza.TORRE;
 	}
 }

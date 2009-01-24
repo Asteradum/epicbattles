@@ -78,25 +78,17 @@ public abstract class Pieza
 	public Image getImagen(boolean color)
 	{
 		if (color == Pieza.BLANCAS)
-		{
 			return this.blanca;
-		}
 		else
-		{
 			return this.negra;
-		}
 	}
 	
 	public Image getImagenInfo(boolean color)
 	{
 		if (color == Pieza.BLANCAS)
-		{
 			return this.imagenBlanca;
-		}
 		else
-		{
 			return this.imagenNegra;
-		}
 	}
 	
 	public static String getNombreColor(boolean color)

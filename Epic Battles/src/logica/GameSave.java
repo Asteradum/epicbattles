@@ -7,9 +7,9 @@ import java.util.Vector;
 public abstract class GameSave
 {
 	private static GregorianCalendar gc = new GregorianCalendar(TimeZone.getDefault());
-	public static Vector<String> vs;
-	public static long jug1, jug2;
 	public static String ip;
+	public static long jug1, jug2;
+	public static Vector<String> vs;
 	
 	public static long ahora()
 	{

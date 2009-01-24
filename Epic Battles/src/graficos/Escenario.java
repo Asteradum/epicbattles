@@ -19,9 +19,9 @@ import logica.Casilla;
 public class Escenario extends JPanel
 {
 	private static final long serialVersionUID = -3141654143505676034L;
+	private Casilla[][] casillas = new Casilla[8][8];
 	private Image image = null;
 	private JPanel tablero = null;
-	private Casilla[][] casillas = new Casilla[8][8];
 
 	public Escenario(boolean red)
 	{
@@ -34,33 +34,16 @@ public class Escenario extends JPanel
 			image = Fondo.cargar(Fondo.EscenarioLocal);
 	}
 	
-	/**
-	 * This method initializes this
-	 * 
-	 */
-	private void initialize()
+	public Casilla getCasilla(int i, int j)
 	{
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.insets = new Insets(30, 30, 30, 30);
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridx = 0;
-		this.setLayout(new GridBagLayout());
-		this.add(getTablero(), gridBagConstraints);
+		return casillas[i][j];
 	}
 
-	@Override
-	public void paintComponent(Graphics g)
+	public Casilla[][] getCasillas()
 	{
-		super.paintComponent(g);
-		if (image != null)
-			g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
+		return casillas;
 	}
-
-	/**
-	 * This method initializes jPanel
-	 *
-	 * @return javax.swing.JPanel
-	 */
+	
 	public JPanel getTablero()
 	{
 		if (tablero == null)
@@ -97,13 +80,21 @@ public class Escenario extends JPanel
 		return tablero;
 	}
 	
-	public Casilla getCasilla(int i, int j)
+	private void initialize()
 	{
-		return casillas[i][j];
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.insets = new Insets(30, 30, 30, 30);
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridx = 0;
+		this.setLayout(new GridBagLayout());
+		this.add(getTablero(), gridBagConstraints);
 	}
 
-	public Casilla[][] getCasillas()
+	@Override
+	public void paintComponent(Graphics g)
 	{
-		return casillas;
+		super.paintComponent(g);
+		if (image != null)
+			g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
 	}
 }
