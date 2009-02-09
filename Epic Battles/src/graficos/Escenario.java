@@ -22,7 +22,12 @@ public class Escenario extends JPanel
 	private Casilla[][] casillas = new Casilla[8][8];
 	private Image image = null;
 	private JPanel tablero = null;
-
+	private Casilla iniMov =null;
+	private Casilla finMov = null;
+	//PRuebas
+	private int pixelesX;
+	private int pixelesY;
+	
 	public Escenario(boolean red)
 	{
 		super();
@@ -52,7 +57,18 @@ public class Escenario extends JPanel
 			boolean dib = false;
 			
 			GridLayout gridLayout = new GridLayout(8, 8);
-			tablero = new JPanel();
+			//Clase anonima apra la animacion
+			tablero = new JPanel()
+			{
+					public void paintComponents(Graphics g)
+					{
+						super.paintComponents(g);	
+						//Mirar paint
+						//getimagen y el turno?
+						g.drawImage(iniMov.getPieza().getImagen(true),0 , 0, pixelesX, pixelesY, this);
+						super.paintComponents(g);							
+					}
+			};
 			tablero.setLayout(gridLayout);
 			
 			for (int i=0; i<8; i++)
@@ -88,6 +104,26 @@ public class Escenario extends JPanel
 		gridBagConstraints.gridx = 0;
 		this.setLayout(new GridBagLayout());
 		this.add(getTablero(), gridBagConstraints);
+	}
+
+	//Metodo para la animacion
+	public void animarMovimiento(Casilla ini, Casilla fin)
+	{
+		iniMov=ini;
+		finMov=fin;
+		pixelesX = iniMov.x * iniMov.getWidth();
+		pixelesY = iniMov.y * iniMov.getHeight();
+		for(;iniMov.x!=finMov.x && iniMov.y!=finMov.y;)
+		{
+			if (iniMov.x<finMov.x)
+				pixelesX++;
+			else pixelesX--;
+			if (iniMov.y<finMov.y)
+				pixelesY++;
+			else pixelesY--;
+			tablero.repaint();
+		}
+		
 	}
 
 	@Override

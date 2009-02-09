@@ -434,9 +434,14 @@ public class Tablero
 				String.valueOf((char)(fin.y+97)) +
 				(fin.x+1)
 			);
-		
-		fin.setCasilla(ini.getPieza(), ini.getColor(), fin.x, fin.y);
+		Casilla temp = ini.clon();
 		ini.setCasilla(null, true, ini.x, ini.y);
+
+		
+		//le paso al escenario las casillas que debe animar.
+		this.escenario.animarMovimiento(ini, fin);
+
+		fin.setCasilla(temp.getPieza(), temp.getColor(), fin.x, fin.y);
 	}
 
 	private void mover(String mov)
