@@ -24,7 +24,8 @@ public class Escenario extends JPanel
 	private JPanel tablero = null;
 	private Casilla iniMov =null;
 	private Casilla finMov = null;
-	//PRuebas
+	//Pruebas
+	
 	private int pixelesX;
 	private int pixelesY;
 	
@@ -109,7 +110,7 @@ public class Escenario extends JPanel
 	//Metodo para la animacion
 	public void animarMovimiento(Casilla ini, Casilla fin)
 	{
-		iniMov=ini;
+		/*iniMov=ini;
 		finMov=fin;
 		pixelesX = iniMov.x * iniMov.getWidth();
 		pixelesY = iniMov.y * iniMov.getHeight();
@@ -122,7 +123,8 @@ public class Escenario extends JPanel
 				pixelesY++;
 			else pixelesY--;
 			tablero.repaint();
-		}
+		}*/
+		
 		
 	}
 

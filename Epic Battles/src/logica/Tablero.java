@@ -1,5 +1,6 @@
 package logica;
 
+import graficos.Animacion;
 import graficos.Escenario;
 
 import java.awt.Color;
@@ -439,7 +440,10 @@ public class Tablero
 
 		
 		//le paso al escenario las casillas que debe animar.
-		this.escenario.animarMovimiento(ini, fin);
+		/*this.escenario.animarMovimiento(ini, fin);*/
+		Animacion movimientoPieza= new Animacion();
+		movimientoPieza.animar(ini, fin);
+		
 
 		fin.setCasilla(temp.getPieza(), temp.getColor(), fin.x, fin.y);
 	}
