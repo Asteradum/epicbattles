@@ -47,7 +47,7 @@ public class SeleccionarPieza extends JDialog implements ActionListener
 		addWindowListener(new WindowAdapter()
 		{ public void windowClosing(WindowEvent we) {}	});
 
-		image = Fondo.cargar(Fondo.Promocion);
+		image = Fondo.cargar(Fondo.Pantalla.Promocion);
 		pack();
 		setLocationRelativeTo(frame);
 		setVisible(true);

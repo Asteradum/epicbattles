@@ -3,6 +3,8 @@ package logica.piezas;
 import java.awt.Point;
 import java.util.Vector;
 
+import logica.Casilla;
+
 public class Rey extends Pieza
 {
 	private static final long serialVersionUID = 1077899422152787342L;
@@ -19,29 +21,45 @@ public class Rey extends Pieza
 	}
 
 	@Override
-	public Vector<Point> getPosibles(Point p)
+	public Vector<Point> getPosibles(Casilla[][] casillas, Point p)
 	{
 		int calcX, calcY;
+		Casilla casTest;
 		Vector<Point> puntos = new Vector<Point>();
 		
 		for (int i=-1; i<2; i++)
 			for (int j=-1; j<2; j++)
-			{
-				calcX = p.x+i;
-				calcY = p.y+j;
-				
-				if ((i!=0 || j!=0) && calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
+				if (i!=0 && j!=0)
 				{
-					puntos.add(new Point(calcX, calcY));
+					calcX = p.x+i;
+					calcY = p.y+j;
+					
+					if (calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
+					{
+						casTest = casillas[calcX][calcY];
+						if (casTest.getPieza() == null)
+						{
+							puntos.add(new Point(calcX, calcY));
+						}
+						else if (casillas[p.x][p.y].getColor() != casTest.getColor())
+						{								
+							puntos.add(new Point(calcX, calcY));
+						}
+					}
 				}
-			}
 		
 		return puntos;
 	}
 
 	@Override
-	public int getTipo()
+	public Es getTipo()
 	{
-		return Pieza.REY;
+		return Pieza.Es.Rey;
+	}
+
+	@Override
+	public int getValor()
+	{
+		return Pieza.VAL_REY;
 	}
 }

@@ -41,7 +41,7 @@ public class ModoPausa extends JPanel implements ActionListener
 		getBGuardar().addActionListener(this);
 		getBMenu().addActionListener(this);
 		getBSalir().addActionListener(this);
-		image = Fondo.cargar(Fondo.ModoPausa);
+		image = Fondo.cargar(Fondo.Pantalla.ModoPausa);
 	}
 	
 	@Override

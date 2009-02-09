@@ -28,11 +28,7 @@ public class Casilla extends Sprite
 	
 	private Pieza pieza = null;
 	private boolean color = true;
-	private boolean marcada = false;
-	private boolean seleccionada  = false;
-	private boolean enpassant = false;
-	private boolean promocion = false;
-	private boolean enrocable = false;
+	private Estado estado;
 	
 	public Casilla()
 	{
@@ -43,11 +39,7 @@ public class Casilla extends Sprite
 
 	public void actualizarImagen(Estado modo)
 	{
-		this.marcada = (modo == Casilla.Estado.Marcada ? true : false);
-		this.seleccionada = (modo == Casilla.Estado.Seleccionada ? true : false);
-		this.enpassant = (modo == Casilla.Estado.EnPassant ? true : false);
-		this.promocion = (modo == Casilla.Estado.Promocion ? true : false);
-		this.enrocable = (modo == Casilla.Estado.Enrocable ? true : false);
+		estado = modo;
 		
 		if (pieza != null)
 		{
@@ -76,27 +68,27 @@ public class Casilla extends Sprite
 	
 	public boolean esEnpassant()
 	{
-		return enpassant;
+		return (estado == Estado.EnPassant);
 	}
 	
 	public boolean esEnrocable()
 	{
-		return enrocable;
+		return (estado == Estado.Enrocable);
 	}
 	
 	public boolean esMarcada()
 	{
-		return marcada;
+		return (estado == Estado.Marcada);
 	}
 	
 	public boolean esPromocion()
 	{
-		return promocion;
+		return (estado == Estado.Promocion);
 	}
 	
 	public boolean esSeleccionada()
 	{
-		return seleccionada;
+		return (estado == Estado.Seleccionada);
 	}
 	
 	public boolean getColor()
@@ -121,17 +113,17 @@ public class Casilla extends Sprite
 		
 		if (pieza != null)
 		{
-			if (marcada)
+			if (estado == Estado.Marcada)
 			{
 				filtroMarcada.filter((BufferedImage) imagen, cache);
 				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
-			else if (seleccionada)
+			else if (estado == Estado.Seleccionada)
 			{
 				filtroSeleccionada.filter((BufferedImage) imagen, cache);
 				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
-			else if (promocion)
+			else if (estado == Estado.Promocion)
 			{
 				filtroPromo.filter((BufferedImage) imagen, cache);
 				g.drawImage(cache, 0, 0, this.getWidth(), this.getHeight(), this);
@@ -145,28 +137,28 @@ public class Casilla extends Sprite
 		{
 			int mid = this.getWidth()/2, tam;
 			
-			if (marcada)
+			if (estado == Estado.Marcada)
 			{
 				tam = this.getWidth()/6;
 				
 				g.setColor(new Color(112, 119, 209));
 				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
-			else if (promocion)
+			else if (estado == Estado.Promocion)
 			{
 				tam = this.getWidth()/5;
 				
 				g.setColor(new Color(235, 182, 20));
 				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
-			else if (enrocable)
+			else if (estado == Estado.Enrocable)
 			{
 				tam = this.getWidth()/5;
 				
 				g.setColor(new Color(124, 186, 69));
 				g.fillOval(mid - tam/2, mid - tam/2, tam, tam);
 			}
-			else if (enpassant)
+			else if (estado == Estado.EnPassant)
 			{
 				tam = this.getWidth()/5;
 				

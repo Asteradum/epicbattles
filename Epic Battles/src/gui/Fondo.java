@@ -7,15 +7,12 @@ import javax.imageio.ImageIO;
 
 public abstract class Fondo
 {
-	static int i = 0;
-	public static final int EscenarioRed = i++;
-	public static final int EscenarioLocal = i++;
-	public static final int ModoInicio = i++;
-	public static final int ModoJuegoLocal = i++;
-	public static final int ModoJuegoRed = i++;
-	public static final int ModoOpciones = i++;
-	public static final int ModoPausa = i++;
-	public static final int Promocion = i++;
+	public static enum Pantalla
+	{
+		EscenarioRed, EscenarioLocal, ModoInicio,
+		ModoJuegoLocal, ModoJuegoRed, ModoOpciones,
+		ModoPausa, Promocion
+	}
 	
 	private static String[] archivos =
 	{
@@ -29,13 +26,13 @@ public abstract class Fondo
 		"A_peon__s_tale___Blessed_by_Frostwake.png"		// Promocion
 	};
 	
-	public static Image cargar(int modo)
+	public static Image cargar(Pantalla modo)
 	{
 		Image image = null;
 		
 		try
 		{
-			image = ImageIO.read(new File("imagenes/" + archivos[modo]));
+			image = ImageIO.read(new File("imagenes/" + archivos[modo.ordinal()]));
 		}
 		catch (Exception e) { /* Si no hay fondo no pasa nada... */ }
 		

@@ -3,6 +3,8 @@ package logica.piezas;
 import java.awt.Point;
 import java.util.Vector;
 
+import logica.Casilla;
+
 public class Caballo extends Pieza
 {
 	private static final long serialVersionUID = 3449768679721979235L;
@@ -19,9 +21,11 @@ public class Caballo extends Pieza
 	}
 
 	@Override
-	public Vector<Point> getPosibles(Point p)
+	public Vector<Point> getPosibles(Casilla[][] casillas, Point p)
 	{
 		int calcX, calcY;
+		Casilla casTest, c = casillas[p.x][p.y];
+		boolean color = c.getColor();
 		Vector<Point> puntos = new Vector<Point>();
 		
 		for (int i=-1; i<2; i+=2)
@@ -32,7 +36,10 @@ public class Caballo extends Pieza
 				
 				if (calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
 				{
-					puntos.add(new Point(calcX, calcY));
+					casTest = casillas[calcX][calcY];
+					
+					if (!(casTest.getPieza() != null && casTest.getColor() == color))
+						puntos.add(new Point(calcX, calcY));
 				}
 				
 				calcX = p.x+i;
@@ -40,7 +47,10 @@ public class Caballo extends Pieza
 				
 				if (calcX >= 0 && calcX < 8 && calcY >= 0 && calcY < 8)
 				{
-					puntos.add(new Point(calcX, calcY));
+					casTest = casillas[calcX][calcY];
+					
+					if (!(casTest.getPieza() != null && casTest.getColor() == color))
+						puntos.add(new Point(calcX, calcY));
 				}
 			}
 		
@@ -48,8 +58,14 @@ public class Caballo extends Pieza
 	}
 
 	@Override
-	public int getTipo()
+	public Es getTipo()
 	{
-		return Pieza.CABALLO;
+		return Pieza.Es.Caballo;
+	}
+
+	@Override
+	public int getValor()
+	{
+		return Pieza.VAL_CABALLO;
 	}
 }

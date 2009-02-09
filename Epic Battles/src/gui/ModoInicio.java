@@ -34,7 +34,7 @@ public class ModoInicio extends JPanel implements ActionListener
 		getBRed().addActionListener(this);
 		getBOpciones().addActionListener(this);
 		getBSalir().addActionListener(this);
-		image = Fondo.cargar(Fondo.ModoInicio);
+		image = Fondo.cargar(Fondo.Pantalla.ModoInicio);
 	}
 	
 	@Override

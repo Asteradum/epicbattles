@@ -38,7 +38,7 @@ public class ModoJuegoRed extends JPanel implements ActionListener
 		getBEmpezar().addActionListener(this);
 		getBCargar().addActionListener(this);
 		getBVolver().addActionListener(this);
-		image = Fondo.cargar(Fondo.ModoJuegoRed);
+		image = Fondo.cargar(Fondo.Pantalla.ModoJuegoRed);
 	}
 	
 	@Override
