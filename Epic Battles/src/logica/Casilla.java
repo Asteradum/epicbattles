@@ -12,6 +12,10 @@ import logica.piezas.Pieza;
 import org.jdesktop.swingx.graphics.GraphicsUtilities;
 import org.jdesktop.swingx.image.ColorTintFilter;
 
+/**
+ * Contiene toda la información y métodos necesarios para gestionar una casilla de ajedrez.
+ * @author Alberto y Alvaro
+ */
 public class Casilla extends Sprite
 {
 	public static enum Estado
@@ -35,8 +39,15 @@ public class Casilla extends Sprite
 		super();
 	}
 	
-	private void actualizarImagen() { actualizarImagen(Casilla.Estado.Inactiva); }
-
+	/**
+	 * ActualizarImagen con constructor por defecto.
+	 */
+	public void actualizarImagen() { actualizarImagen(Casilla.Estado.Inactiva); }
+	
+	/**
+	 * Actualiza la imagen según el nuevo estado de la casilla.
+	 * @param modo Modo que tendrá la casilla.
+	 */
 	public void actualizarImagen(Estado modo)
 	{
 		estado = modo;
@@ -54,6 +65,10 @@ public class Casilla extends Sprite
 		repaint();
 	}
 	
+	/**
+	 * Crea una copia profunda de la Casilla.
+	 * @return Una referencia a la copia.
+	 */
 	public Casilla clon()
 	{
 		Casilla clon = new Casilla();
@@ -106,6 +121,9 @@ public class Casilla extends Sprite
 		return new Point(this.x, this.y);
 	}
 	
+	/**
+	 * Sobreescribe el método paint del Canvas heredado para dibujar la casilla según le corresponde.
+	 */
 	@Override
 	public void paint(Graphics g)
 	{
@@ -167,7 +185,14 @@ public class Casilla extends Sprite
 			}
 		}
 	}
-
+	
+	/**
+	 * Actualiza la Casilla con nuevos datos, y la redibuja.
+	 * @param p Pieza de la casilla.
+	 * @param color Color de la casilla.
+	 * @param x Posición x de la casilla.
+	 * @param y Posicion y de la casilla.
+	 */
 	public void setCasilla(Pieza p, boolean color, int x, int y)
 	{
 		this.pieza = p;

@@ -6,6 +6,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+/**
+ * Imagen es un Canvas con un atributo imagen que puede actualizarse
+ * @author Alberto y Alvaro
+ */
 public class Imagen extends Canvas
 {
 	private static final long serialVersionUID = -3829851499198293693L;

@@ -1,7 +1,7 @@
 package logica;
 
-import graficos.Animacion;
-import graficos.Escenario;
+import graficos.Animar;
+import gui.Escenario;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -12,9 +12,6 @@ import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-
 import logica.Casilla.Estado;
 import logica.piezas.Alfil;
 import logica.piezas.Caballo;
@@ -23,7 +20,13 @@ import logica.piezas.Pieza;
 import logica.piezas.Reina;
 import logica.piezas.Rey;
 import logica.piezas.Torre;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
+/**
+ * Almacena las Casillas y provee de métodos a nivel de tablero para la Partida.
+ * @author Alberto y Alvaro
+ */
 public class Tablero
 {
 	private static final long serialVersionUID = -8743924243868541721L;
@@ -33,6 +36,11 @@ public class Tablero
 	private Vector<String> movimientos = null;
 	private int nivelJaques = 0;
 	
+	/**
+	 * Crea un tablero nuevo.
+	 * @param red Especifica si es un juego en red o no.
+	 * @throws Exception
+	 */
 	public Tablero(boolean red) throws Exception
 	{
 		super();
@@ -43,6 +51,12 @@ public class Tablero
 		GameSave.vs = movimientos;
 	}
 	
+	/**
+	 * Crea un tablero a partir de un Vector de movimientos en el tablero.
+	 * @param movs Vector de movimientos.
+	 * @param red Especifica si es un juego en red o no.
+	 * @throws Exception
+	 */
 	public Tablero(Vector<String> movs, boolean red) throws Exception
 	{
 		super();
@@ -57,6 +71,11 @@ public class Tablero
 		}
 	}
 	
+	/**
+	 * Busca y devuelve el rey del color indicado.
+	 * @param color Color del rey a buscar.
+	 * @return Casilla en la que se encuentra.
+	 */
 	private Casilla buscarRey(boolean color)
 	{
 		boolean enc = false;
@@ -67,13 +86,18 @@ public class Tablero
 			{
 				c = casillas[i][j];
 				if (c.getPieza() != null)
-					if (c.getPieza().getTipo() == Pieza.REY && c.getColor() == color)
+					if (c.getPieza().getTipo() == Pieza.Es.Rey && c.getColor() == color)
 						enc = true;
 			}
 		
 		return c;
 	}
 	
+	/**
+	 * Comprueba si se produce jaque y en caso afirmativo marca la Casilla con un fondo rojo.
+	 * @param color Color del rey que se debe buscar.
+	 * @return True si hay jaque, False si no lo hay.
+	 */
 	public boolean comprobarJaques(boolean color)
 	{		
 		if (enJaque  == null)
@@ -99,6 +123,11 @@ public class Tablero
 		return false;
 	}
 	
+	/**
+	 * Cuenta los puntos por piezas dado un color.
+	 * @param color Color del cual se desea conocer los puntos.
+	 * @return Número de puntos de ese color.
+	 */
 	public int contarPuntos(boolean color)
 	{
 		int suma = 0;
@@ -110,12 +139,16 @@ public class Tablero
 				c = casillas[i][j];
 				
 				if (c.getPieza() != null && c.getColor() == color)
-					suma += c.getPieza().getTipo();
+					suma += c.getPieza().getValor();
 			}
 		
 		return suma;
 	}
 	
+	/**
+	 * Hace que la Partida sea Listener de todas las Casillas.
+	 * @param p Una referencia a la Partida.
+	 */
 	public void dameListeners(Partida p)
 	{
 		for (int i=0; i<8; i++)
@@ -123,26 +156,36 @@ public class Tablero
 				casillas[i][j].addMouseListener(p);
 	}
 	
+	/**
+	 * Se encarga de mover las piezas de forma que que se produzca el movimiento "en passant". 
+	 * @param ini La Casilla inicial.
+	 * @param fin La Casilla final.
+	 */
 	public void enpassant(Casilla ini, Casilla fin)
 	{
-		int sentido = (ini.getColor() ? -1 : 1);
-		
+		mover(casillas[fin.x+(ini.getColor() ? -1 : 1)][fin.y], fin, false);
 		mover(ini, fin, true);
-		casillas[fin.x+sentido][fin.y].setCasilla(null, true, fin.x+sentido, fin.y);
 	}
 	
+	/**
+	 * Se encarga de mover las piezas de forma que que se produzca el enroque.
+	 * @param rey Casilla correspondiente al rey que enroca.
+	 * @param fin Casilla final del rey.
+	 */
 	public void enrocar(Casilla rey, Casilla fin)
 	{
 		int sentido = (fin.y > rey.y ? 1 : -1);
-		Casilla limpia = new Casilla();
-		
-		limpia.x = fin.x;
-		limpia.y = fin.y+sentido;
 		
 		mover(rey, fin, true);
 		mover(casillas[fin.x][fin.y+sentido], casillas[fin.x][fin.y-sentido], false);
 	}
 	
+	/**
+	 * Comprueba si una Casilla está amenazada por un color dado.
+	 * @param c La Casilla dada.
+	 * @param color Especifica el color que puede amenazar la posición.
+	 * @return True si está amenazada, False si no lo está.
+	 */
 	private boolean esAmenazado(Casilla c, boolean color)
 	{
 		boolean esAmenazado = false;
@@ -161,6 +204,11 @@ public class Tablero
 		return esAmenazado;
 	}
 	
+	/**
+	 * Comprueba si cierto color tiene a su rey amenazado (jaque).
+	 * @param color Color del rey que recibe el jaque.
+	 * @return La Casilla del rey si está amenazado, null en caso contrario.
+	 */
 	private Casilla esJaque(boolean color)
 	{
 		boolean jaque = false;
@@ -180,6 +228,11 @@ public class Tablero
 		else return null;
 	}
 	
+	/**
+	 * Comprueba si cierto rey está amenazado por alguna pieza del rival.
+	 * @param rey Casilla que contiene al rey.
+	 * @return True si está amenazado, False en caso contrario.
+	 */
 	private boolean esJaque(Casilla rey)
 	{
 		boolean jaque = false, color = rey.getColor();
@@ -198,6 +251,11 @@ public class Tablero
 		return jaque;
 	}
 	
+	/**
+	 * Comprueba si cierto color está en jaque mate (no tiene movimientos validos en ninguna de sus piezas.)
+	 * @param color Color del bando a probar.
+	 * @return True si es jaque mate, False en caso contrario.
+	 */
 	private boolean esJaqueMate(boolean color)
 	{
 		boolean jaqueMate = true;
@@ -215,6 +273,10 @@ public class Tablero
 		return jaqueMate;
 	}
 	
+	/**
+	 * Llena el array de Casillas de las posiciones iniciales en un ajedrez normal (partida nueva).
+	 * @throws Exception
+	 */
 	private void generarTablero() throws Exception
 	{
 		/* Casillas vacías */
@@ -259,11 +321,17 @@ public class Tablero
 		casillas[7][3].setCasilla(new Rey(), false, 7, 3);
 	}
 	
+	/**
+	 * @return Una referencia a Escenario.
+	 */
 	public Escenario getEscenario()
 	{
 		return escenario;
 	}
 	
+	/**
+	 * @return Si el Vector de movimientos tiene algun elemento, devuelve una referencia a él. En caso contrario devuelve null.
+	 */
 	public Vector<String> getMovimientos()
 	{
 		if (movimientos != null)
@@ -272,6 +340,11 @@ public class Tablero
 			return null;
 	}
 	
+	/**
+	 * Cuenta el numero de movimientos hechos por una faccion dada.
+	 * @param color Color de la faccion.
+	 * @return Número de movimientos hechos.
+	 */
 	public int getNumMovs(boolean color)
 	{
 		int suma = 0;
@@ -286,6 +359,10 @@ public class Tablero
 		return suma;
 	}
 	
+	/**
+	 * Reorganiza las Casillas en su Escenario de tal forma que el color dado tenga al enemigo de frente.
+	 * @param color Color de la faccion.
+	 */
 	public void girarTablero(boolean color)
 	{
 		JPanel tablero = escenario.getTablero();
@@ -304,7 +381,10 @@ public class Tablero
 		
 		tablero.setVisible(true);
 	}
-
+	
+	/**
+	 * Recorre todas las Casillas para dejarlas en Estado Inactivo
+	 */
 	public void limpiarPosibles()
 	{
 		Casilla c;
@@ -313,10 +393,14 @@ public class Tablero
 			{
 				c = casillas[i][j];
 				if (c.esMarcada() || c.esSeleccionada() || c.esEnrocable() || c.esPromocion() || c.esEnpassant())
-					casillas[i][j].actualizarImagen(Casilla.Estado.Inactiva);
+					casillas[i][j].actualizarImagen();
 			}
 	}
 	
+	/**
+	 * Dada una Casilla, obtiene sus movimientos válidos y marca en el tablero el tipo de Estado que tienen.
+	 * @param c La Casilla dada.
+	 */
 	public void marcarPosibles(Casilla c)
 	{
 		boolean color = c.getColor();
@@ -331,7 +415,7 @@ public class Tablero
 			cs.actualizarImagen(Casilla.Estado.Marcada);
 		}
 		
-		if (c.getPieza().getTipo() == Pieza.PEON)
+		if (c.getPieza().getTipo() == Pieza.Es.Peon)
 		{
 			/* Promoción del peón */
 			for (Point p: puntos)
@@ -359,7 +443,7 @@ public class Tablero
 		}
 		
 		/* Condiciones de enroque */
-		else if (c.getPieza().getTipo() == Pieza.REY)
+		else if (c.getPieza().getTipo() == Pieza.Es.Rey)
 		{
 			boolean reyNoEnc = true;
 			String origenRey = (color ? "d1" : "d8");
@@ -402,7 +486,7 @@ public class Tablero
 								if (esAmenazado(temp, !color))
 									despejado = false;
 							}
-							else if (temp.getPieza().getTipo() == Pieza.TORRE && temp.getColor() == color)
+							else if (temp.getPieza().getTipo() == Pieza.Es.Torre && temp.getColor() == color)
 								fin = true;
 							else
 								despejado = false;
@@ -414,17 +498,23 @@ public class Tablero
 			}
 		}
 	}
-
+	
+	/**
+	 * Mueve en el tablero una pieza desde una Casilla inicial a una final.
+	 * @param ini La Casilla inicial.
+	 * @param fin La Casilla final.
+	 * @param consta Especifica si el movimiento debe trasladarse al Vector de movimientos.
+	 */
 	public void mover(Casilla ini, Casilla fin, boolean consta)
 	{
+		Casilla temp = ini.clon();
+		
 		try
 		{
 			AudioPlayer.player.start(new AudioStream(new FileInputStream("sonidos/can-to-table-1.wav")));
 		}
-		catch (FileNotFoundException fnfe)
-		{ }
-		catch (IOException ioe)
-		{ }
+		catch (FileNotFoundException fnfe) { }
+		catch (IOException ioe) { }
 		
 		if (consta)
 			movimientos.add
@@ -435,19 +525,20 @@ public class Tablero
 				String.valueOf((char)(fin.y+97)) +
 				(fin.x+1)
 			);
-		Casilla temp = ini.clon();
+		
 		ini.setCasilla(null, true, ini.x, ini.y);
 
+		/* <animar> */
+		new Animar(ini, ini.getLocationOnScreen(), fin.getLocationOnScreen());
+		/* </animar> */
 		
-		//le paso al escenario las casillas que debe animar.
-		/*this.escenario.animarMovimiento(ini, fin);*/
-		Animacion movimientoPieza= new Animacion();
-		movimientoPieza.animar(ini, fin);
-		
-
 		fin.setCasilla(temp.getPieza(), temp.getColor(), fin.x, fin.y);
 	}
-
+	
+	/**
+	 * Recibe un String que representa un movimiento y lo plasma en el tablero.
+	 * @param mov String de movimiento.
+	 */
 	private void mover(String mov)
 	{
 		char[] letras = mov.toCharArray();
@@ -459,108 +550,19 @@ public class Tablero
 		ini.setCasilla(null, true, ini.x, ini.y);
 	}
 	
+	/**
+	 * Dada una Casilla obtiene un Vector con sus destinos válidos.
+	 * @param c La Casilla dada.
+	 * @return Un Vector de puntos válidos.
+	 */
 	private Vector<Point> posibles(Casilla c)
 	{
-		boolean color = c.getColor();
-		Casilla casTest;
-		Vector<Point> puntos;
-		
-		switch (c.getPieza().getTipo())
-		{
-			/* Los movimientos del peon dependen mucho de la situación de otras piezas */
-			case Pieza.PEON:
-				int sentido = (color ? 1 : -1);
-				Point test = new Point(c.x+sentido, c.y);
-				
-				puntos = new Vector<Point>();
-				
-				if (test.x >= 0 && test.x < 8)
-				{
-					casTest = casillas[test.x][test.y];
-					
-					if (casTest.getPieza() == null)
-					{
-						puntos.add(test);
-						test = new Point(c.x+sentido*2, c.y);
-						
-						if (test.x >= 0 && test.x < 8)
-						{
-							casTest = casillas[test.x][test.y];
-							if (c.x == (color ? 1 : 6) && casTest.getPieza() == null)
-							{
-								puntos.add(test);
-							}
-						}
-					}
-					
-					test = new Point(c.x+sentido, c.y+1);
-					if (test.y < 8)
-					{
-						casTest = casillas[test.x][test.y];
-						
-						if (casTest.getPieza() != null && casTest.getColor() != color)
-							puntos.add(test);
-					}
-					
-					test = new Point(c.x+sentido, c.y-1);
-					if (test.y >= 0)
-					{
-						casTest = casillas[test.x][test.y];
-						
-						if (casTest.getPieza() != null && casTest.getColor() != color)
-							puntos.add(test);
-					}
-				}
-				
-				break;
-			
-			default:
-				puntos = c.getPieza().getPosibles(c.getPosicion());
-				break;
-		}
-		
-		/* Quitar posiciones bloqueadas */
-		int tipo = c.getPieza().getTipo();
-		
-		if (tipo == Pieza.ALFIL || tipo == Pieza.TORRE || tipo == Pieza.REINA)
-		{
-			int prevX = puntos.get(0).x;
-			int prevY = puntos.get(0).y;
-			int thisX, thisY, deltaBCx, deltaBCy, deltaABx, deltaABy;
-			
-			for (int i=1; i<puntos.size(); i++)
-			{
-				thisX = puntos.get(i).x;
-				thisY = puntos.get(i).y;
-				deltaBCx = thisX - prevX;
-				deltaBCy = thisY - prevY;
-				deltaABx = prevX - c.x;
-				deltaABy = prevY - c.y;
-				
-				casTest = casillas[puntos.get(i).x][puntos.get(i).y];
-				
-				if (Math.signum(deltaABx) == Math.signum(deltaBCx) && Math.signum(deltaABy) == Math.signum(deltaBCy) && (Math.abs(puntos.get(i).distance(puntos.get(i-1))) > 1.5 || casillas[prevX][prevY].getPieza() != null))
-				{
-					puntos.remove(i--);
-				}
-				
-				prevX = thisX;
-				prevY = thisY;
-			}
-		}
-		
-		/* Quitar posiciones ocupadas por piezas propias */
-		for (int i=0; i<puntos.size(); i++)
-		{
-			casTest = casillas[puntos.get(i).x][puntos.get(i).y];
-			if (casTest.getPieza() != null && casTest.getColor() == color)
-				puntos.remove(i--);
-		}
+		Vector<Point> puntos = c.getPieza().getPosibles(casillas, c.getPosicion());
 		
 		/* Quitar posiciones inválidas por jaque propio */
 		if (nivelJaques == 0)
 		{
-			Casilla iniTemp = c.clon(), limpia = new Casilla(), rey = buscarRey(color);
+			Casilla iniTemp = c.clon(), limpia = new Casilla(), rey = buscarRey(c.getColor()), casTest;
 			
 			limpia.x = c.x;
 			limpia.y = c.y;
@@ -576,7 +578,7 @@ public class Tablero
 				casillas[casTest.x][casTest.y] = iniTemp;
 				casillas[c.x][c.y] = limpia;
 				
-				if (c.getPieza().getTipo() == Pieza.REY)
+				if (c.getPieza().getTipo() == Pieza.Es.Rey)
 					rey = iniTemp;
 				
 				if (esJaque(rey))
@@ -592,21 +594,37 @@ public class Tablero
 		return puntos;
 	}
 	
+	/**
+	 * Refleja en el tablero el movimiento de un peón al llegar a la ultima fila.
+	 * @param ini La Casilla inicial.
+	 * @param fin La Casilla final.
+	 * @param p Pieza en la que se transforma.
+	 */
 	public void promocionarPeon(Casilla ini, Casilla fin, Pieza p)
 	{
 		try
 		{
 			AudioPlayer.player.start(new AudioStream(new FileInputStream("sonidos/can-to-table-1.wav")));
 		}
-		catch (FileNotFoundException fnfe)
-		{ }
-		catch (IOException ioe)
-		{ }
+		catch (FileNotFoundException fnfe) { }
+		catch (IOException ioe) { }
+		
+		movimientos.add
+		(
+			String.valueOf((char)(ini.y+97)) +
+			(ini.x+1) +
+			(fin.getPieza() == null ? "-" : "x") +
+			String.valueOf((char)(fin.y+97)) +
+			(fin.x+1)
+		);
 		
 		fin.setCasilla(p, ini.getColor(), fin.x, fin.y);
 		ini.setCasilla(null, true, ini.x, ini.y);
 	}
 	
+	/**
+	 * Retira a Partida todos los Listeners de las Casillas.
+	 */
 	public void quitaListeners(Partida p)
 	{
 		for (int i=0; i<8; i++)
@@ -614,6 +632,10 @@ public class Tablero
 				casillas[i][j].removeMouseListener(p);
 	}
 	
+	/**
+	 * Marca a una Casilla como Seleccionada y la actualiza.
+	 * @param c La Casilla a ser marcada.
+	 */
 	public void setSeleccionada(Casilla c)
 	{
 		c.actualizarImagen(Casilla.Estado.Seleccionada);

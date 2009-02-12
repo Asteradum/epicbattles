@@ -3,6 +3,10 @@ package graficos;
 import java.awt.Canvas;
 import java.awt.Image;
 
+/**
+ * Sprite es un Canvas abstracto con una x e y públicas asociadas
+ * @author Alberto y Alvaro
+ */
 public abstract class Sprite extends Canvas
 {
 	private static final long serialVersionUID = 4039319764122648832L;

@@ -1,7 +1,7 @@
 package logica;
 
-import graficos.Escenario;
 import graficos.Imagen;
+import gui.Escenario;
 import gui.MiBoton;
 import gui.Principal;
 import gui.SeleccionarPieza;
@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 
 import logica.piezas.Pieza;
 
+/**
+ * Gestiona toda la información relevante para la partida de ajedrez.
+ * @author Alberto y Alvaro
+ */
 public class Partida implements ActionListener, MouseListener, KeyListener
 {
 	public static String jugador1;
@@ -35,6 +39,12 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	private JTextArea textoInfo = null;
 	private boolean turno = Pieza.BLANCAS;
 	
+	/**
+	 * Crea una nueva partida.
+	 * @param p Una referencia al JFrame Principal.
+	 * @param op Tipo de jugador (local o en red).
+	 * @throws Exception
+	 */
 	public Partida(Principal p, Oponente op) throws Exception
 	{
 		super();
@@ -44,6 +54,12 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 		this.tablero.girarTablero(Pieza.BLANCAS);
 	}
 	
+	/**
+	 * Crea una partida con un tablero ya generado.
+	 * @param p Una referencia al JFrame Principal.
+	 * @param t Una referencia al tablero cargado.
+	 * @param op Tipo de jugador (local o en red).
+	 */
 	public Partida(Principal p, Tablero t, Oponente op)
 	{
 		super();
@@ -73,7 +89,7 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 	{
 		return fin;
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent arg0)
 	{
@@ -89,7 +105,11 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent arg0) { }
-
+	
+	/**
+	 * Recibe los eventos de todas las Casillas y los gestiona.
+	 * También comprueba el jaque mate.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent me) 
 	{
@@ -130,7 +150,6 @@ public class Partida implements ActionListener, MouseListener, KeyListener
 					
 					tablero.promocionarPeon(casillaSelec, casillaPulsada, sp.getOpcion());
 				}
-				
 				else if (casillaPulsada.esEnrocable())
 					tablero.enrocar(casillaSelec, casillaPulsada);
 				
