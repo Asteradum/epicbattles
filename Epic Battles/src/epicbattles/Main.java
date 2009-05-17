@@ -6,7 +6,7 @@ import gui.Principal;
  * Contiene la función main
  * @author Alberto y Alvaro
  */
-public final class Main
+public abstract class Main
 {
 	/**
 	 * Punto de entrada a la aplicación
